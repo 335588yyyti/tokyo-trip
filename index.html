@@ -35,10 +35,10 @@
       background: linear-gradient(135deg, #4a7c59, #2d5a3c);
       color: white;
       text-align: center;
-      padding: 28px 20px 22px;
+      padding: 14px 16px 12px;
     }
     header h1 {
-      font-size: 1.55rem;
+      font-size: 1.3rem;
       letter-spacing: 0.5px;
       margin-bottom: 4px;
     }
@@ -62,31 +62,29 @@
       padding: 0 14px;
     }
     .tab-bar {
-      display: flex;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
       gap: 6px;
       background: #e9ecef;
       padding: 6px;
       border-radius: 12px;
       margin-bottom: 16px;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
     }
     .tab-bar::-webkit-scrollbar {
       display: none;
     }
     .tab-btn {
-      flex: 1;
-      min-width: 66px;
+      min-height: 48px;
       border: none;
-      background: none;
-      padding: 10px 4px;
+      background: rgba(255,255,255,0.45);
+      padding: 6px 2px;
+      line-height: 1.3;
       font-size: 0.84rem;
       font-weight: 600;
       color: var(--muted);
       cursor: pointer;
       border-radius: 8px;
       transition: all 0.2s ease;
-      white-space: nowrap;
       text-align: center;
     }
     .tab-btn.active {
@@ -387,9 +385,7 @@
 
   <header>
     <h1>東京週末 3 日輕旅行</h1>
-    <p>住 APA 上野站前 × 埼玉高空跳傘 × 悠閒購物</p>
-    <span class="badge">中日雙語對照 • 寬鬆時程版</span>
-    <p style="font-size: 0.82rem; margin-top: 10px; opacity: 0.95;">✈️ 去程 10/24 酷航 TR866 桃園 06:45 → 成田 11:15<br>✈️ 回程 10/26 酷航 TR875 成田 19:45 → 桃園 22:55<br>（皆為當地時間・成田第 1 航廈）</p>
+    <p style="font-size: 0.82rem; opacity: 0.95;">✈️ 去程 10/24 酷航 TR866 桃園 06:45 → 成田 11:15<br>✈️ 回程 10/26 酷航 TR875 成田 19:45 → 桃園 22:55<br>（皆為當地時間・成田第 1 航廈）</p>
   </header>
 
   <div class="container">
@@ -397,7 +393,7 @@
       <button class="tab-btn active" onclick="switchTab(event, 'day1')">Day 1 (六)</button>
       <button class="tab-btn" onclick="switchTab(event, 'day2')">Day 2 (日)</button>
       <button class="tab-btn" onclick="switchTab(event, 'day3')">Day 3 (一)</button>
-      <button class="tab-btn" onclick="switchTab(event, 'ramen')">🍜 人氣拉麵</button>
+      <button class="tab-btn" onclick="switchTab(event, 'ramen')">🍜 拉麵</button>
       <button class="tab-btn" onclick="switchTab(event, 'budget')">支出預算</button>
       <button class="tab-btn" onclick="switchTab(event, 'tracker')">即時記帳</button>
       <button class="tab-btn" onclick="switchTab(event, 'prep')">行前備忘</button>
