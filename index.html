@@ -308,6 +308,79 @@
       border-radius: 4px;
       font-size: 0.84rem;
     }
+    .route-legend {
+      font-size: 0.8rem;
+      color: var(--muted);
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 10px;
+      margin-bottom: 14px;
+      line-height: 1.7;
+    }
+    .lg {
+      display: inline-block;
+      padding: 0 6px;
+      border-radius: 4px;
+      margin-right: 4px;
+      font-weight: 600;
+    }
+    .lg-train { background: #dbeafe; color: #1d4ed8; }
+    .lg-bus { background: #ede9fe; color: #6d28d9; }
+    .lg-walk { background: #dcfce7; color: #15803d; }
+    .lg-taxi { background: #fef3c7; color: #b45309; }
+    .route-box {
+      margin-top: 8px;
+      border: 1px solid #e2e8f0;
+      border-radius: 10px;
+      overflow: hidden;
+      font-size: 0.84rem;
+    }
+    .route-opt {
+      padding: 10px 12px;
+      border-left: 4px solid transparent;
+    }
+    .route-opt + .route-opt {
+      border-top: 1px solid #e2e8f0;
+    }
+    .route-opt ol {
+      padding-left: 20px;
+      margin: 2px 0;
+    }
+    .route-opt li {
+      margin-bottom: 2px;
+    }
+    .route-label {
+      display: block;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+    .route-meta {
+      color: #475569;
+      margin-top: 4px;
+    }
+    .route-link {
+      display: inline-block;
+      margin-top: 6px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-decoration: none;
+    }
+    .route-note {
+      background: #f8fafc;
+      border-top: 1px solid #e2e8f0;
+      padding: 8px 12px;
+      font-size: 0.8rem;
+      color: #475569;
+    }
+    .opt-train { background: #eff6ff; border-left-color: #3b82f6; }
+    .opt-train .route-label, .opt-train .route-link { color: #1d4ed8; }
+    .opt-bus { background: #f5f3ff; border-left-color: #8b5cf6; }
+    .opt-bus .route-label, .opt-bus .route-link { color: #6d28d9; }
+    .opt-walk { background: #f0fdf4; border-left-color: #22c55e; }
+    .opt-walk .route-label, .opt-walk .route-link { color: #15803d; }
+    .opt-taxi { background: #fffbeb; border-left-color: #f59e0b; }
+    .opt-taxi .route-label, .opt-taxi .route-link { color: #b45309; }
   </style>
 </head>
 <body>
@@ -334,25 +407,27 @@
     <div id="day1" class="tab-content">
       <div class="card">
         <h2>抵達東京與精緻商圈漫步</h2>
+        <div class="route-legend">交通格子顏色：<span class="lg lg-train">🚇 電車／地鐵</span><span class="lg lg-bus">🚌 巴士</span><span class="lg lg-walk">🚶 步行</span><span class="lg lg-taxi">🚕 計程車</span><br>票價為 <strong>Suica 等 IC 卡</strong>價格（買紙本車票會多幾日圓）；計程車為依官方運價估算，實際依路況。資料查證日：2026/10/4（Yahoo!乗換案内、各官網）。</div>
         <div class="timeline-item">
           <div class="time">11:15 抵達</div>
           <div class="event-title">酷航 TR866 降落成田機場 <span class="jp-name">成田空港 第1ターミナル</span></div>
-          <div class="event-desc">預留 75 分鐘悠閒出關與提領行李，前往 B1「成田空港駅」購買/劃位京成電鐵 Skyliner 車票。</div>
+          <div class="event-desc">預留約 75 分鐘出關、提領行李，再到 <strong>B1「成田空港」站</strong>的京成售票處買 Skyliner 票（含指定席）。</div>
         </div>
         <div class="timeline-item">
-          <div class="time">12:40 - 13:30</div>
-          <div class="event-title">京成電鐵 <span class="jp-name">京成スカイライナー (Skyliner)</span> 直達上野</div>
-          <div class="event-desc">搭乘對號座特急直達「京成上野站」<span class="jp-name">京成上野駅 (Keisei Ueno)</span>（約 40 分鐘），舒適免擠車。</div>
+          <div class="time">12:38 - 13:23</div>
+          <div class="event-title">前往上野：京成 Skyliner <span class="jp-name">京成スカイライナー</span></div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 Skyliner（推薦）</span><ol><li>第 1 航廈 B1「成田空港」站，搭 <strong>Skyliner 26 號 12:38</strong>（5 番線，全車指定席）</li><li>坐到<strong>終點「京成上野」</strong> 13:23 下車</li></ol><div class="route-meta">⏱ 約 45 分　💴 ¥2,570（車票 ¥1,270＋Skyliner 券 ¥1,300）</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>成田機場 → 台東區有<strong>定額計程車 ¥26,000</strong>（5:00–22:00），<strong>高速費另計</strong>，需事先預約（機場出發需乘車 3 小時前）。<div class="route-meta">⏱ 約 1 小時–1 小時 20 分（看路況）</div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="time">13:40 - 14:00</div>
-          <div class="event-title">抵達飯店 <span class="jp-name">アパホテル〈上野駅前〉(APA Hotel Ueno Ekimae)</span> 寄放行李</div>
-          <div class="event-desc">從京成上野站出站步行約 5-8 分鐘抵達飯店（台東区東上野2-18-7）。<strong>入住 15:00 起</strong>，先寄放大行李，晚上回來再拿房卡。</div>
+          <div class="time">13:23 - 14:00</div>
+          <div class="event-title">抵達飯店 <span class="jp-name">アパホテル〈上野駅前〉</span> 寄放行李</div>
+          <div class="event-desc">東京都台東区東上野2-18-7。<strong>入住 15:00 起</strong>，先寄放大行李，晚上回來再拿房卡。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行（推薦）</span>從京成上野站出站，步行約 450m。<div class="route-meta">⏱ 約 6 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E4%BA%AC%E6%88%90%E4%B8%8A%E9%87%8E%E9%A7%85&destination=%E3%82%A2%E3%83%91%E3%83%9B%E3%83%86%E3%83%AB+%E4%B8%8A%E9%87%8E%E9%A7%85%E5%89%8D+%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E6%9D%B1%E4%B8%8A%E9%87%8E2-18-7&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>距離很近，約 1km。<div class="route-meta">⏱ 約 5 分　💴 約 ¥500–700</div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="time">14:00 - 14:15</div>
-          <div class="event-title">銀座線 上野 ➔ 田原町 <span class="jp-name">田原町駅</span>，步行至卡丁車淺草店</div>
-          <div class="event-desc">2 站約 4 分鐘（約 ¥180），出站步行約 5 分鐘。</div>
+          <div class="time">14:00 - 14:20</div>
+          <div class="event-title">前往卡丁車淺草店</div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 地鐵銀座線（推薦）</span><ol><li>從 APA 走到<strong>地鐵上野站 3 號出口</strong>（約 1 分）</li><li>搭<strong>東京地鐵銀座線，往「浅草」方向（2 番線）</strong></li><li>坐 2 站，在<strong>「田原町」</strong>下車（約 3 分）</li><li>走<strong>3 號出口</strong>（出口指標寫「かっぱ橋道具街・西浅草」），步行約 12 分</li></ol><div class="route-meta">⏱ 共約 20 分　💴 ¥178</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E4%B8%8A%E9%87%8E%E9%A7%85&destination=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E8%A5%BF%E6%B5%85%E8%8D%893-25-31&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-train"><span class="route-label">🚇 備案：地鐵日比谷線</span><ol><li>地鐵上野站搭<strong>日比谷線，往「北千住」方向（2 番線）</strong></li><li>坐 2 站，在<strong>「入谷」</strong>下車，走<strong>1 號出口</strong>，步行約 10 分</li></ol><div class="route-meta">⏱ 共約 20 分　💴 ¥178</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 2.7km。給司機看地址：<span class="jp-name">東京都台東区西浅草3-25-31</span><div class="route-meta">⏱ 約 10–15 分　💴 約 ¥1,300–1,600</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E3%82%A2%E3%83%91%E3%83%9B%E3%83%86%E3%83%AB+%E4%B8%8A%E9%87%8E%E9%A7%85%E5%89%8D+%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E6%9D%B1%E4%B8%8A%E9%87%8E2-18-7&destination=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E8%A5%BF%E6%B5%85%E8%8D%893-25-31&travelmode=driving" target="_blank">Google Maps 路線 ↗</a></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">14:30 - 16:30（⚠️ 場次待店家確認）</div>
@@ -361,29 +436,36 @@
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ストリートカート+浅草店+西浅草3-25-31" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
-          <div class="time">16:45 - 17:15</div>
-          <div class="event-title">銀座線 田原町 ➔ 表參道 <span class="jp-name">表参道駅 (Omotesando)</span></div>
-          <div class="event-desc">同一條銀座線直達免換車（約 30 分鐘，約 ¥210）。</div>
+          <div class="time">16:45 - 17:35</div>
+          <div class="event-title">前往表參道 OMOKADO</div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 地鐵銀座線（推薦，免換車）</span><ol><li>從卡丁車店步行約 12 分回到<strong>「田原町」站</strong></li><li>搭<strong>銀座線，往「渋谷」方向（1 番線）</strong>，一路坐到<strong>「表参道」</strong>（約 30 分）</li><li>走 <strong>A2 出口</strong>（出口指標寫「表参道ヒルズ・神宮前4丁目」），步行約 7 分到東急 Plaza 表參道 OMOKADO</li></ol><div class="route-meta">⏱ 共約 50 分　💴 ¥209</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E8%A5%BF%E6%B5%85%E8%8D%893-25-31&destination=%E6%9D%B1%E6%80%A5%E3%83%97%E3%83%A9%E3%82%B6%E8%A1%A8%E5%8F%82%E9%81%93+%E3%82%AA%E3%83%A2%E3%82%AB%E3%83%89&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 12km。給司機看：<span class="jp-name">東急プラザ表参道「オモカド」</span><div class="route-meta">⏱ 約 30–40 分（看路況）　💴 約 ¥5,400–6,500</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E8%A5%BF%E6%B5%85%E8%8D%893-25-31&destination=%E6%9D%B1%E6%80%A5%E3%83%97%E3%83%A9%E3%82%B6%E8%A1%A8%E5%8F%82%E9%81%93+%E3%82%AA%E3%83%A2%E3%82%AB%E3%83%89&travelmode=driving" target="_blank">Google Maps 路線 ↗</a></div></div>
         </div>
         <div class="timeline-item">
-          <div class="time">17:15 - 17:45</div>
+          <div class="time">17:35 - 18:05</div>
           <div class="event-title">🐹 吉伊卡哇麵包店 <span class="jp-name">ちいかわベーカリー</span></div>
           <div class="event-desc">東急 Plaza 表參道「OMOKADO」3F（11:00–20:00，免門票）。⚠️ 傍晚熱門角色麵包可能已賣完，周邊商品通常還買得到。人多時可能需領整理券。</div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ちいかわベーカリー+東急プラザ表参道オモカド" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
-          <div class="time">17:45 - 18:30</div>
+          <div class="time">18:05 - 18:45</div>
           <div class="event-title">🐹 吉伊卡哇樂園 原宿店 <span class="jp-name">ちいかわらんど 原宿店</span></div>
-          <div class="event-desc">KIDDY LAND 原宿店 1F，從麵包店步行約 5 分鐘（11:00–20:00，免門票，人多時需領整理券）。若整理券已發完，Day 3 東京車站店可補買。</div>
+          <div class="event-desc">KIDDY LAND 原宿店 1F（11:00–20:00，免門票，人多時需領整理券）。若整理券已發完，Day 3 東京車站店可補買。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行（推薦）</span>從 OMOKADO 沿著表參道大街往原宿方向，約 220m。<div class="route-meta">⏱ 約 3 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E6%9D%B1%E6%80%A5%E3%83%97%E3%83%A9%E3%82%B6%E8%A1%A8%E5%8F%82%E9%81%93+%E3%82%AA%E3%83%A2%E3%82%AB%E3%83%89&destination=%E3%82%AD%E3%83%87%E3%82%A4%E3%83%A9%E3%83%B3%E3%83%89%E5%8E%9F%E5%AE%BF%E5%BA%97&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=キデイランド原宿店" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
-          <div class="time">18:30 - 20:30</div>
-          <div class="event-title">漫步至澀谷 <span class="jp-name">渋谷 (Shibuya)</span> 逛街 ＆ 晚餐</div>
-          <div class="event-desc">逛日系彩妝專櫃與流行服飾，晚餐可吃 <strong>AFURI 柚子鹽拉麵</strong>。超商買好隔天一早的水與點心，約 20:30 搭銀座線回上野。</div>
+          <div class="time">18:45 - 20:30</div>
+          <div class="event-title">澀谷 <span class="jp-name">渋谷 (Shibuya)</span> 逛街 ＆ 晚餐</div>
+          <div class="event-desc">逛日系彩妝專櫃與流行服飾，晚餐可吃 <strong>AFURI 柚子鹽拉麵</strong>。超商買好隔天一早的水與點心。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>沿明治通り往南，約 1.3km。<div class="route-meta">⏱ 約 18 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E3%82%AD%E3%83%87%E3%82%A4%E3%83%A9%E3%83%B3%E3%83%89%E5%8E%9F%E5%AE%BF%E5%BA%97&destination=%E6%B8%8B%E8%B0%B7%E9%A7%85&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-train"><span class="route-label">🚇 地鐵副都心線</span><ol><li>從 KIDDY LAND 步行約 2 分到<strong>「明治神宮前〈原宿〉」站</strong></li><li>搭<strong>副都心線，往「渋谷」方向（3 番線）</strong>，1 站到「渋谷」</li></ol><div class="route-meta">⏱ 共約 10 分　💴 ¥178</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 1.4km。<div class="route-meta">⏱ 約 5–10 分　💴 約 ¥700–1,000</div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="time">21:00 - 21:30</div>
+          <div class="time">20:30 - 21:05</div>
+          <div class="event-title">回飯店</div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 地鐵銀座線（推薦，免換車）</span><ol><li>澀谷站搭<strong>銀座線，往「浅草」方向</strong>（澀谷是起點站，1・2 番線都有車）</li><li>坐到<strong>「上野」</strong>（約 28 分）</li><li>走<strong>3 號出口</strong>，步行約 1 分到 APA</li></ol><div class="route-meta">⏱ 共約 35 分　💴 ¥209</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E6%B8%8B%E8%B0%B7%E9%A7%85&destination=%E3%82%A2%E3%83%91%E3%83%9B%E3%83%86%E3%83%AB+%E4%B8%8A%E9%87%8E%E9%A7%85%E5%89%8D+%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E6%9D%B1%E4%B8%8A%E9%87%8E2-18-7&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 12km。給司機看：<span class="jp-name">アパホテル〈上野駅前〉 台東区東上野2-18-7</span><div class="route-meta">⏱ 約 30–40 分　💴 約 ¥5,300–6,500（22:00 後有深夜加成）</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E6%B8%8B%E8%B0%B7%E9%A7%85&destination=%E3%82%A2%E3%83%91%E3%83%9B%E3%83%86%E3%83%AB+%E4%B8%8A%E9%87%8E%E9%A7%85%E5%89%8D+%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E6%9D%B1%E4%B8%8A%E9%87%8E2-18-7&travelmode=driving" target="_blank">Google Maps 路線 ↗</a></div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">21:05 - 21:30</div>
           <div class="event-title">飯店 15 樓露天大浴場泡湯 <span class="jp-name">大浴場「玄要の湯」</span></div>
           <div class="event-desc">享受頂樓溫泉消除疲勞，早點就寢為隔天跳傘儲備最佳體能！</div>
         </div>
@@ -394,38 +476,26 @@
     <div id="day2" class="tab-content" style="display:none;">
       <div class="card">
         <h2>埼玉極限跳傘 ＆ 小江戶川越散策</h2>
-        
         <div class="notice-box">
-          <strong>⚡ 10:00 場次叮嚀（總流程約 3 小時以上）：</strong> 傘場要求最晚 <strong>09:30</strong> 報到！以下為多抓 20 分鐘的超寬鬆時刻表。
-        </div>
-
-        <div class="timeline-item">
-          <div class="time">07:15 - 07:45</div>
-          <div class="event-title">APA 步行出發 ➔ JR 上野站「不忍口 / 廣小路口」進站</div>
-          <div class="event-desc">
-            穿平底運動球鞋與防風長褲，散步至 JR 上野站刷卡進站。鎖定 5/6/7 號月台搭乘 <strong>07:48 JR 高崎線・上野東京線</strong>（往高崎/前橋方面）。<br>
-            💡 <strong>乘車秘訣：鎖定「第 8 節車廂」上車</strong>（桶川站下車正對上樓電扶梯/樓梯，出站最神速）。
-          </div>
+          <strong>⚡ 10:00 場次叮嚀（總流程約 3 小時以上）：</strong> 傘場要求最晚 <strong>09:30</strong> 報到！集合與解散地點都是 <span class="jp-name">埼玉県比企郡川島町山ケ谷戸496</span>（Skydive Nippon 官網）。官網註明週末的降落場在熊谷一帶，最後仍回到集合地點解散。
         </div>
         <div class="timeline-item">
-          <div class="time">07:48 - 08:30</div>
-          <div class="event-title">搭乘 <span class="jp-name">JR 高崎線 (JR Takasaki Line)</span> 直達桶川</div>
-          <div class="event-desc">一路免換車直達「桶川站」<span class="jp-name">桶川駅 (Okegawa Sta.)</span>（車程約 42 分鐘）。萬一沒搭上，搭 08:00 以前班次也完全來得及！</div>
+          <div class="time">07:10 - 08:12</div>
+          <div class="event-title">APA 出發 ➔ JR 高崎線直達桶川</div>
+          <div class="event-desc">穿平底運動球鞋與防風長褲。</div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 JR 高崎線（推薦，免換車）</span><ol><li>從 APA 步行約 3 分到 <strong>JR 上野站「廣小路口」</strong>，刷 IC 卡進站</li><li>搭 <strong>JR 高崎線 07:33「籠原」行</strong>（5 番線，以站內電子看板為準）</li><li>坐到<strong>「桶川」</strong> 08:12 下車</li></ol><div class="route-meta">⏱ 乘車約 39 分　💴 ¥715</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E4%B8%8A%E9%87%8E%E9%A7%85&destination=%E6%A1%B6%E5%B7%9D%E9%A7%85&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-train"><span class="route-label">🚇 其他班次（週日）</span><strong>07:24「高崎」行 → 08:06 到</strong>（提早到就搭這班）。<br>⚠️ 下一班直達車 <strong>07:57 → 08:37 到</strong>，會趕不上 08:38 的巴士，只能改搭計程車（仍來得及 09:30 報到）。<br>⚠️ 只搭目的地是「<strong>高崎・籠原・前橋</strong>」的高崎線；「宇都宮線」不會經過桶川。</div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>上野到桶川約 40km，費用會超過 ¥15,000，請搭電車。</div><div class="route-note">💡 原本寫的「07:48 班次」和「第 8 節車廂」經查證不正確或無法確認，已移除。</div></div>
         </div>
         <div class="timeline-item">
-          <div class="time">08:30 - 08:45</div>
-          <div class="event-title">抵達桶川站 ➔ 出剪票口「左轉西口」前往傘場</div>
-          <div class="event-desc">
-            第 8 車廂下車直接上樓出閘門，<strong>抬頭認準「西口」指標立即左轉</strong>，搭手扶梯下 1 樓圓環。<br>
-            ・<strong>🚕 計程車 / Uber（首選推薦）：</strong>西口排班處搭車，約 15 分鐘直達傘場門口（約 08:50~09:00 到達，超從容）。<br>
-            ・<strong>🚌 東武巴士：</strong>西口 1 號站牌搭 <strong>08:38【川越04】</strong>至「山ヶ谷戸」站下車，步行 13 分進基地（約 09:07 到達）。<strong>（嚴禁搭 09:35 班次，會遲到）</strong>
-          </div>
-          <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=496+Yamagayato,+Kawajima,+Hiki+District,+Saitama+350-0126" target="_blank">打開 Google Maps 基地導航</a>
+          <div class="time">08:12 - 09:05</div>
+          <div class="event-title">桶川站 ➔ 跳傘集合地點</div>
+          <div class="event-desc">出閘門後，跟著指標往<strong>「西口」</strong>走到 1 樓站前廣場。</div>
+          <div class="route-box"><div class="route-opt opt-bus"><span class="route-label">🚌 東武巴士【川越04】</span><ol><li>西口巴士站搭 <strong>東武巴士【川越04】「川越駅」行 08:38</strong></li><li>在<strong>「山ケ谷戸」</strong>站下車（08:50）</li><li>步行約 10–13 分到集合地點（約 09:03 到）</li></ol><div class="route-meta">⏱ 共約 30 分　💴 ¥380<br>⚠️ 下一班 09:35 發車，到集合地點約 10:00，<strong>會遲到，不能搭</strong>。</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（最保險）</span>西口計程車招呼站搭車，約 6.4km。給司機看：<span class="jp-name">埼玉県比企郡川島町山ケ谷戸496 (スカイダイブニッポン)</span><div class="route-meta">⏱ 約 15 分　💴 約 ¥3,100–3,500（兩人分攤約 ¥1,600–1,800）</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E6%A1%B6%E5%B7%9D%E9%A7%85%E8%A5%BF%E5%8F%A3&destination=%E5%9F%BC%E7%8E%89%E7%9C%8C%E6%AF%94%E4%BC%81%E9%83%A1%E5%B7%9D%E5%B3%B6%E7%94%BA%E5%B1%B1%E3%82%B1%E8%B0%B7%E6%88%B8496&travelmode=driving" target="_blank">Google Maps 路線 ↗</a></div></div>
+          <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=埼玉県比企郡川島町山ケ谷戸496" target="_blank">打開 Google Maps 集合地點</a>
         </div>
         <div class="timeline-item">
           <div class="time">09:30 - 10:00</div>
           <div class="event-title">報到、填寫資料與著裝講習</div>
-          <div class="event-desc">在基地 <span class="jp-name">スカイダイブニッポン (Skydive Nippon)</span> 核對身分、穿上跳傘裝備、聆聽教練離機動作教學。</div>
+          <div class="event-desc">在 <span class="jp-name">スカイダイブニッポン (Skydive Nippon)</span> 核對身分、穿上跳傘裝備、聆聽教練離機動作教學。</div>
         </div>
         <div class="timeline-item">
           <div class="time">10:00 - 13:00</div>
@@ -434,8 +504,8 @@
         </div>
         <div class="timeline-item">
           <div class="time">13:30 - 14:00</div>
-          <div class="event-title">計程車前往「小江戶川越」<span class="jp-name">小江戸川越 (Kawagoe)</span></div>
-          <div class="event-desc">基地門口直接叫計程車前往川越（約 20 分鐘），直接在菓子屋橫丁 <span class="jp-name">菓子屋横丁</span> 附近下車。</div>
+          <div class="event-title">前往「小江戶川越」菓子屋橫丁 <span class="jp-name">菓子屋横丁</span></div>
+          <div class="route-box"><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（推薦）</span>約 8km。附近路上很難攔到車，<strong>請傘場櫃台幫忙叫車</strong>，或用 GO App 叫車。給司機看：<span class="jp-name">川越 菓子屋横丁</span><div class="route-meta">⏱ 約 20 分　💴 約 ¥3,800–4,500（兩人分攤約 ¥1,900–2,250）</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E5%9F%BC%E7%8E%89%E7%9C%8C%E6%AF%94%E4%BC%81%E9%83%A1%E5%B7%9D%E5%B3%B6%E7%94%BA%E5%B1%B1%E3%82%B1%E8%B0%B7%E6%88%B8496&destination=%E8%8F%93%E5%AD%90%E5%B1%8B%E6%A8%AA%E4%B8%81+%E5%B7%9D%E8%B6%8A&travelmode=driving" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-bus"><span class="route-label">🚌 東武巴士【川越04】（班次很少）</span><ol><li>步行約 13 分到「山ケ谷戸」站</li><li>搭 <strong>【川越04】「川越駅」行 14:22</strong></li><li>在<strong>「札の辻」</strong>站下車（14:37），步行約 3 分到菓子屋橫丁</li></ol><div class="route-meta">⏱ 共約 35 分　💴 ¥430<br>⚠️ 下一班是 16:44，錯過就只能搭計程車。</div></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">14:00 - 14:45</div>
@@ -449,72 +519,71 @@
           <div class="event-desc">享用知名鰻魚飯、紫薯點心，漫步時之鐘 <span class="jp-name">時の鐘</span> 與冰川神社 <span class="jp-name">川越氷川神社</span> 釣鯛魚籤拍美照。</div>
         </div>
         <div class="timeline-item">
-          <div class="time">18:00 - 19:30</div>
-          <div class="event-title">返回東京慶功拉麵！</div>
-          <div class="event-desc">回上野吃 <strong>麵屋武藏 武骨相傳</strong>（厚切叉燒沾麵）或 <strong>一蘭拉麵</strong>。</div>
+          <div class="time">17:30 - 18:45</div>
+          <div class="event-title">回上野</div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 東武東上線＋JR 山手線（推薦，不用加價）</span><ol><li>從菓子屋橫丁步行約 18 分到<strong>東武「川越市」站</strong></li><li>搭<strong>東武東上線，往「池袋」</strong>（選「川越特急／急行／快速」等，<strong>終點是「池袋」</strong>的車）</li><li>在「池袋」轉 <strong>JR 山手線外回り「上野・東京方面」（7 番線）</strong></li><li>在「上野」下車，走「廣小路口」</li></ol><div class="route-meta">⏱ 共約 1 小時 10 分　💴 ¥690（東武 ¥481＋JR ¥209）<br>⚠️ 終點寫「元町・中華街」等的東上線列車<strong>不會開到池袋</strong>（會轉到地鐵），不要搭。</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E5%B7%9D%E8%B6%8A%E5%B8%82%E9%A7%85&destination=%E4%B8%8A%E9%87%8E%E9%A7%85&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-bus"><span class="route-label">🚌 巴士＋東武（不想走路時）</span><ol><li>菓子屋橫丁旁的「札の辻」站搭東武巴士往<strong>「川越駅」</strong>（約 15 分，¥230）</li><li>在東武「川越」站搭東上線往「池袋」，再轉 JR 山手線到上野</li></ol></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>川越到上野約 45km，要走高速，費用約 ¥20,000 以上加高速費。</div></div>
         </div>
         <div class="timeline-item">
-          <div class="time">19:45 - 21:00</div>
+          <div class="time">18:45 - 19:45</div>
+          <div class="event-title">返回東京慶功拉麵！</div>
+          <div class="event-desc">在上野吃 <strong>麵屋武藏 武骨相傳</strong>（厚切叉燒沾麵，地鐵上野站 6 號出口步行約 1 分）或 <strong>一蘭拉麵</strong>。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">20:00 - 21:00</div>
           <div class="event-title">🛍️ 唐吉訶德 上野店 <span class="jp-name">ドン・キホーテ 上野店</span> 掃貨</div>
-          <div class="event-desc">24 小時營業，藥妝、零食品項齊全（文京区湯島3-38-10，從上野站步行約 12 分鐘）。晚上免稅櫃台通常較不用排隊，<strong>記得帶護照</strong>。</div>
+          <div class="event-desc">24 小時營業，藥妝、零食品項齊全（文京区湯島3-38-10）。晚上免稅櫃台通常較不用排隊，<strong>記得帶護照</strong>。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行（推薦）</span>從麵屋武藏約 650m，往上野廣小路方向。<div class="route-meta">⏱ 約 9 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E9%BA%BA%E5%B1%8B%E6%AD%A6%E8%94%B5+%E6%AD%A6%E9%AA%A8%E7%9B%B8%E5%82%B3&destination=%E3%83%89%E3%83%B3%E3%83%BB%E3%82%AD%E3%83%9B%E3%83%BC%E3%83%86+%E4%B8%8A%E9%87%8E%E5%BA%97&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-train"><span class="route-label">🚇 地鐵銀座線</span><ol><li>上野站搭<strong>銀座線，往「渋谷」方向（1 番線）</strong>，1 站到<strong>「上野広小路」</strong></li><li>走 <strong>A4 出口</strong>，步行約 3 分</li></ol><div class="route-meta">⏱ 共約 6 分　💴 ¥178</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 1km。<div class="route-meta">⏱ 約 5 分　💴 約 ¥500–700</div></div></div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ドン・キホーテ+上野店+湯島" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
-          <div class="time">21:15</div>
+          <div class="time">21:00 - 21:15</div>
           <div class="event-title">回飯店整理戰利品 ＆ 15 樓大浴場放鬆</div>
           <div class="event-desc">先把唐吉訶德買的東西裝進行李箱，隔天退房更從容。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>約 860m。<div class="route-meta">⏱ 約 11 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E3%83%89%E3%83%B3%E3%83%BB%E3%82%AD%E3%83%9B%E3%83%BC%E3%83%86+%E4%B8%8A%E9%87%8E%E5%BA%97&destination=%E3%82%A2%E3%83%91%E3%83%9B%E3%83%86%E3%83%AB+%E4%B8%8A%E9%87%8E%E9%A7%85%E5%89%8D+%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E6%9D%B1%E4%B8%8A%E9%87%8E2-18-7&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 1km，買很多東西時可以搭。<div class="route-meta">⏱ 約 5 分　💴 約 ¥500–700</div></div></div>
         </div>
       </div>
 
       <!-- 交通指南說明卡片 (中日雙語對照) -->
       <div class="card">
-        <h2>📍 官方交通指引 ＆ 東武巴士時刻表</h2>
+        <h2>📍 桶川 ➔ 跳傘集合地點 交通總整理</h2>
         <div class="traffic-box">
-          <div class="traffic-step"><strong>STEP 1 上車：</strong>JR 上野站 5~7 號月台搭乘 <strong>JR 高崎線</strong>（鎖定第 8 車廂）直達 <strong>桶川站 <span class="jp-name">桶川駅</span></strong>（約 42 分鐘）。</div>
-          <div class="traffic-step"><strong>STEP 2 出站：</strong>出閘門後 <strong>立即左轉「西口」<span class="jp-name">桶川駅 西口</span></strong>，下手扶梯至 1 樓圓環。</div>
-          
+          <div class="traffic-step"><strong>STEP 1 上車：</strong>JR 上野站搭 <strong>JR 高崎線</strong>（目的地「高崎・籠原・前橋」）直達 <strong>桶川站 <span class="jp-name">桶川駅</span></strong>（約 39–42 分，¥715）。</div>
+          <div class="traffic-step"><strong>STEP 2 出站：</strong>出閘門後往<strong>「西口」<span class="jp-name">桶川駅 西口</span></strong>，下到 1 樓站前廣場。</div>
+
           <hr style="border: 0; border-top: 1px dashed #86efac; margin: 10px 0;">
 
           <div style="font-weight: 700; color: #166534; margin-bottom: 6px;">
-            🚌 東武巴士【川越04】往川越站 <span class="jp-name">東武バス［川越04］川越駅行</span>（週日時刻表）
+            🚌 東武巴士【川越04】往川越站 <span class="jp-name">東武バス［川越04］川越駅行</span>（10/25 週日）
           </div>
           <table class="budget-table" style="font-size: 0.82rem; background: white; border-radius: 6px; overflow: hidden; margin-bottom: 8px;">
             <thead>
               <tr>
                 <th>桶川站西口 發車</th>
-                <th>抵達「山ヶ谷戸」站</th>
-                <th>備註叮嚀</th>
+                <th>抵達「山ケ谷戸」站</th>
+                <th>備註</th>
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <td>07:43</td>
-                <td>07:58</td>
-                <td>太早，到基地約 08:12</td>
-              </tr>
               <tr style="background: #fef08a; font-weight: bold;">
                 <td>08:38 ⭐</td>
-                <td>08:53</td>
-                <td>步行 13 分進基地約 09:07，剛好趕上 09:30 報到！</td>
+                <td>08:50</td>
+                <td>步行 10–13 分，約 09:03 到集合地點，趕得上 09:30 報到</td>
               </tr>
               <tr style="color: #ef4444;">
                 <td>09:35</td>
-                <td>09:50</td>
-                <td>走進基地已 10:05，<strong>會遲到！嚴禁搭此班</strong></td>
-              </tr>
-              <tr>
-                <td>10:45 / 12:25 / 14:10</td>
-                <td>約 15 分鐘後</td>
-                <td>下午班次（跳傘結束後若往川越方向可參考）</td>
+                <td>09:47</td>
+                <td>到集合地點約 10:00，<strong>會遲到！不能搭</strong></td>
               </tr>
             </tbody>
           </table>
+          <div style="font-size: 0.8rem; color: #4b5563;">車資 ¥380（IC 卡）。回程方向：「山ケ谷戸」往川越 14:22、16:44 發車（到「札の辻」約 15 分，¥430）。</div>
 
           <div class="traffic-step" style="margin-top: 8px;">
-            <strong>🚕 計程車 / Uber 替代首選：</strong> 萬一沒搭上 08:38 的巴士，西口排班計程車約 15 分鐘直達傘場基地（單程約 ¥2,800，兩人分攤約 ¥1,400，最保險不誤事）。
+            <strong>🚕 計程車：</strong>西口計程車招呼站搭車，約 6.4km、約 15 分，約 ¥3,100–3,500（兩人分攤約 ¥1,600–1,800）。
           </div>
           <div style="font-size: 0.8rem; color: #4b5563; margin-top: 8px;">
-            給司機看的日文地址：<span class="jp-name">埼玉県比企郡川島町山ケ谷戸496 (スカイダイブニッポン)</span>
+            給司機看的日文地址：<span class="jp-name">埼玉県比企郡川島町山ケ谷戸496 (スカイダイブニッポン)</span><br>
+            查證來源：Skydive Nippon 官網（集合／解散地點、巴士站步行約 10 分）、Yahoo!乗換案内（班次、車資）、埼玉縣計程車運價（初乘 1.027km ¥500，每 213m 加 ¥100）。
           </div>
         </div>
       </div>
@@ -524,74 +593,77 @@
     <div id="day3" class="tab-content" style="display:none;">
       <div class="card">
         <h2>吉伊卡哇 ＆ 御徒町掃貨 ＆ 返台時間軸</h2>
-
         <div class="notice-box">
           <strong>✈️ 回程 TR875 19:45 起飛（成田第 1 航廈）：</strong>酷航報到櫃台<strong>起飛前 60 分鐘關閉（18:45）</strong>，務必搭 <strong>16:20 Skyliner</strong>！
         </div>
-
         <div class="timeline-item">
           <div class="time">09:30</div>
           <div class="event-title">辦理退房 ＆ 行李免費寄放 APA 櫃檯</div>
           <div class="event-desc"><strong>退房最晚 10:00</strong>，行李寄放飯店，帶著隨身包輕鬆出發最後巡禮。</div>
         </div>
         <div class="timeline-item">
-          <div class="time">09:40 - 09:55</div>
-          <div class="event-title">JR 上野 ➔ 東京站 <span class="jp-name">東京駅</span></div>
-          <div class="event-desc">搭山手線或京濱東北線約 7 分鐘（約 ¥170）。</div>
+          <div class="time">09:35 - 10:00</div>
+          <div class="event-title">前往東京車站</div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 JR（推薦）</span><ol><li>從 APA 步行約 3 分到 <strong>JR 上野站「廣小路口」</strong></li><li>搭 <strong>JR 山手線外回り「東京・品川方面」（3 番線）</strong>，或<strong>京濱東北線南行（4 番線）</strong></li><li>在<strong>「東京」</strong>下車（約 8 分）</li><li>走<strong>「八重洲北口」</strong>，往地下 B1「東京駅一番街」，約 1 分到東京動漫人物街</li></ol><div class="route-meta">⏱ 共約 20 分　💴 ¥199</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E4%B8%8A%E9%87%8E%E9%A7%85&destination=%E6%9D%B1%E4%BA%AC%E3%82%AD%E3%83%A3%E3%83%A9%E3%82%AF%E3%82%BF%E3%83%BC%E3%82%B9%E3%83%88%E3%83%AA%E3%83%BC%E3%83%88&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 3.7km。給司機看：<span class="jp-name">東京駅 八重洲北口</span><div class="route-meta">⏱ 約 15 分　💴 約 ¥1,700–2,100</div></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">10:00 - 10:45</div>
           <div class="event-title">🐹 吉伊卡哇樂園 TOKYO Station <span class="jp-name">ちいかわらんど TOKYO Station</span></div>
-          <div class="event-desc">八重洲北口 B1F「東京動漫人物街」<span class="jp-name">東京キャラクターストリート</span>（10:00–20:30，免門票）。有東京限定伴手禮，平日上午通常直接排隊即可入店。</div>
+          <div class="event-desc">東京車站八重洲北口 B1「東京動漫人物街」<span class="jp-name">東京キャラクターストリート</span>（10:00–20:30，免門票）。有東京限定伴手禮，平日上午通常直接排隊即可入店。</div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ちいかわらんど+TOKYO+Station" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
-          <div class="time">10:45 - 11:00</div>
-          <div class="event-title">京濱東北線 東京站 ➔ 御徒町站 <span class="jp-name">御徒町駅</span></div>
-          <div class="event-desc">約 5 分鐘（約 ¥170）。<strong>直接到御徒町，不用回上野</strong>，之後一路逛回上野不走回頭路。</div>
+          <div class="time">10:45 - 11:05</div>
+          <div class="event-title">前往御徒町（不用回上野）</div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 JR 山手線（推薦）</span><ol><li>從八重洲北口進站，搭 <strong>JR 山手線內回り「上野・池袋方面」（4 番線）</strong></li><li>坐 3 站，在<strong>「御徒町」</strong>下車（約 6 分）</li><li>走<strong>「北口」</strong>，往東側步行約 3–5 分到多慶屋</li></ol><div class="route-meta">⏱ 共約 20 分　💴 ¥155<br>⚠️ <strong>平日白天（約 10:30–15:30）京濱東北線是「快速」，不停御徒町</strong>，請搭山手線。</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E6%9D%B1%E4%BA%AC%E9%A7%85&destination=%E5%A4%9A%E6%85%B6%E5%B1%8B+%E5%BE%A1%E5%BE%92%E7%94%BA%E6%9C%AC%E5%BA%97&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 3.5km。給司機看：<span class="jp-name">多慶屋 御徒町本店</span><div class="route-meta">⏱ 約 15 分　💴 約 ¥1,600–2,000</div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="time">11:00 - 12:00</div>
+          <div class="time">11:05 - 12:00</div>
           <div class="event-title">🛍️ 大創 多慶屋御徒町店 <span class="jp-name">DAISO 多慶屋御徒町店</span></div>
-          <div class="event-desc">多慶屋 TAKEYA1 4F，御徒町站東側步行約 5 分鐘（9:00–21:00）。</div>
+          <div class="event-desc">多慶屋 TAKEYA1 4F（9:00–21:00）。</div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ダイソー+多慶屋御徒町店" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
           <div class="time">12:00 - 12:40</div>
           <div class="event-title">午餐（御徒町，簡單吃）</div>
-          <div class="event-desc">候選：<strong>鴨 to 葱</strong>（上野／御徒町，見「人氣拉麵」頁）。</div>
+          <div class="event-desc">候選：<strong>鴨 to 葱</strong>（見「人氣拉麵」頁），就在 UNIQLO 旁邊。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>從多慶屋往西穿過 JR 高架橋下，約 350m。<div class="route-meta">⏱ 約 5 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E5%A4%9A%E6%85%B6%E5%B1%8B+%E5%BE%A1%E5%BE%92%E7%94%BA%E6%9C%AC%E5%BA%97&destination=%E3%82%89%E3%83%BC%E3%82%81%E3%82%93+%E9%B4%A8to%E8%91%B1&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">12:40 - 14:10</div>
           <div class="event-title">🛍️ UNIQLO 御徒町店 ＋ GU 御徒町店</div>
-          <div class="event-desc">同一棟「御徒町吉池本店大樓」：<strong>UNIQLO 1F–4F、GU 5F–6F</strong>（10:00–21:00），JR 御徒町站出站即達。</div>
+          <div class="event-desc">同一棟「御徒町吉池本店大樓」：<strong>UNIQLO 1F–4F、GU 5F–6F</strong>（10:00–21:00），JR 御徒町站旁。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>從鴨 to 葱約 150m。<div class="route-meta">⏱ 約 2 分</div></div></div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ユニクロ+御徒町店" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
           <div class="time">14:10 - 14:25</div>
           <div class="event-title">沿阿美橫丁 <span class="jp-name">アメヤ横丁 (Ameyoko)</span> 走回上野</div>
           <div class="event-desc">邊走邊看，有喜歡的藥妝店（松本清、Sundrug）可以順手補貨。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>沿著 JR 高架旁的阿美橫丁往上野方向，約 500m 到上野丸井。<div class="route-meta">⏱ 約 7 分（邊逛會更久）</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E3%83%A6%E3%83%8B%E3%82%AF%E3%83%AD+%E5%BE%A1%E5%BE%92%E7%94%BA%E5%BA%97&destination=%E4%B8%8A%E9%87%8E%E3%83%9E%E3%83%AB%E3%82%A4&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">14:25 - 15:20</div>
           <div class="event-title">🛍️ 無印良品 上野丸井店 <span class="jp-name">無印良品 上野マルイ</span></div>
-          <div class="event-desc">上野丸井 B2F，阿美橫丁走到底、靠近上野站（11:00 開門）。</div>
+          <div class="event-desc">上野丸井 B2F（11:00 開門）。</div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=無印良品+上野マルイ" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
           <div class="time">15:20 - 15:50</div>
           <div class="event-title">回 APA 領行李 ＆ 大廳打包戰利品</div>
           <div class="event-desc">把今天買的東西裝進行李箱，注意酷航行李重量限制。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>從上野丸井約 300m。<div class="route-meta">⏱ 約 4 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E4%B8%8A%E9%87%8E%E3%83%9E%E3%83%AB%E3%82%A4&destination=%E3%82%A2%E3%83%91%E3%83%9B%E3%83%86%E3%83%AB+%E4%B8%8A%E9%87%8E%E9%A7%85%E5%89%8D+%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E6%9D%B1%E4%B8%8A%E9%87%8E2-18-7&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">15:50 - 16:05</div>
-          <div class="event-title">步行前往京成上野站 <span class="jp-name">京成上野駅</span></div>
-          <div class="event-desc">約 5–8 分鐘，劃位 Skyliner、上洗手間、買車上飲品。</div>
+          <div class="event-title">前往京成上野站 <span class="jp-name">京成上野駅</span></div>
+          <div class="event-desc">劃位 Skyliner、上洗手間、買車上飲品。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行（推薦）</span>拖行李約 450m。<div class="route-meta">⏱ 約 6–8 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E3%82%A2%E3%83%91%E3%83%9B%E3%83%86%E3%83%AB+%E4%B8%8A%E9%87%8E%E9%A7%85%E5%89%8D+%E6%9D%B1%E4%BA%AC%E9%83%BD%E5%8F%B0%E6%9D%B1%E5%8C%BA%E6%9D%B1%E4%B8%8A%E9%87%8E2-18-7&destination=%E4%BA%AC%E6%88%90%E4%B8%8A%E9%87%8E%E9%A7%85&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 1km，行李太重時可以搭。<div class="route-meta">⏱ 約 5 分　💴 約 ¥500–700</div></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">16:20 - 17:04</div>
-          <div class="event-title">搭乘 Skyliner 65 號直達成田第 1 航廈</div>
-          <div class="event-desc"><strong>⚠️ 坐到最後一站「成田空港」<span class="jp-name">成田空港駅</span></strong>，不要在「空港第2ビル」下車！備案：16:40 的 67 號（17:25 到）。</div>
+          <div class="event-title">前往成田機場第 1 航廈</div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 Skyliner（推薦）</span><ol><li>京成上野站搭 <strong>Skyliner 65 號 16:20</strong>（全車指定席）</li><li><strong>⚠️ 坐到最後一站「成田空港」</strong>（17:04），<strong>不要在「空港第2ビル」下車</strong></li></ol><div class="route-meta">⏱ 約 44 分　💴 ¥2,570<br>備案：下一班 Skyliner 約 20 分鐘後。</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>台東區 → 成田機場有<strong>定額計程車 ¥26,000</strong>（高速費另計），需乘車 1 小時前預約。<div class="route-meta">⏱ 約 1 小時–1 小時 20 分（看路況）</div></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">17:05 起</div>
@@ -702,7 +774,7 @@
           </tbody>
         </table>
 
-        <h3 style="font-size: 1rem; color: var(--primary); margin: 20px 0 6px;">🚊 交通費用（日本當地）</h3>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 20px 0 6px;">🚊 交通費用（日本當地，每人）</h3>
         <table class="budget-table">
           <thead>
             <tr>
@@ -713,41 +785,52 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>京成 Skyliner (去程)</strong></td>
-              <td>成田空港 ➔ 上野（單程劃位）</td>
+              <td><strong>Skyliner（去程）</strong></td>
+              <td>成田空港 ➔ 京成上野</td>
               <td class="price-num">¥2,570</td>
             </tr>
             <tr>
-              <td><strong>京成 Skyliner (回程)</strong></td>
-              <td>上野 ➔ 成田空港（單程劃位）</td>
+              <td><strong>Skyliner（回程）</strong></td>
+              <td>京成上野 ➔ 成田空港</td>
               <td class="price-num">¥2,570</td>
             </tr>
             <tr>
-              <td><strong>JR 電車 (上野 ↔ 桶川)</strong></td>
-              <td>JR 高崎線單程 ¥680 × 來回 2 趟</td>
-              <td class="price-num">¥1,360</td>
+              <td><strong>Day 1 地鐵</strong></td>
+              <td>上野 ➔ 田原町 ¥178、田原町 ➔ 表參道 ¥209、澀谷 ➔ 上野 ¥209（原宿走路到澀谷）</td>
+              <td class="price-num">¥596</td>
             </tr>
             <tr>
-              <td><strong>桶川 ↔ 傘場計程車</strong></td>
-              <td>單程約 ¥2,800 × 來回2趟 ÷ 2人分攤</td>
-              <td class="price-num">約 ¥2,800</td>
+              <td><strong>Day 2 JR</strong></td>
+              <td>上野 ➔ 桶川（高崎線）</td>
+              <td class="price-num">¥715</td>
             </tr>
             <tr>
-              <td><strong>東京地鐵銀座線 (Day 1)</strong></td>
-              <td>上野 ➔ 田原町 ¥180，田原町 ➔ 表參道 ¥210，澀谷 ➔ 上野 ¥210</td>
-              <td class="price-num">約 ¥600</td>
+              <td><strong>Day 2 桶川 ➔ 集合地點</strong></td>
+              <td>巴士 ¥380；搭計程車則約 ¥3,100–3,500 ÷ 2 人</td>
+              <td class="price-num">¥380（計程車約 ¥1,600–1,800）</td>
             </tr>
             <tr>
-              <td><strong>JR (Day 3)</strong></td>
-              <td>上野 ➔ 東京，東京 ➔ 御徒町，約 ¥170 × 2 趟</td>
-              <td class="price-num">約 ¥340</td>
+              <td><strong>Day 2 集合地點 ➔ 川越</strong></td>
+              <td>計程車約 ¥3,800–4,500 ÷ 2 人；巴士 ¥430</td>
+              <td class="price-num">約 ¥1,900–2,250（巴士 ¥430）</td>
+            </tr>
+            <tr>
+              <td><strong>Day 2 川越 ➔ 上野</strong></td>
+              <td>東武東上線 ¥481＋JR 山手線 ¥209</td>
+              <td class="price-num">¥690</td>
+            </tr>
+            <tr>
+              <td><strong>Day 3 JR</strong></td>
+              <td>上野 ➔ 東京 ¥199、東京 ➔ 御徒町 ¥155</td>
+              <td class="price-num">¥354</td>
             </tr>
             <tr class="total-row">
-              <td colspan="2"><strong>每人已知交通總計</strong></td>
-              <td class="price-num" style="color: var(--primary); font-size: 1.05rem;">約 ¥10,240</td>
+              <td colspan="2"><strong>每人交通總計</strong>（Day 2 去程搭巴士、去川越搭計程車）</td>
+              <td class="price-num" style="color: var(--primary); font-size: 1.05rem;">約 ¥9,800–10,100</td>
             </tr>
           </tbody>
         </table>
+        <div style="font-size: 0.8rem; color: var(--muted); margin-top: 8px;">IC 卡價格，2026/10/4 依 Yahoo!乗換案内查證。JR、東京地鐵已於 2026/3 調整票價，東京計程車已於 2026/4/20 調整運價。</div>
       </div>
     </div>
 
