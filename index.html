@@ -63,7 +63,7 @@
     }
     .tab-bar {
       display: grid;
-      grid-template-columns: repeat(4, 1fr);
+      grid-template-columns: repeat(3, 1fr);
       gap: 6px;
       background: #e9ecef;
       padding: 6px;
@@ -396,7 +396,9 @@
       <button class="tab-btn" onclick="switchTab(event, 'ramen')">🍜 拉麵</button>
       <button class="tab-btn" onclick="switchTab(event, 'budget')">支出預算</button>
       <button class="tab-btn" onclick="switchTab(event, 'tracker')">即時記帳</button>
-      <button class="tab-btn" onclick="switchTab(event, 'prep')">行前備忘</button>
+      <button class="tab-btn" onclick="switchTab(event, 'todo')">📋 行前工作</button>
+      <button class="tab-btn" onclick="switchTab(event, 'pack')">🧳 行李清單</button>
+      <button class="tab-btn" onclick="switchTab(event, 'activity')">🪂 跳傘卡丁車</button>
     </div>
 
     <!-- Day 1 -->
@@ -412,7 +414,7 @@
         <div class="timeline-item">
           <div class="time">12:38 - 13:23</div>
           <div class="event-title">前往上野：京成 Skyliner <span class="jp-name">京成スカイライナー</span></div>
-          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 Skyliner（推薦）</span><ol><li>第 1 航廈 B1「成田空港」站，搭 <strong>Skyliner 26 號 12:38</strong>（5 番線，全車指定席）</li><li>坐到<strong>終點「京成上野」</strong> 13:23 下車</li></ol><div class="route-meta">⏱ 約 45 分　💴 ¥2,570（車票 ¥1,270＋Skyliner 券 ¥1,300）</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>成田機場 → 台東區有<strong>定額計程車 ¥26,000</strong>（5:00–22:00），<strong>高速費另計</strong>，需事先預約（機場出發需乘車 3 小時前）。<div class="route-meta">⏱ 約 1 小時–1 小時 20 分（看路況）</div></div></div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 Skyliner（推薦）</span><ol><li>第 1 航廈 B1「成田空港」站，搭 <strong>Skyliner 26 號 12:38</strong>（5 番線，全車指定席）</li><li>坐到<strong>終點「京成上野」</strong> 13:23 下車</li></ol><div class="route-meta">⏱ 約 45 分　💴 外國人優惠來回票 ¥4,500（來回合計，見「行前工作」）；現場單買 ¥2,580</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>成田機場 → 台東區有<strong>定額計程車 ¥26,000</strong>（5:00–22:00），<strong>高速費另計</strong>，需事先預約（機場出發需乘車 3 小時前）。<div class="route-meta">⏱ 約 1 小時–1 小時 20 分（看路況）</div></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">13:23 - 14:00</div>
@@ -668,7 +670,7 @@
         <div class="timeline-item">
           <div class="time">16:20 - 17:04</div>
           <div class="event-title">前往成田機場第 1 航廈</div>
-          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 Skyliner（推薦）</span><ol><li>京成上野站搭 <strong>Skyliner 65 號 16:20</strong>（全車指定席）</li><li><strong>⚠️ 坐到最後一站「成田空港」</strong>（17:04），<strong>不要在「空港第2ビル」下車</strong></li></ol><div class="route-meta">⏱ 約 44 分　💴 ¥2,570<br>備案：下一班 Skyliner 約 20 分鐘後。</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>台東區 → 成田機場有<strong>定額計程車 ¥26,000</strong>（高速費另計），需乘車 1 小時前預約。<div class="route-meta">⏱ 約 1 小時–1 小時 20 分（看路況）</div></div></div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 Skyliner（推薦）</span><ol><li>京成上野站搭 <strong>Skyliner 65 號 16:20</strong>（全車指定席）</li><li><strong>⚠️ 坐到最後一站「成田空港」</strong>（17:04），<strong>不要在「空港第2ビル」下車</strong></li></ol><div class="route-meta">⏱ 約 44 分　💴 用來回優惠票的回程票（Day 1 在成田換票時，<strong>問櫃台回程座位怎麼劃位</strong>）<br>備案：下一班 Skyliner 約 20 分鐘後。</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>台東區 → 成田機場有<strong>定額計程車 ¥26,000</strong>（高速費另計），需乘車 1 小時前預約。<div class="route-meta">⏱ 約 1 小時–1 小時 20 分（看路況）</div></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">17:05 起</div>
@@ -790,14 +792,9 @@
           </thead>
           <tbody>
             <tr>
-              <td><strong>Skyliner（去程）</strong></td>
-              <td>成田空港 ➔ 京成上野</td>
-              <td class="price-num">¥2,570</td>
-            </tr>
-            <tr>
-              <td><strong>Skyliner（回程）</strong></td>
-              <td>京成上野 ➔ 成田空港</td>
-              <td class="price-num">¥2,570</td>
+              <td><strong>Skyliner 來回</strong></td>
+              <td>外國人優惠來回票（網路預購，原價 ¥5,160），在成田機場站換票</td>
+              <td class="price-num">¥4,500</td>
             </tr>
             <tr>
               <td><strong>Day 1 地鐵</strong></td>
@@ -831,11 +828,11 @@
             </tr>
             <tr class="total-row">
               <td colspan="2"><strong>每人交通總計</strong>（Day 2 去程搭巴士、去川越搭計程車）</td>
-              <td class="price-num" style="color: var(--primary); font-size: 1.05rem;">約 ¥9,800–10,100</td>
+              <td class="price-num" style="color: var(--primary); font-size: 1.05rem;">約 ¥9,100–9,500</td>
             </tr>
           </tbody>
         </table>
-        <div style="font-size: 0.8rem; color: var(--muted); margin-top: 8px;">票價為 IC 卡（Suica）價格。</div>
+        <div style="font-size: 0.8rem; color: var(--muted); margin-top: 8px;">Skyliner 以外的票價為 IC 卡（Suica）價格。<strong>不用買通行證</strong>：JR 東京廣域周遊券（¥16,000）、Tokyo Subway Ticket（24 小時 ¥1,000）都回不了本。</div>
       </div>
     </div>
 
@@ -887,8 +884,41 @@
       </div>
     </div>
 
-    <!-- 行前清單 -->
-    <div id="prep" class="tab-content" style="display:none;">
+    <!-- 行前工作 -->
+    <div id="todo" class="tab-content" style="display:none;">
+      <div class="card">
+        <h2>📋 行前工作（出發前要先辦好）</h2>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 4px 0 6px;">🎫 交通票券</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="t1" onchange="saveChecklist()"><label for="t1"><strong>上網買 Skyliner 外國人優惠來回票</strong>（大人 ¥4,500，原價 ¥5,160），在京成官網或 Klook、KKday 等線上旅行社購買。⚠️ 只能在<strong>成田機場站</strong>換票，Day 1 到 B1 Skyliner 櫃台一次換好</label></li>
+          <li><input type="checkbox" id="t2" onchange="saveChecklist()"><label for="t2"><strong>設定 Suica（西瓜卡）</strong>：iPhone 在「錢包」App 加入 Suica，或下載「Welcome Suica Mobile」；Android 到成田機場買實體 Welcome Suica 卡</label></li>
+          <li><input type="checkbox" id="t3" onchange="saveChecklist()"><label for="t3">Suica 每人先儲值約 <strong>¥3,000–4,000</strong>（不夠時便利商店、車站都能加值）</label></li>
+          <li><input type="checkbox" id="c6" onchange="saveChecklist()"><label for="c6">下載叫車 App（<strong>GO</strong> 或 Uber）並綁定信用卡</label></li>
+        </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🏎️ 卡丁車</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="t4" onchange="saveChecklist()"><label for="t4">到監理站辦<strong>台灣駕照日文譯本</strong>（台灣不適用國際駕照），兩個人都要辦</label></li>
+          <li><input type="checkbox" id="t5" onchange="saveChecklist()"><label for="t5"><strong>聯絡店家確認 10/24 下午場次並預約</strong>：📞 +81-80-9988-9988 ✉️ shina@kart.st（asakusa.streetkart.tokyo）</label></li>
+          <li><input type="checkbox" id="t6" onchange="saveChecklist()"><label for="t6">順便問店家：價格（好評優惠價）、全程多久、有沒有<strong>護目鏡、雨衣</strong>、可不可以<strong>寄放包包</strong>、<strong>下雨</strong>會不會取消或改期</label></li>
+        </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🪂 跳傘</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="t7" onchange="saveChecklist()"><label for="t7">確認 Skydive Nippon <strong>10/25（日）10:00 場次</strong>預約成功，<strong>預約確認截圖</strong>存在手機</label></li>
+          <li><input type="checkbox" id="t8" onchange="saveChecklist()"><label for="t8">出發前一兩天留意<strong>天氣和傘場通知</strong>（風雨可能取消或改時間）</label></li>
+        </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">✈️ 航班與入境</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="t9" onchange="saveChecklist()"><label for="t9">確認酷航<strong>托運行李買了幾公斤</strong>，不夠就先加購（機場現買比較貴）</label></li>
+          <li><input type="checkbox" id="c8" onchange="saveChecklist()"><label for="c8"><strong>Visit Japan Web</strong> 填寫完成，存好 QR Code 截圖</label></li>
+          <li><input type="checkbox" id="c7" onchange="saveChecklist()"><label for="c7">保好<strong>旅遊平安險（含跳傘）</strong>，證明文件存在手機</label></li>
+        </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🐹 吉伊卡哇</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="t10" onchange="saveChecklist()"><label for="t10">出發前一兩天看<strong>吉伊卡哇官方 X</strong>，確認 10/24–26 有沒有新商品發售或活動（可能改預約制）</label></li>
+          <li><input type="checkbox" id="t11" onchange="saveChecklist()"><label for="t11">有空就上 <a href="https://chiikawapark-tokyo.jp/ticket/" target="_blank">吉伊卡哇公園購票頁</a> 看有沒有人取消（10/26 上午最有機會）</label></li>
+        </ul>
+      </div>
+
       <div class="card">
         <h2>⚠️ 重要提醒</h2>
         <h3 style="font-size: 1rem; color: var(--primary); margin: 4px 0 6px;">✈️ 航班與機場</h3>
@@ -897,26 +927,17 @@
           <li>回程 TR875 <strong>19:45 起飛</strong>，酷航報到櫃台<strong>起飛前 60 分鐘關閉（18:45）</strong>，Day 3 要搭 <strong>16:20 Skyliner</strong>。</li>
           <li>酷航是廉航：<strong>手提行李兩件合計 10kg</strong>，托運行李要另外購買，購物前先確認買了幾公斤。</li>
         </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🚇 交通票券</h3>
+        <ul style="padding-left: 20px; font-size: 0.88rem;">
+          <li><strong>不用買任何通行證</strong>：JR Pass、JR 東京廣域周遊券（3 天 ¥16,000）、Tokyo Subway Ticket（24 小時 ¥1,000）這次都回不了本。</li>
+          <li>Skyliner 買<strong>外國人優惠來回票 ¥4,500</strong>，其他電車、巴士全部<strong>刷 Suica</strong>。</li>
+          <li>唐吉訶德、便利商店也能用 Suica 付款；計程車大多可以刷信用卡。</li>
+        </ul>
         <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🏨 飯店 APA 上野站前</h3>
         <ul style="padding-left: 20px; font-size: 0.88rem;">
           <li>地址：<span class="jp-name">東京都台東区東上野2-18-7</span>（地鐵上野站 3 號出口步行 1 分、JR 上野站廣小路口步行 3 分）。</li>
           <li>10/24（六）入住、10/26（一）退房。<strong>入住 15:00 起、退房 10:00 前</strong>，提早抵達或退房後都可以先寄放行李。</li>
           <li>最上階有大浴場<strong>「玄要の湯」</strong>（男女分開，不是天然溫泉）：<strong>6:00–10:00、15:00–翌 2:00</strong>。要帶房間的毛巾和房卡，置物櫃免費。</li>
-        </ul>
-        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🍙 跳傘日飲食（怕低血壓）</h3>
-        <ul style="padding-left: 20px; font-size: 0.88rem;">
-          <li><strong>Day 1 晚上回飯店前</strong>，到便利商店買好隔天的<strong>早餐、點心、飲料、中午墊肚子的飯糰</strong>。</li>
-          <li>Day 2 出門前<strong>一定要吃早餐</strong>，不要空腹跳傘。</li>
-          <li>隨身帶<strong>能量果凍、糖果或巧克力、水或運動飲料</strong>，等待時少量補充。</li>
-          <li>傘場附近可能沒有商店，<strong>吃的喝的都要自己先帶</strong>。</li>
-          <li>頭暈、不舒服<strong>要馬上告訴教練</strong>。容易暈車的話，提前吃暈車藥。</li>
-        </ul>
-        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🏎️ 卡丁車（淺草店）</h3>
-        <ul style="padding-left: 20px; font-size: 0.88rem;">
-          <li><strong>台灣駕照正本＋日文譯本＋護照</strong>都要帶（台灣不適用國際駕照，日文譯本到監理站辦），18 歲以上。</li>
-          <li>10/24 下午場次<strong>尚未向店家確認</strong>，聯絡：📞 +81-80-9988-9988 ✉️ shina@kart.st（asakusa.streetkart.tokyo）。</li>
-          <li>好評優惠價需現場答應留 Google 評論，否則收原價。</li>
-          <li>10 月底戶外吹風會冷，帶防風外套、手套。</li>
         </ul>
         <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🛍️ 購物與免稅</h3>
         <ul style="padding-left: 20px; font-size: 0.88rem;">
@@ -934,13 +955,54 @@
           <li>吉伊卡哇公園（池袋）目前沒票，出發前可上 <a href="https://chiikawapark-tokyo.jp/ticket/" target="_blank">官方購票頁</a> 看有沒有人取消。</li>
         </ul>
       </div>
+    </div>
 
+    <!-- 行李清單 -->
+    <div id="pack" class="tab-content" style="display:none;">
       <div class="card">
-        <h2>👕 服裝提醒</h2>
-        <div class="notice-box">
-          💡 卡丁車（Day 1）和跳傘（Day 2）連續兩天，<strong>同一套「長褲＋綁帶平底球鞋＋保暖層」兩天都能穿</strong>，行李更省空間！
-        </div>
-        <h3 style="font-size: 1rem; color: var(--primary); margin: 4px 0 6px;">🏎️ 卡丁車（Day 1 下午・淺草）</h3>
+        <h2>🧳 行李清單（可勾選）</h2>
+        <div class="notice-box">酷航手提行李<strong>兩件合計 10kg</strong>，買太多記得看托運行李的重量。</div>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 4px 0 6px;">📄 證件與錢</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="c5" onchange="saveChecklist()"><label for="c5"><strong>護照</strong>（免稅、跳傘報到都要用）</label></li>
+          <li><input type="checkbox" id="p1" onchange="saveChecklist()"><label for="p1"><strong>台灣駕照正本＋日文譯本</strong>（卡丁車）</label></li>
+          <li><input type="checkbox" id="p2" onchange="saveChecklist()"><label for="p2">信用卡、少量日幣現金</label></li>
+          <li><input type="checkbox" id="p3" onchange="saveChecklist()"><label for="p3">手機（Suica、Skyliner 電子票、各種預約截圖）</label></li>
+        </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🔌 3C</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="p4" onchange="saveChecklist()"><label for="p4">手機充電器、充電線（日本插座和台灣一樣是兩孔扁插）</label></li>
+          <li><input type="checkbox" id="p5" onchange="saveChecklist()"><label for="p5">行動電源（<strong>只能放手提行李</strong>，不能托運）</label></li>
+        </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">👕 衣物（卡丁車、跳傘兩天都能穿）</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="c1" onchange="saveChecklist()"><label for="c1"><strong>綁鞋帶的平底球鞋</strong>（不能穿高跟鞋、涼鞋、靴子、厚底鞋）</label></li>
+          <li><input type="checkbox" id="c2" onchange="saveChecklist()"><label for="c2"><strong>長袖、長褲</strong>（不要連帽、有抽繩的款式），防風薄外套</label></li>
+          <li><input type="checkbox" id="p6" onchange="saveChecklist()"><label for="p6"><strong>脖圍、薄的保暖手套</strong>（高空和戶外都很冷，不能戴圍巾）</label></li>
+          <li><input type="checkbox" id="p7" onchange="saveChecklist()"><label for="p7"><strong>護目鏡或太陽眼鏡、輕便雨衣</strong>（卡丁車）</label></li>
+          <li><input type="checkbox" id="c4" onchange="saveChecklist()"><label for="c4"><strong>無金屬髮圈</strong>（長髮要綁好）</label></li>
+          <li><input type="checkbox" id="c3" onchange="saveChecklist()"><label for="c3"><strong>隱形眼鏡</strong>（跳傘時比一般眼鏡安全）</label></li>
+        </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">💊 其他</h3>
+        <ul class="checklist">
+          <li><input type="checkbox" id="p8" onchange="saveChecklist()"><label for="p8">暈車藥（容易暈車的話）</label></li>
+          <li><input type="checkbox" id="p9" onchange="saveChecklist()"><label for="p9">摺疊購物袋（便利商店、阿美橫丁買東西用）</label></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 跳傘＆卡丁車 -->
+    <div id="activity" class="tab-content" style="display:none;">
+      <div class="card">
+        <h2>🏎️ 卡丁車（Day 1 下午・淺草店）</h2>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 4px 0 6px;">📌 基本資訊</h3>
+        <ul style="padding-left: 20px; font-size: 0.88rem;">
+          <li>地址：<span class="jp-name">東京都台東区西浅草3-25-31</span>（9:30–21:30）</li>
+          <li>必帶<strong>台灣駕照正本＋日文譯本＋護照</strong>，沒有就不能開；18 歲以上。</li>
+          <li>10/24 下午場次<strong>尚未向店家確認</strong>，聯絡：📞 +81-80-9988-9988 ✉️ shina@kart.st</li>
+          <li>好評優惠價需現場答應留 Google 評論，否則收原價。</li>
+        </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 4px 0 6px;">👕 服裝</h3>
         <ul style="padding-left: 20px; font-size: 0.88rem;">
           <li>建議穿<strong>長袖、長褲</strong>（牛仔褲、休閒褲都可以），防風也防擦傷。<strong>不能穿裙子、洋裝</strong>，風很大，上下車也不方便。</li>
           <li><strong>包鞋、平底球鞋</strong>。<strong>禁止高跟鞋、涼鞋、拖鞋</strong>。</li>
@@ -949,7 +1011,17 @@
           <li><strong>不要戴長圍巾、垂墜飾品</strong>，可能被捲進車輪。長髮要綁好。</li>
           <li>建議<strong>自備護目鏡（或太陽眼鏡）和輕便雨衣</strong>，防風沙、防下雨。</li>
         </ul>
-        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🪂 跳傘（Day 2・Skydive Nippon）</h3>
+      </div>
+
+      <div class="card">
+        <h2>🪂 跳傘（Day 2・Skydive Nippon）</h2>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 4px 0 6px;">📌 基本資訊</h3>
+        <ul style="padding-left: 20px; font-size: 0.88rem;">
+          <li>集合、解散地點：<span class="jp-name">埼玉県比企郡川島町山ケ谷戸496</span>，<strong>最晚 09:30 報到</strong>。</li>
+          <li>從報到到跳完、拿影片約 3 小時以上。週末降落場在熊谷一帶，最後回到集合地點解散。</li>
+          <li>風雨可能取消或改時間，出發前留意傘場通知。</li>
+        </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">👕 服裝</h3>
         <ul style="padding-left: 20px; font-size: 0.88rem;">
           <li>會在衣服外面<strong>套一件連身跳傘服</strong>，裡面建議穿<strong>輕便好活動的長袖、長褲</strong>，高空風冷，也可以防曬防擦傷。</li>
           <li><strong>綁鞋帶的平底球鞋</strong>。<strong>禁止高跟鞋、涼鞋、靴子、厚底鞋</strong>，也不能穿裙子。</li>
@@ -959,20 +1031,20 @@
           <li>建議戴<strong>隱形眼鏡</strong>。只能戴一般眼鏡的話，先問現場有沒有可以套在眼鏡外的護目鏡。</li>
           <li>容易暈車的話，提前吃<strong>暈車藥</strong>。</li>
         </ul>
+        <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🍙 飲食（怕低血壓）</h3>
+        <ul style="padding-left: 20px; font-size: 0.88rem;">
+          <li><strong>Day 1 晚上回飯店前</strong>，到便利商店買好隔天的<strong>早餐、點心、飲料、中午墊肚子的飯糰</strong>。</li>
+          <li>Day 2 出門前<strong>一定要吃早餐</strong>，不要空腹跳傘。</li>
+          <li>隨身帶<strong>能量果凍、糖果或巧克力、水或運動飲料</strong>，等待時少量補充。</li>
+          <li>傘場附近可能沒有商店，<strong>吃的喝的都要自己先帶</strong>。</li>
+          <li>頭暈、不舒服<strong>要馬上告訴教練</strong>。容易暈車的話，提前吃暈車藥。</li>
+        </ul>
       </div>
 
       <div class="card">
-        <h2>跳傘必備物品與注意事項（可即時勾選）</h2>
-        <ul class="checklist">
-          <li><input type="checkbox" id="c1" onchange="saveChecklist()"><label for="c1">平底運動鞋/球鞋（嚴禁高跟鞋、涼鞋、厚底鞋）</label></li>
-          <li><input type="checkbox" id="c2" onchange="saveChecklist()"><label for="c2">無帽抽繩的輕便合身長褲、防風薄外套</label></li>
-          <li><input type="checkbox" id="c3" onchange="saveChecklist()"><label for="c3">隱形眼鏡（避免戴一般鏡框眼鏡受強風吹落）</label></li>
-          <li><input type="checkbox" id="c4" onchange="saveChecklist()"><label for="c4">素色無金屬髮圈（長髮需紮好）</label></li>
-          <li><input type="checkbox" id="c5" onchange="saveChecklist()"><label for="c5">護照與 Skydive Nippon 預約確認證明截圖</label></li>
-          <li><input type="checkbox" id="c6" onchange="saveChecklist()"><label for="c6">日本叫車 App（事先下載 GO 或 Uber 綁定信用卡）</label></li>
-          <li><input type="checkbox" id="c7" onchange="saveChecklist()"><label for="c7">海外旅遊突發疾病與跳傘平安險證明文件</label></li>
-          <li><input type="checkbox" id="c8" onchange="saveChecklist()"><label for="c8">Visit Japan Web 填寫完成 QR Code</label></li>
-        </ul>
+        <div class="notice-box">
+          💡 卡丁車（Day 1）和跳傘（Day 2）連續兩天，<strong>同一套「長褲＋綁帶平底球鞋＋保暖層」兩天都能穿</strong>，行李更省空間！
+        </div>
       </div>
     </div>
   </div>
