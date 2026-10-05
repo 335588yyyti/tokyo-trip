@@ -456,6 +456,29 @@
       font-size: 0.84rem;
       color: #9a3412;
     }
+    .timeline-item.meal {
+      background: #fff7ed;
+      border: 1px solid #fed7aa;
+      border-left: 4px solid #f97316;
+      border-radius: 10px;
+      padding: 10px 12px 10px 18px;
+    }
+    .timeline-item.meal::before {
+      background: #f97316;
+      left: -8px;
+      top: 15px;
+    }
+    .meal-badge {
+      display: inline-block;
+      background: #f97316;
+      color: white;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 1px 8px;
+      border-radius: 999px;
+      margin-right: 4px;
+      vertical-align: 2px;
+    }
   </style>
 </head>
 <body>
@@ -483,15 +506,20 @@
     <div id="day1" class="tab-content">
       <div class="card">
         <h2>抵達東京與精緻商圈漫步</h2>
-        <div class="route-legend">交通格子顏色：<span class="lg lg-train">🚇 電車／地鐵</span><span class="lg lg-bus">🚌 巴士</span><span class="lg lg-walk">🚶 步行</span><span class="lg lg-taxi">🚕 計程車</span><br>票價為 <strong>Suica 等 IC 卡</strong>價格（買紙本車票會多幾日圓）；計程車為依官方運價估算，實際依路況。</div>
+        <div class="route-legend">交通格子顏色：<span class="lg lg-train">🚇 電車／地鐵</span><span class="lg lg-bus">🚌 巴士</span><span class="lg lg-walk">🚶 步行</span><span class="lg lg-taxi">🚕 計程車</span><span class="lg" style="background:#fff7ed;color:#c2410c;">🍽️ 三餐</span><br>票價為 <strong>Suica 等 IC 卡</strong>價格（買紙本車票會多幾日圓）；計程車為依官方運價估算，實際依路況。</div>
+        <div class="timeline-item meal">
+          <div class="time">05:00 - 06:15</div>
+          <div class="event-title"><span class="meal-badge">🍳 早餐</span> 桃園機場</div>
+          <div class="event-desc">06:45 起飛，報到後在桃園機場吃。酷航機上餐點要另外付費，想在機上吃可以事先加購。</div>
+        </div>
         <div class="timeline-item">
           <div class="time">11:15 抵達</div>
           <div class="event-title">酷航 TR866 降落成田機場 <span class="jp-name">成田空港 第1ターミナル</span></div>
-          <div class="event-desc">🍳 <strong>早餐</strong>：06:45 起飛，請在<strong>桃園機場報到後先吃</strong>（酷航機上餐點要另外付費，想在機上吃可事先加購）。<br>落地後出關、提領行李約 75 分鐘。</div>
+          <div class="event-desc">落地後出關、提領行李約 75 分鐘。</div>
         </div>
-        <div class="timeline-item">
+        <div class="timeline-item meal">
           <div class="time">12:30 - 13:20</div>
-          <div class="event-title">🍽️ 午餐：成田機場第 1 航廈 餐廳</div>
+          <div class="event-title"><span class="meal-badge">🍜 午餐</span> 成田機場第 1 航廈 餐廳</div>
           <div class="event-desc">出關後搭電梯到<strong>中央大樓 4F・5F</strong>（出境安檢前的區域，入境旅客也能去）。<br>・<strong>5F「スカイフードコート」</strong>美食街：杵屋麦丸（烏龍麵，7:30–20:30）、洋食屋 五右衛門（義大利麵，9:00–20:00）、吟しゃり北海道（壽司，8:00–20:00）、ジャイタイ（泰式，10:00–20:30）等<br>・<strong>4F</strong>：だし茶漬け えん（茶泡飯，7:30–20:30）、スターバックス等<br>吃完到 <strong>B1「成田空港」站</strong>，在 Skyliner 櫃台換來回票。</div>
         </div>
         <div class="timeline-item">
@@ -554,9 +582,9 @@
           <div class="event-desc">東京都渋谷区宇田川町21-1（11:00–21:00，有免稅）。這兩款洗髮精官方寫的販售通路是 LOFT、PLAZA 等雜貨店，<strong>唐吉訶德、松本清不一定有</strong>，所以在這裡買。各分店不一定有貨。</div>
           <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>從渋谷 PARCO 走過去，約 200m。<div class="route-meta">⏱ 約 3 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E6%B8%8B%E8%B0%B7PARCO&destination=%E6%B8%8B%E8%B0%B7%E3%83%AD%E3%83%95%E3%83%88&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
         </div>
-        <div class="timeline-item">
+        <div class="timeline-item meal">
           <div class="time">20:25 - 21:10</div>
-          <div class="event-title">澀谷晚餐 <span class="jp-name">渋谷 (Shibuya)</span></div>
+          <div class="event-title"><span class="meal-badge">🌙 晚餐</span> 澀谷 <span class="jp-name">渋谷 (Shibuya)</span></div>
           <div class="event-desc">晚餐可吃 <strong>AFURI 柚子鹽拉麵</strong>。吃完步行到澀谷站（從 PARCO 約 7 分）。</div>
         </div>
         <div class="timeline-item">
@@ -591,10 +619,15 @@
         <div class="notice-box">
           <strong>⚡ 10:00 場次叮嚀（總流程約 3 小時以上）：</strong> 傘場要求最晚 <strong>09:30</strong> 報到！集合與解散地點都是 <span class="jp-name">埼玉県比企郡川島町山ケ谷戸496</span>。週末的降落場在熊谷一帶，最後仍回到集合地點解散。
         </div>
+        <div class="timeline-item meal">
+          <div class="time">06:40 - 07:05</div>
+          <div class="event-title"><span class="meal-badge">🍳 早餐</span> 飯店房間</div>
+          <div class="event-desc">吃前一晚在便利商店買好的早餐，<strong>不要空腹跳傘</strong>。點心、飲料和中午的飯糰放進隨身包。</div>
+        </div>
         <div class="timeline-item">
           <div class="time">07:10 - 08:12</div>
           <div class="event-title">APA 出發 ➔ JR 高崎線直達桶川</div>
-          <div class="event-desc">🍙 <strong>出門前先在房間吃完早餐</strong>，點心、飲料和中午的飯糰放進隨身包。穿平底運動球鞋與防風長褲。</div>
+          <div class="event-desc">穿平底運動球鞋與防風長褲。</div>
           <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 JR 高崎線（推薦，免換車）</span><ol><li>從 APA 步行約 3 分到 <strong>JR 上野站「廣小路口」</strong>，刷 IC 卡進站</li><li>搭 <strong>JR 高崎線 07:33「籠原」行</strong>（5 番線，以站內電子看板為準）</li><li>坐到<strong>「桶川」</strong> 08:12 下車</li></ol><div class="route-meta">⏱ 乘車約 39 分　💴 ¥715</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E4%B8%8A%E9%87%8E%E9%A7%85&destination=%E6%A1%B6%E5%B7%9D%E9%A7%85&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-train"><span class="route-label">🚇 其他班次（週日）</span><strong>07:24「高崎」行 → 08:06 到</strong>（提早到就搭這班）。<br>⚠️ 下一班直達車 <strong>07:57 → 08:37 到</strong>，會趕不上 08:38 的巴士，只能改搭計程車（仍來得及 09:30 報到）。<br>⚠️ 只搭目的地是「<strong>高崎・籠原・前橋</strong>」的高崎線；「宇都宮線」不會經過桶川。</div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>上野到桶川約 40km，費用會超過 ¥15,000，請搭電車。</div></div>
         </div>
         <div class="timeline-item">
@@ -625,9 +658,9 @@
           <div class="event-desc">菓子屋橫丁內（9:30–<strong>17:30</strong>，免門票）。關東唯一一間，有川越限定商品。<strong>抵達川越第一站就來：週日人多，晚到可能領不到整理券！</strong></div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ちいかわもぐもぐ本舗+川越店" target="_blank">Google Maps 導航</a>
         </div>
-        <div class="timeline-item">
+        <div class="timeline-item meal">
           <div class="time">14:45 - 17:30</div>
-          <div class="event-title">川越老街散策 & 遲來的午餐</div>
+          <div class="event-title"><span class="meal-badge">🍜 午餐</span> 川越老街散策 & 遲來的午餐</div>
           <div class="event-desc">享用知名鰻魚飯、紫薯點心，漫步時之鐘 <span class="jp-name">時の鐘</span> 與冰川神社 <span class="jp-name">川越氷川神社</span> 釣鯛魚籤拍美照。</div>
         </div>
         <div class="timeline-item">
@@ -635,9 +668,9 @@
           <div class="event-title">回上野</div>
           <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 東武東上線＋JR 山手線（推薦，不用加價）</span><ol><li>從菓子屋橫丁步行約 18 分到<strong>東武「川越市」站</strong></li><li>搭<strong>東武東上線，往「池袋」</strong>（選「川越特急／急行／快速」等，<strong>終點是「池袋」</strong>的車）</li><li>在「池袋」轉 <strong>JR 山手線外回り「上野・東京方面」（7 番線）</strong></li><li>在「上野」下車，走「廣小路口」</li></ol><div class="route-meta">⏱ 共約 1 小時 10 分　💴 ¥690（東武 ¥481＋JR ¥209）<br>⚠️ 終點寫「元町・中華街」等的東上線列車<strong>不會開到池袋</strong>（會轉到地鐵），不要搭。</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E5%B7%9D%E8%B6%8A%E5%B8%82%E9%A7%85&destination=%E4%B8%8A%E9%87%8E%E9%A7%85&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-bus"><span class="route-label">🚌 巴士＋東武（不想走路時）</span><ol><li>菓子屋橫丁旁的「札の辻」站搭東武巴士往<strong>「川越駅」</strong>（約 15 分，¥230）</li><li>在東武「川越」站搭東上線往「池袋」，再轉 JR 山手線到上野</li></ol></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>川越到上野約 45km，要走高速，費用約 ¥20,000 以上加高速費。</div></div>
         </div>
-        <div class="timeline-item">
+        <div class="timeline-item meal">
           <div class="time">18:45 - 19:45</div>
-          <div class="event-title">返回東京慶功拉麵！</div>
+          <div class="event-title"><span class="meal-badge">🌙 晚餐</span> 返回東京慶功拉麵！</div>
           <div class="event-desc">在上野吃 <strong>麵屋武藏 武骨相傳</strong>（厚切叉燒沾麵，地鐵上野站 6 號出口步行約 1 分）或 <strong>一蘭拉麵</strong>。</div>
         </div>
         <div class="timeline-item">
@@ -707,10 +740,15 @@
         <div class="notice-box">
           <strong>✈️ 回程 TR875 19:45 起飛（成田第 1 航廈）：</strong>酷航報到櫃台<strong>起飛前 60 分鐘關閉（18:45）</strong>，務必搭 <strong>16:20 Skyliner</strong>！
         </div>
+        <div class="timeline-item meal">
+          <div class="time">08:45 - 09:20</div>
+          <div class="event-title"><span class="meal-badge">🍳 早餐</span> 飯店房間</div>
+          <div class="event-desc">吃前一晚在便利商店買好的早餐，吃完整理行李、退房。</div>
+        </div>
         <div class="timeline-item">
           <div class="time">09:30</div>
           <div class="event-title">辦理退房 ＆ 行李免費寄放 APA 櫃檯</div>
-          <div class="event-desc">🍳 <strong>早餐</strong>：退房前在房間吃前一晚買好的早餐。<br><strong>退房最晚 10:00</strong>，行李寄放飯店，帶著隨身包輕鬆出發最後巡禮。</div>
+          <div class="event-desc"><strong>退房最晚 10:00</strong>，行李寄放飯店，帶著隨身包輕鬆出發最後巡禮。</div>
         </div>
         <div class="timeline-item">
           <div class="time">09:35 - 10:00</div>
@@ -725,26 +763,27 @@
         </div>
         <div class="timeline-item">
           <div class="time">10:45 - 11:05</div>
-          <div class="event-title">前往御徒町（不用回上野）</div>
-          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 JR 山手線（推薦）</span><ol><li>從八重洲北口進站，搭 <strong>JR 山手線內回り「上野・池袋方面」（4 番線）</strong></li><li>坐 3 站，在<strong>「御徒町」</strong>下車（約 6 分）</li><li>走<strong>「北口」</strong>，往東側步行約 3–5 分到多慶屋</li></ol><div class="route-meta">⏱ 共約 20 分　💴 ¥155<br>⚠️ <strong>平日白天（約 10:30–15:30）京濱東北線是「快速」，不停御徒町</strong>，請搭山手線。</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E6%9D%B1%E4%BA%AC%E9%A7%85&destination=%E5%A4%9A%E6%85%B6%E5%B1%8B+%E5%BE%A1%E5%BE%92%E7%94%BA%E6%9C%AC%E5%BA%97&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 3.5km。給司機看：<span class="jp-name">多慶屋 御徒町本店</span><div class="route-meta">⏱ 約 15 分　💴 約 ¥1,600–2,000</div></div></div>
+          <div class="event-title">前往御徒町吃午餐（不用回上野）</div>
+          <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 JR 山手線（推薦）</span><ol><li>從八重洲北口進站，搭 <strong>JR 山手線內回り「上野・池袋方面」（4 番線）</strong></li><li>坐 3 站，在<strong>「御徒町」</strong>下車（約 6 分）</li><li>走<strong>「北口」</strong>，步行約 2 分到鴨 to 葱</li></ol><div class="route-meta">⏱ 共約 20 分　💴 ¥155<br>⚠️ <strong>平日白天（約 10:30–15:30）京濱東北線是「快速」，不停御徒町</strong>，請搭山手線。</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E6%9D%B1%E4%BA%AC%E9%A7%85&destination=%E3%82%89%E3%83%BC%E3%82%81%E3%82%93+%E9%B4%A8to%E8%91%B1&travelmode=transit" target="_blank">Google Maps 路線 ↗</a></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車</span>約 3.5km。給司機看：<span class="jp-name">らーめん 鴨to葱（御徒町）</span><div class="route-meta">⏱ 約 15 分　💴 約 ¥1,600–2,000</div></div></div>
+        </div>
+        <div class="timeline-item meal">
+          <div class="time">11:00 - 11:40</div>
+          <div class="event-title"><span class="meal-badge">🍜 午餐</span> 鴨 to 葱 <span class="jp-name">らーめん 鴨to葱</span></div>
+          <div class="event-desc">鴨肉清湯拉麵。<strong>上午排隊只要約 5–10 分</strong>，中午 12–14 點會排到 30–40 分，所以先來吃。JR 御徒町站北口步行約 2 分。</div>
+          <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=らーめん+鴨to葱+御徒町" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
-          <div class="time">11:05 - 12:00</div>
+          <div class="time">11:45 - 12:40</div>
           <div class="event-title">🛍️ 大創 多慶屋御徒町店 <span class="jp-name">DAISO 多慶屋御徒町店</span></div>
           <div class="event-desc">多慶屋 TAKEYA1 4F（9:00–21:00）。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>從鴨 to 葱往東穿過 JR 高架橋下，約 350m。<div class="route-meta">⏱ 約 5 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E3%82%89%E3%83%BC%E3%82%81%E3%82%93+%E9%B4%A8to%E8%91%B1&destination=%E5%A4%9A%E6%85%B6%E5%B1%8B+%E5%BE%A1%E5%BE%92%E7%94%BA%E6%9C%AC%E5%BA%97&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ダイソー+多慶屋御徒町店" target="_blank">Google Maps 導航</a>
-        </div>
-        <div class="timeline-item">
-          <div class="time">12:00 - 12:40</div>
-          <div class="event-title">午餐（御徒町，簡單吃）</div>
-          <div class="event-desc">候選：<strong>鴨 to 葱</strong>（見「人氣拉麵」頁），就在 UNIQLO 旁邊。</div>
-          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>從多慶屋往西穿過 JR 高架橋下，約 350m。<div class="route-meta">⏱ 約 5 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E5%A4%9A%E6%85%B6%E5%B1%8B+%E5%BE%A1%E5%BE%92%E7%94%BA%E6%9C%AC%E5%BA%97&destination=%E3%82%89%E3%83%BC%E3%82%81%E3%82%93+%E9%B4%A8to%E8%91%B1&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
         </div>
         <div class="timeline-item">
           <div class="time">12:40 - 14:10</div>
           <div class="event-title">🛍️ UNIQLO 御徒町店 ＋ GU 御徒町店</div>
           <div class="event-desc">同一棟「御徒町吉池本店大樓」：<strong>UNIQLO 1F–4F、GU 5F–6F</strong>（10:00–21:00），JR 御徒町站旁。</div>
-          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>從鴨 to 葱約 150m。<div class="route-meta">⏱ 約 2 分</div></div></div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>從多慶屋往西穿過 JR 高架橋下，約 350m。<div class="route-meta">⏱ 約 5 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E5%A4%9A%E6%85%B6%E5%B1%8B+%E5%BE%A1%E5%BE%92%E7%94%BA%E6%9C%AC%E5%BA%97&destination=%E3%83%A6%E3%83%8B%E3%82%AF%E3%83%AD+%E5%BE%A1%E5%BE%92%E7%94%BA%E5%BA%97&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ユニクロ+御徒町店" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
@@ -778,9 +817,19 @@
           <div class="route-box"><div class="route-opt opt-train"><span class="route-label">🚇 Skyliner（推薦）</span><ol><li>京成上野站搭 <strong>Skyliner 65 號 16:20</strong>（全車指定席）</li><li><strong>⚠️ 坐到最後一站「成田空港」</strong>（17:04），<strong>不要在「空港第2ビル」下車</strong></li></ol><div class="route-meta">⏱ 約 44 分　💴 用來回優惠票的回程票（Day 1 在成田換票時，<strong>問櫃台回程座位怎麼劃位</strong>）<br>備案：下一班 Skyliner 約 20 分鐘後。</div></div><div class="route-opt opt-taxi"><span class="route-label">🚕 計程車（不推薦）</span>台東區 → 成田機場有<strong>定額計程車 ¥26,000</strong>（高速費另計），需乘車 1 小時前預約。<div class="route-meta">⏱ 約 1 小時–1 小時 20 分（看路況）</div></div></div>
         </div>
         <div class="timeline-item">
-          <div class="time">17:05 起</div>
-          <div class="event-title">酷航櫃台報到、托運行李 → 🍽️ 晚餐 → 出境</div>
-          <div class="event-desc"><strong>先報到、托運行李</strong>（櫃台 18:45 關）→ 約 17:30–18:15 到<strong>中央大樓 4F・5F 吃晚餐</strong>（美食街多數開到 20:00–20:30）→ 約 18:15 過安檢出境，再逛免稅店、買伴手禮。<br>⚠️ 酷航機上餐點要另外付費。</div>
+          <div class="time">17:05 - 17:30</div>
+          <div class="event-title">酷航櫃台報到、托運行李</div>
+          <div class="event-desc">第 1 航廈南翼。<strong>先報到再吃飯</strong>，櫃台 18:45 關閉。</div>
+        </div>
+        <div class="timeline-item meal">
+          <div class="time">17:30 - 18:15</div>
+          <div class="event-title"><span class="meal-badge">🌙 晚餐</span> 成田機場第 1 航廈 餐廳</div>
+          <div class="event-desc">中央大樓 4F・5F（出境安檢前），美食街多數開到 20:00–20:30。酷航機上餐點要另外付費。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">18:15 起</div>
+          <div class="event-title">過安檢出境 ＆ 免稅店最後補貨</div>
+          <div class="event-desc">出境後可以逛免稅店、買伴手禮（東京芭娜娜、PRESS BUTTER SAND 等）。</div>
         </div>
         <div class="timeline-item">
           <div class="time">19:45 起飛 ➔ 22:55 抵達</div>
