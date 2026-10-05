@@ -241,6 +241,24 @@
       color: var(--muted);
       text-align: right;
     }
+    .settle-box {
+      background: var(--primary-light);
+      color: var(--primary);
+      font-weight: 700;
+      font-size: 1.05rem;
+      text-align: center;
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 4px;
+    }
+    .payer-sel {
+      font-size: 0.75rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 1px 2px;
+      margin-left: 4px;
+      background: white;
+    }
     .expense-list {
       list-style: none;
       margin-top: 12px;
@@ -966,22 +984,33 @@
           <input type="number" inputmode="decimal" id="itemAmount" class="calc-input" placeholder="金額">
         </div>
         <div class="calc-row">
-          <select id="itemType" class="calc-input">
-            <option value="split">兩人公費分攤 (÷ 2)</option>
-            <option value="single">個人單獨消費</option>
+          <select id="itemPayer" class="calc-input" style="flex: 0 0 105px;" onchange="rememberPayer()">
+            <option value="洪">洪 付的</option>
+            <option value="盧">盧 付的</option>
           </select>
-          <button class="calc-btn" onclick="addExpense()">＋ 新增一筆</button>
+          <select id="itemType" class="calc-input">
+            <option value="split">兩人平分</option>
+            <option value="single">付款人自己的</option>
+            <option value="other">幫對方代墊</option>
+          </select>
         </div>
+        <div class="calc-row">
+          <button class="calc-btn" style="flex: 1;" onclick="addExpense()">＋ 新增一筆</button>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--muted); margin: -4px 0 8px;">「兩人平分」＝對方要還一半；「付款人自己的」＝不用還；「幫對方代墊」＝對方要全額還（例如幫忙買待購的東西）。</div>
 
         <ul id="expenseList" class="expense-list"></ul>
 
         <div style="margin-top: 16px; padding-top: 14px; border-top: 2px dashed var(--border);">
-          <div class="sum-row"><span>兩人公費累計</span><span id="totalSplit" style="color: var(--accent);">NT$ 0</span></div>
+          <div class="settle-box" id="settleResult">目前不用互相還錢</div>
+          <div class="sum-sub" id="settleDetail" style="text-align: center; margin-bottom: 10px;"></div>
+          <div class="sum-row"><span>兩人平分累計</span><span id="totalSplit" style="color: var(--accent);">NT$ 0</span></div>
           <div class="sum-sub" id="totalSplitDetail">日幣 ¥0 ＋ 台幣 NT$ 0</div>
-          <div class="sum-row" style="margin-top: 8px;"><span>每人應分攤</span><span id="perPerson" style="color: var(--primary);">NT$ 0</span></div>
-          <div class="sum-sub" id="perPersonDetail">日幣 ¥0 ＋ 台幣 NT$ 0</div>
-          <div class="sum-row" style="margin-top: 8px;"><span>個人消費累計</span><span id="totalSingle">NT$ 0</span></div>
-          <div class="sum-sub" id="totalSingleDetail">日幣 ¥0 ＋ 台幣 NT$ 0</div>
+          <div class="sum-row" style="margin-top: 8px;"><span>洪 實際花費</span><span id="costHong" style="color: var(--primary);">NT$ 0</span></div>
+          <div class="sum-row" style="margin-top: 4px;"><span>盧 實際花費</span><span id="costLu" style="color: var(--primary);">NT$ 0</span></div>
+          <div class="sum-sub">實際花費＝自己的消費＋平分的一半＋對方幫忙代墊的</div>
+          <div class="sum-row" style="margin-top: 8px;"><span>洪 付出去的</span><span id="paidHong">NT$ 0</span></div>
+          <div class="sum-row" style="margin-top: 4px;"><span>盧 付出去的</span><span id="paidLu">NT$ 0</span></div>
           <div class="sum-sub" style="margin-top: 6px;">※ 合計都換算成台幣（依上方匯率）。</div>
         </div>
 
@@ -989,7 +1018,7 @@
           <button class="calc-btn" style="flex: 1;" onclick="exportExpenses()">📤 匯出備份</button>
           <button class="calc-btn" style="flex: 1; background: #64748b;" onclick="importExpenses()">📥 匯入備份</button>
         </div>
-        <div style="font-size: 0.8rem; color: var(--muted); margin-top: 6px;">匯出會產生一段文字（明細＋合計＋備份碼），可以分享到 LINE 或貼到備忘錄。換手機或資料不見時，按「匯入備份」貼回整段文字即可還原。</div>
+        <div style="font-size: 0.8rem; color: var(--muted); margin-top: 6px;">匯出會產生一段文字（明細＋結算＋備份碼），可以分享到 LINE 或貼到備忘錄。<br><strong>兩支手機合併</strong>：對方匯出傳到 LINE → 你長按複製 → 按「匯入備份」貼上，重複的項目會自動跳過。資料不見時也用同樣方法還原。</div>
 
         <button onclick="clearAllExpenses()" style="margin-top: 18px; width: 100%; background: none; border: 1px solid #ef4444; color: #ef4444; padding: 10px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer;">
           清空所有記帳紀錄
@@ -1223,13 +1252,14 @@
       const amount = parseFloat(document.getElementById('itemAmount').value);
       const type = document.getElementById('itemType').value;
       const currency = document.getElementById('itemCurrency').value;
+      const payer = document.getElementById('itemPayer').value;
 
       if (!title || isNaN(amount) || amount <= 0) {
         alert('請填寫正確的項目名稱與金額喔！');
         return;
       }
 
-      expenses.push({ id: Date.now(), title, amount, type, currency });
+      expenses.push({ id: Date.now(), title, amount, type, currency, payer });
       document.getElementById('itemTitle').value = '';
       document.getElementById('itemAmount').value = '';
       saveAndRender();
@@ -1240,11 +1270,11 @@
       const lines = ['【東京旅費記帳備份】' + new Date().toLocaleString('zh-TW'), ''];
       expenses.forEach(item => {
         const cur = item.currency === 'TWD' ? 'NT$ ' : '¥';
-        lines.push(`・${item.title}｜${cur}${fmt(item.amount)}｜${item.type === 'split' ? '公費平分' : '個人'}`);
+        lines.push(`・${item.title}｜${cur}${fmt(item.amount)}｜${item.payer || '?'} 付｜${TYPE_LABEL[item.type] || '自己的'}`);
       });
-      lines.push('', '兩人公費累計：' + document.getElementById('totalSplit').innerText + '（' + document.getElementById('totalSplitDetail').innerText + '）');
-      lines.push('每人應分攤：' + document.getElementById('perPerson').innerText + '（' + document.getElementById('perPersonDetail').innerText + '）');
-      lines.push('個人消費累計：' + document.getElementById('totalSingle').innerText + '（' + document.getElementById('totalSingleDetail').innerText + '）');
+      lines.push('', '結算：' + document.getElementById('settleResult').innerText);
+      if (document.getElementById('settleDetail').innerText) lines.push(document.getElementById('settleDetail').innerText);
+      lines.push('洪 實際花費：' + document.getElementById('costHong').innerText, '盧 實際花費：' + document.getElementById('costLu').innerText);
       lines.push('匯率：1 日圓 = ' + currentRate + ' 台幣', '', '備份碼（還原用，請整段保留）：', JSON.stringify(expenses));
       return lines.join('\n');
     }
@@ -1299,36 +1329,63 @@
       return d.innerHTML;
     }
 
+    const PEOPLE = ['洪', '盧'];
+    const TYPE_LABEL = { split: '兩人平分', single: '自己的', other: '代墊' };
+    const TYPE_STYLE = { split: ['#dcfce7', '#166534'], single: ['#e0e7ff', '#3730a3'], other: ['#fef3c7', '#92400e'] };
+
     function toTwd(item) {
       return item.currency === 'TWD' ? item.amount : item.amount * currentRate;
+    }
+
+    function rememberPayer() {
+      try { localStorage.setItem('japan_payer', document.getElementById('itemPayer').value); } catch (e) {}
+    }
+
+    function setPayer(id, payer) {
+      const item = expenses.find(x => x.id === id);
+      if (item) { item.payer = payer; saveAndRender(); }
+    }
+
+    function computeTotals() {
+      const t = { splitJ: 0, splitT: 0, cost: { 洪: 0, 盧: 0 }, paid: { 洪: 0, 盧: 0 }, owed: 0, unassigned: 0 };
+      // owed > 0：盧 要給 洪；owed < 0：洪 要給 盧（台幣）
+      expenses.forEach(item => {
+        const v = toTwd(item);
+        if (item.type === 'split') { if (item.currency === 'TWD') t.splitT += item.amount; else t.splitJ += item.amount; }
+        if (!PEOPLE.includes(item.payer)) { t.unassigned++; return; }
+        const payer = item.payer, other = payer === '洪' ? '盧' : '洪';
+        const sign = payer === '洪' ? 1 : -1;
+        t.paid[payer] += v;
+        if (item.type === 'split') { t.cost[payer] += v / 2; t.cost[other] += v / 2; t.owed += sign * v / 2; }
+        else if (item.type === 'other') { t.cost[other] += v; t.owed += sign * v; }
+        else { t.cost[payer] += v; }
+      });
+      return t;
     }
 
     function renderExpenses() {
       const listEl = document.getElementById('expenseList');
       listEl.innerHTML = '';
-      const sum = { split: { JPY: 0, TWD: 0 }, single: { JPY: 0, TWD: 0 } };
 
       expenses.forEach(item => {
         const currency = item.currency === 'TWD' ? 'TWD' : 'JPY';
-        const isSplit = item.type === 'split';
-        sum[isSplit ? 'split' : 'single'][currency] += item.amount;
-
+        const type = TYPE_LABEL[item.type] ? item.type : 'single';
         const main = currency === 'TWD'
           ? `NT$ ${item.amount.toLocaleString()}`
           : `¥${item.amount.toLocaleString()}`;
         const sub = currency === 'TWD'
           ? '台幣支付'
           : `約 NT$ ${Math.round(item.amount * currentRate).toLocaleString()}`;
+        const opts = ['<option value="">⚠️ 誰付的？</option>'].concat(PEOPLE.map(n => `<option value="${n}" ${item.payer === n ? 'selected' : ''}>${n} 付</option>`)).join('');
+        const [bg, fg] = TYPE_STYLE[type];
 
         const li = document.createElement('li');
         li.className = 'expense-item';
         li.innerHTML = `
           <div style="min-width: 0;">
             <strong>${escapeHtml(item.title)}</strong>
-            <span style="font-size:0.75rem; background:${isSplit ? '#dcfce7':'#e0e7ff'}; color:${isSplit ? '#166534':'#3730a3'}; padding:2px 6px; border-radius:4px; margin-left:4px;">
-              ${isSplit ? '公費平分' : '個人'}
-            </span>
-            <div style="font-size: 0.8rem; color: var(--muted);">${sub}</div>
+            <span style="font-size:0.75rem; background:${bg}; color:${fg}; padding:2px 6px; border-radius:4px; margin-left:4px;">${TYPE_LABEL[type]}</span>
+            <div style="font-size: 0.8rem; color: var(--muted);">${sub}<select class="payer-sel" onchange="setPayer(${item.id}, this.value)">${opts}</select></div>
           </div>
           <div style="display:flex; align-items:center; flex-shrink: 0;">
             <span style="font-weight:600; color:${currency === 'TWD' ? 'var(--primary)' : 'var(--accent)'};">${main}</span>
@@ -1339,14 +1396,21 @@
       });
 
       const fmt = (n) => Math.round(n).toLocaleString();
-      const show = (key, div, mainId, detailId) => {
-        const j = sum[key].JPY / div, t = sum[key].TWD / div;
-        document.getElementById(mainId).innerText = `約 NT$ ${fmt(j * currentRate + t)}`;
-        document.getElementById(detailId).innerText = `日幣 ¥${fmt(j)} ＋ 台幣 NT$ ${fmt(t)}`;
-      };
-      show('split', 1, 'totalSplit', 'totalSplitDetail');
-      show('split', 2, 'perPerson', 'perPersonDetail');
-      show('single', 1, 'totalSingle', 'totalSingleDetail');
+      const t = computeTotals();
+      const owed = Math.round(t.owed);
+      const settle = document.getElementById('settleResult');
+      if (owed > 0) settle.innerText = `💸 盧 要給 洪 約 NT$ ${fmt(owed)}`;
+      else if (owed < 0) settle.innerText = `💸 洪 要給 盧 約 NT$ ${fmt(-owed)}`;
+      else settle.innerText = '目前不用互相還錢';
+      document.getElementById('settleDetail').innerText = t.unassigned
+        ? `⚠️ 有 ${t.unassigned} 筆還沒選「誰付的」，沒算進來，請在明細裡補選`
+        : '';
+      document.getElementById('totalSplit').innerText = `約 NT$ ${fmt(t.splitJ * currentRate + t.splitT)}`;
+      document.getElementById('totalSplitDetail').innerText = `日幣 ¥${fmt(t.splitJ)} ＋ 台幣 NT$ ${fmt(t.splitT)}`;
+      document.getElementById('costHong').innerText = `約 NT$ ${fmt(t.cost.洪)}`;
+      document.getElementById('costLu').innerText = `約 NT$ ${fmt(t.cost.盧)}`;
+      document.getElementById('paidHong').innerText = `約 NT$ ${fmt(t.paid.洪)}`;
+      document.getElementById('paidLu').innerText = `約 NT$ ${fmt(t.paid.盧)}`;
     }
 
     function saveChecklist() {
@@ -1367,6 +1431,7 @@
 
     window.onload = function() {
       if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
+      try { const pp = localStorage.getItem('japan_payer'); if (pp) document.getElementById('itemPayer').value = pp; } catch (e) {}
       renderExpenses();
       loadChecklist();
     };
