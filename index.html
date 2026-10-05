@@ -1319,15 +1319,17 @@
         saveAndRender();
         setSyncStatus('✅ 已同步 ' + new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' }));
       } catch (e) {
-        setSyncStatus('⚠️ 沒有網路或同步失敗，資料已存在手機，下次會自動補同步');
+        setSyncStatus('⚠️ 沒有網路或同步失敗，資料已存在手機，下次會自動補同步（' + (e && e.message ? e.message : e) + '）');
       } finally {
         syncing = false;
       }
     }
 
     function saveSyncUrl() {
-      const v = document.getElementById('syncUrlInput').value.trim();
-      if (v && !/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(v)) {
+      const raw = document.getElementById('syncUrlInput').value.replace(/\s+/g, '');
+      const m = raw.match(/https:\/\/script\.google\.com\/macros\/s\/[A-Za-z0-9_-]+\/exec/);
+      const v = m ? m[0] : '';
+      if (raw && !v) {
         alert('網址格式不對：要是 https://script.google.com/macros/s/……/exec');
         return;
       }
