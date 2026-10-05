@@ -982,7 +982,8 @@
 
       <div class="card">
         <h2>📝 旅費隨手記帳 (自動儲存)</h2>
-        <div class="notice-box" style="margin-top: 0;">
+        <div id="cloudOk" style="display: none; font-size: 0.85rem; color: var(--primary); background: var(--primary-light); border-radius: 8px; padding: 8px 10px; margin-bottom: 12px;">☁️ 已開啟雲端同步：記帳會存到 Google 試算表，換手機或資料被清掉都能抓回來。</div>
+        <div id="localWarn" class="notice-box" style="margin-top: 0;">
           ⚠️ <strong>沒設定上方「雲端同步」時，記帳只存在「這支手機的這個瀏覽器」裡</strong>。設定後會自動存到 Google 試算表。為了不遺失：<br>
           ・用 <strong>Safari 打開</strong>，再按「分享 → <strong>加入主畫面</strong>」，之後都從主畫面圖示開（<strong>不要用 LINE 裡面直接開</strong>，LINE 內建瀏覽器的資料可能被清掉）<br>
           ・iPhone Safari 如果<strong>超過 7 天沒打開這個網站，資料可能被自動清除</strong>，從主畫面圖示開可以避免<br>
@@ -1348,6 +1349,8 @@
       const input = document.getElementById('syncUrlInput');
       if (input && document.activeElement !== input) input.value = url;
       document.getElementById('syncOn').style.display = url ? 'block' : 'none';
+      document.getElementById('localWarn').style.display = url ? 'none' : 'block';
+      document.getElementById('cloudOk').style.display = url ? 'block' : 'none';
       if (!url) setSyncStatus('尚未設定雲端同步（目前只存在這支手機）');
     }
 
@@ -1541,6 +1544,12 @@
       updateSyncUi();
       syncNow();
       document.addEventListener('visibilitychange', () => { if (!document.hidden) syncNow(); });
+      // 同一個瀏覽器開了好幾個分頁時，彼此保持一致
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'japan_expenses') { expenses = loadJson('japan_expenses', []); renderExpenses(); }
+        if (e.key === 'japan_pending') pending = loadJson('japan_pending', {});
+        if (e.key === 'japan_sync_url') { updateSyncUi(); syncNow(); }
+      });
       renderExpenses();
       loadChecklist();
     };
