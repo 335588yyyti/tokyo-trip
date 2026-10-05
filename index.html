@@ -207,6 +207,8 @@
     }
     .calc-input {
       flex: 1;
+      min-width: 0;
+      width: 100%;
       padding: 10px;
       border: 1px solid var(--border);
       border-radius: 8px;
@@ -217,6 +219,7 @@
       border-color: var(--primary);
     }
     .calc-btn {
+      flex-shrink: 0;
       background: var(--primary);
       color: white;
       border: none;
@@ -225,6 +228,18 @@
       font-weight: bold;
       cursor: pointer;
       font-size: 0.95rem;
+    }
+    .sum-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      font-weight: bold;
+      font-size: 1rem;
+    }
+    .sum-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: right;
     }
     .expense-list {
       list-style: none;
@@ -921,17 +936,27 @@
           <input type="number" id="rateInput" value="0.21" step="0.005" style="width: 75px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; font-size: 16px;" onchange="updateRate()">
           <span style="color: var(--muted); font-size: 0.8rem;">(可手動修改)</span>
         </div>
-        <div class="calc-row">
-          <input type="number" id="convertJpy" class="calc-input" placeholder="輸入日圓 JPY (¥)" oninput="calcTwd()">
-          <input type="text" id="convertResult" class="calc-input" placeholder="約合台幣 TWD" readonly style="background: #f8fafc; font-weight: bold; color: var(--accent);">
+        <div class="calc-row" style="margin-bottom: 4px; font-size: 0.8rem; font-weight: 600; color: var(--muted);">
+          <span style="flex: 1;">日幣 ¥</span><span style="flex: 1;">台幣 NT$</span>
         </div>
+        <div class="calc-row">
+          <input type="number" inputmode="decimal" id="convertJpy" class="calc-input" placeholder="日圓 ¥" oninput="calcTwd()">
+          <input type="number" inputmode="decimal" id="convertTwd" class="calc-input" placeholder="台幣 NT$" oninput="calcJpy()">
+        </div>
+        <div style="font-size: 0.8rem; color: var(--muted);">輸入任一邊，另一邊會自動換算。</div>
       </div>
 
       <div class="card">
         <h2>📝 旅費隨手記帳 (自動儲存)</h2>
         <div class="calc-row">
-          <input type="text" id="itemTitle" class="calc-input" placeholder="消費項目 (例如: 炸牛排)">
-          <input type="number" id="itemAmount" class="calc-input" placeholder="金額 (日圓 JPY)">
+          <input type="text" id="itemTitle" class="calc-input" placeholder="消費項目（例如：eSIM）">
+        </div>
+        <div class="calc-row">
+          <select id="itemCurrency" class="calc-input" style="flex: 0 0 105px;">
+            <option value="JPY">日幣 ¥</option>
+            <option value="TWD">台幣 NT$</option>
+          </select>
+          <input type="number" inputmode="decimal" id="itemAmount" class="calc-input" placeholder="金額">
         </div>
         <div class="calc-row">
           <select id="itemType" class="calc-input">
@@ -944,14 +969,13 @@
         <ul id="expenseList" class="expense-list"></ul>
 
         <div style="margin-top: 16px; padding-top: 14px; border-top: 2px dashed var(--border);">
-          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1rem;">
-            <span>全體公費累計：</span>
-            <span id="totalSplitJpy" style="color: var(--accent);">¥0 (約 NT$ 0)</span>
-          </div>
-          <div style="display: flex; justify-content: space-between; font-weight: bold; font-size: 1rem; margin-top: 6px;">
-            <span>每人應分攤金額：</span>
-            <span id="perPersonJpy" style="color: var(--primary);">¥0 (約 NT$ 0)</span>
-          </div>
+          <div class="sum-row"><span>兩人公費累計</span><span id="totalSplit" style="color: var(--accent);">NT$ 0</span></div>
+          <div class="sum-sub" id="totalSplitDetail">日幣 ¥0 ＋ 台幣 NT$ 0</div>
+          <div class="sum-row" style="margin-top: 8px;"><span>每人應分攤</span><span id="perPerson" style="color: var(--primary);">NT$ 0</span></div>
+          <div class="sum-sub" id="perPersonDetail">日幣 ¥0 ＋ 台幣 NT$ 0</div>
+          <div class="sum-row" style="margin-top: 8px;"><span>個人消費累計</span><span id="totalSingle">NT$ 0</span></div>
+          <div class="sum-sub" id="totalSingleDetail">日幣 ¥0 ＋ 台幣 NT$ 0</div>
+          <div class="sum-sub" style="margin-top: 6px;">※ 合計都換算成台幣（依上方匯率）。</div>
         </div>
 
         <button onclick="clearAllExpenses()" style="margin-top: 18px; width: 100%; background: none; border: 1px solid #ef4444; color: #ef4444; padding: 10px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer;">
@@ -1165,9 +1189,13 @@
     }
 
     function calcTwd() {
-      const jpy = parseFloat(document.getElementById('convertJpy').value) || 0;
-      const twd = Math.round(jpy * currentRate);
-      document.getElementById('convertResult').value = jpy > 0 ? `約 NT$ ${twd.toLocaleString()}` : '';
+      const jpy = parseFloat(document.getElementById('convertJpy').value);
+      document.getElementById('convertTwd').value = isNaN(jpy) ? '' : Math.round(jpy * currentRate);
+    }
+
+    function calcJpy() {
+      const twd = parseFloat(document.getElementById('convertTwd').value);
+      document.getElementById('convertJpy').value = isNaN(twd) ? '' : Math.round(twd / currentRate);
     }
 
     let expenses = JSON.parse(localStorage.getItem('japan_expenses')) || [];
@@ -1181,13 +1209,14 @@
       const title = document.getElementById('itemTitle').value.trim();
       const amount = parseFloat(document.getElementById('itemAmount').value);
       const type = document.getElementById('itemType').value;
+      const currency = document.getElementById('itemCurrency').value;
 
       if (!title || isNaN(amount) || amount <= 0) {
         alert('請填寫正確的項目名稱與金額喔！');
         return;
       }
 
-      expenses.push({ id: Date.now(), title, amount, type });
+      expenses.push({ id: Date.now(), title, amount, type, currency });
       document.getElementById('itemTitle').value = '';
       document.getElementById('itemAmount').value = '';
       saveAndRender();
@@ -1205,40 +1234,60 @@
       }
     }
 
+    function escapeHtml(t) {
+      const d = document.createElement('div');
+      d.textContent = t;
+      return d.innerHTML;
+    }
+
+    function toTwd(item) {
+      return item.currency === 'TWD' ? item.amount : item.amount * currentRate;
+    }
+
     function renderExpenses() {
       const listEl = document.getElementById('expenseList');
       listEl.innerHTML = '';
-      let totalSplit = 0;
+      const sum = { split: { JPY: 0, TWD: 0 }, single: { JPY: 0, TWD: 0 } };
 
       expenses.forEach(item => {
-        const twd = Math.round(item.amount * currentRate);
+        const currency = item.currency === 'TWD' ? 'TWD' : 'JPY';
         const isSplit = item.type === 'split';
-        if (isSplit) totalSplit += item.amount;
+        sum[isSplit ? 'split' : 'single'][currency] += item.amount;
+
+        const main = currency === 'TWD'
+          ? `NT$ ${item.amount.toLocaleString()}`
+          : `¥${item.amount.toLocaleString()}`;
+        const sub = currency === 'TWD'
+          ? '台幣支付'
+          : `約 NT$ ${Math.round(item.amount * currentRate).toLocaleString()}`;
 
         const li = document.createElement('li');
         li.className = 'expense-item';
         li.innerHTML = `
-          <div>
-            <strong>${item.title}</strong>
+          <div style="min-width: 0;">
+            <strong>${escapeHtml(item.title)}</strong>
             <span style="font-size:0.75rem; background:${isSplit ? '#dcfce7':'#e0e7ff'}; color:${isSplit ? '#166534':'#3730a3'}; padding:2px 6px; border-radius:4px; margin-left:4px;">
               ${isSplit ? '公費平分' : '個人'}
             </span>
-            <div style="font-size: 0.8rem; color: var(--muted);">約 NT$ ${twd.toLocaleString()}</div>
+            <div style="font-size: 0.8rem; color: var(--muted);">${sub}</div>
           </div>
-          <div style="display:flex; align-items:center;">
-            <span style="font-weight:600; color:var(--accent);">¥${item.amount.toLocaleString()}</span>
+          <div style="display:flex; align-items:center; flex-shrink: 0;">
+            <span style="font-weight:600; color:${currency === 'TWD' ? 'var(--primary)' : 'var(--accent)'};">${main}</span>
             <button class="expense-del" onclick="deleteExpense(${item.id})">×</button>
           </div>
         `;
         listEl.appendChild(li);
       });
 
-      const totalSplitTwd = Math.round(totalSplit * currentRate);
-      const perPerson = Math.round(totalSplit / 2);
-      const perPersonTwd = Math.round(perPerson * currentRate);
-
-      document.getElementById('totalSplitJpy').innerText = `¥${totalSplit.toLocaleString()} (約 NT$ ${totalSplitTwd.toLocaleString()})`;
-      document.getElementById('perPersonJpy').innerText = `¥${perPerson.toLocaleString()} (約 NT$ ${perPersonTwd.toLocaleString()})`;
+      const fmt = (n) => Math.round(n).toLocaleString();
+      const show = (key, div, mainId, detailId) => {
+        const j = sum[key].JPY / div, t = sum[key].TWD / div;
+        document.getElementById(mainId).innerText = `約 NT$ ${fmt(j * currentRate + t)}`;
+        document.getElementById(detailId).innerText = `日幣 ¥${fmt(j)} ＋ 台幣 NT$ ${fmt(t)}`;
+      };
+      show('split', 1, 'totalSplit', 'totalSplitDetail');
+      show('split', 2, 'perPerson', 'perPersonDetail');
+      show('single', 1, 'totalSingle', 'totalSingleDetail');
     }
 
     function saveChecklist() {
