@@ -948,6 +948,13 @@
 
       <div class="card">
         <h2>📝 旅費隨手記帳 (自動儲存)</h2>
+        <div class="notice-box" style="margin-top: 0;">
+          ⚠️ <strong>記帳只存在「這支手機的這個瀏覽器」裡</strong>，不會上傳。為了不遺失：<br>
+          ・用 <strong>Safari 打開</strong>，再按「分享 → <strong>加入主畫面</strong>」，之後都從主畫面圖示開（<strong>不要用 LINE 裡面直接開</strong>，LINE 內建瀏覽器的資料可能被清掉）<br>
+          ・iPhone Safari 如果<strong>超過 7 天沒打開這個網站，資料可能被自動清除</strong>，從主畫面圖示開可以避免<br>
+          ・不要用無痕模式、不要清除瀏覽紀錄<br>
+          ・<strong>每天記完按一次「📤 匯出備份」</strong>，貼到 LINE 或備忘錄存起來
+        </div>
         <div class="calc-row">
           <input type="text" id="itemTitle" class="calc-input" placeholder="消費項目（例如：eSIM）">
         </div>
@@ -977,6 +984,12 @@
           <div class="sum-sub" id="totalSingleDetail">日幣 ¥0 ＋ 台幣 NT$ 0</div>
           <div class="sum-sub" style="margin-top: 6px;">※ 合計都換算成台幣（依上方匯率）。</div>
         </div>
+
+        <div class="calc-row" style="margin-top: 18px; margin-bottom: 0;">
+          <button class="calc-btn" style="flex: 1;" onclick="exportExpenses()">📤 匯出備份</button>
+          <button class="calc-btn" style="flex: 1; background: #64748b;" onclick="importExpenses()">📥 匯入備份</button>
+        </div>
+        <div style="font-size: 0.8rem; color: var(--muted); margin-top: 6px;">匯出會產生一段文字（明細＋合計＋備份碼），可以分享到 LINE 或貼到備忘錄。換手機或資料不見時，按「匯入備份」貼回整段文字即可還原。</div>
 
         <button onclick="clearAllExpenses()" style="margin-top: 18px; width: 100%; background: none; border: 1px solid #ef4444; color: #ef4444; padding: 10px; border-radius: 8px; font-size: 0.85rem; font-weight: 600; cursor: pointer;">
           清空所有記帳紀錄
@@ -1222,13 +1235,59 @@
       saveAndRender();
     }
 
+    function backupText() {
+      const fmt = (n) => Math.round(n).toLocaleString();
+      const lines = ['【東京旅費記帳備份】' + new Date().toLocaleString('zh-TW'), ''];
+      expenses.forEach(item => {
+        const cur = item.currency === 'TWD' ? 'NT$ ' : '¥';
+        lines.push(`・${item.title}｜${cur}${fmt(item.amount)}｜${item.type === 'split' ? '公費平分' : '個人'}`);
+      });
+      lines.push('', '兩人公費累計：' + document.getElementById('totalSplit').innerText + '（' + document.getElementById('totalSplitDetail').innerText + '）');
+      lines.push('每人應分攤：' + document.getElementById('perPerson').innerText + '（' + document.getElementById('perPersonDetail').innerText + '）');
+      lines.push('個人消費累計：' + document.getElementById('totalSingle').innerText + '（' + document.getElementById('totalSingleDetail').innerText + '）');
+      lines.push('匯率：1 日圓 = ' + currentRate + ' 台幣', '', '備份碼（還原用，請整段保留）：', JSON.stringify(expenses));
+      return lines.join('\n');
+    }
+
+    async function exportExpenses() {
+      if (!expenses.length) { alert('目前沒有記帳紀錄。'); return; }
+      const text = backupText();
+      try {
+        if (navigator.share) { await navigator.share({ title: '東京旅費記帳備份', text }); return; }
+      } catch (e) { if (e && e.name === 'AbortError') return; }
+      try {
+        await navigator.clipboard.writeText(text);
+        alert('已複製備份文字，請貼到 LINE 或備忘錄保存。');
+      } catch (e) {
+        prompt('請長按全選並複製這段備份文字：', text);
+      }
+    }
+
+    function importExpenses() {
+      const text = prompt('請貼上之前匯出的整段備份文字：');
+      if (!text) return;
+      const start = text.indexOf('[{'), end = text.lastIndexOf('}]');
+      let data;
+      try { data = JSON.parse(text.slice(start, end + 2)); } catch (e) { data = null; }
+      if (start < 0 || !Array.isArray(data)) { alert('找不到備份碼，請確認有貼上完整的備份文字。'); return; }
+      const valid = data.filter(x => x && typeof x.title === 'string' && typeof x.amount === 'number');
+      const ids = new Set(expenses.map(x => x.id));
+      const added = valid.filter(x => !ids.has(x.id));
+      if (!confirm(`備份裡有 ${valid.length} 筆，其中 ${added.length} 筆是目前沒有的，要加進來嗎？`)) return;
+      expenses = expenses.concat(added).sort((a, b) => a.id - b.id);
+      saveAndRender();
+      alert(`已還原 ${added.length} 筆紀錄。`);
+    }
+
     function deleteExpense(id) {
+      const item = expenses.find(x => x.id === id);
+      if (item && !confirm(`確定要刪除「${item.title}」這筆嗎？`)) return;
       expenses = expenses.filter(item => item.id !== id);
       saveAndRender();
     }
 
     function clearAllExpenses() {
-      if (confirm('確定要清空所有記帳紀錄嗎？')) {
+      if (confirm('確定要清空所有記帳紀錄嗎？建議先按「📤 匯出備份」。') && confirm('真的要清空嗎？清空後無法復原（除非有備份）。')) {
         expenses = [];
         saveAndRender();
       }
@@ -1307,6 +1366,7 @@
     }
 
     window.onload = function() {
+      if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
       renderExpenses();
       loadChecklist();
     };
