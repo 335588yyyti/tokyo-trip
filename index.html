@@ -965,9 +965,25 @@
       </div>
 
       <div class="card">
+        <h2>☁️ 雲端同步（兩支手機共用）</h2>
+        <div id="syncStatus" style="font-size: 0.88rem; font-weight: 600; margin-bottom: 8px;">尚未設定雲端同步</div>
+        <div id="syncOn" style="display: none; margin-bottom: 8px;">
+          <button class="calc-btn" style="width: 100%;" onclick="syncNow(true)">🔄 立即同步</button>
+        </div>
+        <details>
+          <summary style="font-size: 0.85rem; color: var(--muted); cursor: pointer;">設定同步網址</summary>
+          <div class="calc-row" style="margin-top: 8px;">
+            <input type="url" id="syncUrlInput" class="calc-input" placeholder="https://script.google.com/macros/s/…/exec">
+          </div>
+          <button class="calc-btn" style="width: 100%;" onclick="saveSyncUrl()">儲存並同步</button>
+          <div style="font-size: 0.8rem; color: var(--muted); margin-top: 6px;">貼上 Google 試算表的「網頁應用程式網址」。兩支手機都貼同一個網址，就會共用同一份記帳。<strong>網址不要公開分享</strong>，拿到網址的人都能看到和修改記帳。</div>
+        </details>
+      </div>
+
+      <div class="card">
         <h2>📝 旅費隨手記帳 (自動儲存)</h2>
         <div class="notice-box" style="margin-top: 0;">
-          ⚠️ <strong>記帳只存在「這支手機的這個瀏覽器」裡</strong>，不會上傳。為了不遺失：<br>
+          ⚠️ <strong>沒設定上方「雲端同步」時，記帳只存在「這支手機的這個瀏覽器」裡</strong>。設定後會自動存到 Google 試算表。為了不遺失：<br>
           ・用 <strong>Safari 打開</strong>，再按「分享 → <strong>加入主畫面</strong>」，之後都從主畫面圖示開（<strong>不要用 LINE 裡面直接開</strong>，LINE 內建瀏覽器的資料可能被清掉）<br>
           ・iPhone Safari 如果<strong>超過 7 天沒打開這個網站，資料可能被自動清除</strong>，從主畫面圖示開可以避免<br>
           ・不要用無痕模式、不要清除瀏覽紀錄<br>
@@ -1221,6 +1237,7 @@
       document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
       document.getElementById(tabId).style.display = 'block';
       e.currentTarget.classList.add('active');
+      if (tabId === 'tracker') syncNow();
     }
 
     let currentRate = 0.21;
@@ -1240,11 +1257,96 @@
       document.getElementById('convertJpy').value = isNaN(twd) ? '' : Math.round(twd / currentRate);
     }
 
-    let expenses = JSON.parse(localStorage.getItem('japan_expenses')) || [];
+    function loadJson(key, fallback) {
+      try { return JSON.parse(localStorage.getItem(key)) || fallback; } catch (e) { return fallback; }
+    }
+    function saveJson(key, value) {
+      try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) {}
+    }
+
+    let expenses = loadJson('japan_expenses', []);
+    let pending = loadJson('japan_pending', {});
+
+    function live() {
+      return expenses.filter(x => !x.deleted);
+    }
 
     function saveAndRender() {
-      localStorage.setItem('japan_expenses', JSON.stringify(expenses));
+      saveJson('japan_expenses', expenses);
       renderExpenses();
+    }
+
+    // ---- 雲端同步（Google 試算表）----
+    function syncUrl() {
+      try { return localStorage.getItem('japan_sync_url') || ''; } catch (e) { return ''; }
+    }
+
+    function markChanged(items) {
+      const now = Date.now();
+      items.forEach(item => { item.updatedAt = now; pending[item.id] = item; });
+      saveJson('japan_pending', pending);
+      saveAndRender();
+      syncNow();
+    }
+
+    function setSyncStatus(text) {
+      const el = document.getElementById('syncStatus');
+      if (el) el.innerText = text;
+    }
+
+    let syncing = false;
+    async function syncNow(manual) {
+      const url = syncUrl();
+      if (!url) { if (manual) alert('還沒設定雲端同步網址。'); return; }
+      if (syncing) return;
+      syncing = true;
+      setSyncStatus('🔄 同步中…');
+      try {
+        const ops = Object.values(pending).map(item => ({ item: Object.assign({}, item) }));
+        const res = ops.length
+          ? await fetch(url, { method: 'POST', headers: { 'Content-Type': 'text/plain;charset=utf-8' }, body: JSON.stringify({ ops }) })
+          : await fetch(url);
+        const data = await res.json();
+        if (!data || !data.ok || !Array.isArray(data.items)) throw new Error('bad response');
+        ops.forEach(op => {
+          const cur = pending[op.item.id];
+          if (cur && cur.updatedAt === op.item.updatedAt) delete pending[op.item.id];
+        });
+        saveJson('japan_pending', pending);
+        const server = new Map(data.items.map(x => [Number(x.id), x]));
+        Object.values(pending).forEach(x => server.set(x.id, x));
+        expenses = Array.from(server.values()).map(x => Object.assign(x, { id: Number(x.id), amount: Number(x.amount) })).sort((a, b) => a.id - b.id);
+        saveAndRender();
+        setSyncStatus('✅ 已同步 ' + new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' }));
+      } catch (e) {
+        setSyncStatus('⚠️ 沒有網路或同步失敗，資料已存在手機，下次會自動補同步');
+      } finally {
+        syncing = false;
+      }
+    }
+
+    function saveSyncUrl() {
+      const v = document.getElementById('syncUrlInput').value.trim();
+      if (v && !/^https:\/\/script\.google\.com\/macros\/s\/.+\/exec$/.test(v)) {
+        alert('網址格式不對：要是 https://script.google.com/macros/s/……/exec');
+        return;
+      }
+      try { if (v) localStorage.setItem('japan_sync_url', v); else localStorage.removeItem('japan_sync_url'); } catch (e) {}
+      updateSyncUi();
+      if (v) {
+        // 第一次設定：把這支手機原本的紀錄也傳上去
+        live().forEach(item => { if (!item.updatedAt) item.updatedAt = Date.now(); pending[item.id] = item; });
+        saveJson('japan_pending', pending);
+        syncNow(true);
+      }
+    }
+
+    function updateSyncUi() {
+      const url = syncUrl();
+      const input = document.getElementById('syncUrlInput');
+      if (input && document.activeElement !== input) input.value = url;
+      document.getElementById('syncOn').style.display = url ? 'block' : 'none';
+      if (!url) setSyncStatus('尚未設定雲端同步（目前只存在這支手機）');
     }
 
     function addExpense() {
@@ -1259,28 +1361,29 @@
         return;
       }
 
-      expenses.push({ id: Date.now(), title, amount, type, currency, payer });
+      const item = { id: Date.now(), title, amount, type, currency, payer };
+      expenses.push(item);
       document.getElementById('itemTitle').value = '';
       document.getElementById('itemAmount').value = '';
-      saveAndRender();
+      markChanged([item]);
     }
 
     function backupText() {
       const fmt = (n) => Math.round(n).toLocaleString();
       const lines = ['【東京旅費記帳備份】' + new Date().toLocaleString('zh-TW'), ''];
-      expenses.forEach(item => {
+      live().forEach(item => {
         const cur = item.currency === 'TWD' ? 'NT$ ' : '¥';
         lines.push(`・${item.title}｜${cur}${fmt(item.amount)}｜${item.payer || '?'} 付｜${TYPE_LABEL[item.type] || '自己的'}`);
       });
       lines.push('', '結算：' + document.getElementById('settleResult').innerText);
       if (document.getElementById('settleDetail').innerText) lines.push(document.getElementById('settleDetail').innerText);
       lines.push('洪 實際花費：' + document.getElementById('costHong').innerText, '盧 實際花費：' + document.getElementById('costLu').innerText);
-      lines.push('匯率：1 日圓 = ' + currentRate + ' 台幣', '', '備份碼（還原用，請整段保留）：', JSON.stringify(expenses));
+      lines.push('匯率：1 日圓 = ' + currentRate + ' 台幣', '', '備份碼（還原用，請整段保留）：', JSON.stringify(live()));
       return lines.join('\n');
     }
 
     async function exportExpenses() {
-      if (!expenses.length) { alert('目前沒有記帳紀錄。'); return; }
+      if (!live().length) { alert('目前沒有記帳紀錄。'); return; }
       const text = backupText();
       try {
         if (navigator.share) { await navigator.share({ title: '東京旅費記帳備份', text }); return; }
@@ -1305,21 +1408,22 @@
       const added = valid.filter(x => !ids.has(x.id));
       if (!confirm(`備份裡有 ${valid.length} 筆，其中 ${added.length} 筆是目前沒有的，要加進來嗎？`)) return;
       expenses = expenses.concat(added).sort((a, b) => a.id - b.id);
-      saveAndRender();
+      markChanged(added);
       alert(`已還原 ${added.length} 筆紀錄。`);
     }
 
     function deleteExpense(id) {
       const item = expenses.find(x => x.id === id);
-      if (item && !confirm(`確定要刪除「${item.title}」這筆嗎？`)) return;
-      expenses = expenses.filter(item => item.id !== id);
-      saveAndRender();
+      if (!item || !confirm(`確定要刪除「${item.title}」這筆嗎？`)) return;
+      item.deleted = true;
+      markChanged([item]);
     }
 
     function clearAllExpenses() {
       if (confirm('確定要清空所有記帳紀錄嗎？建議先按「📤 匯出備份」。') && confirm('真的要清空嗎？清空後無法復原（除非有備份）。')) {
-        expenses = [];
-        saveAndRender();
+        const items = live();
+        items.forEach(item => { item.deleted = true; });
+        markChanged(items);
       }
     }
 
@@ -1343,13 +1447,13 @@
 
     function setPayer(id, payer) {
       const item = expenses.find(x => x.id === id);
-      if (item) { item.payer = payer; saveAndRender(); }
+      if (item) { item.payer = payer; markChanged([item]); }
     }
 
     function computeTotals() {
       const t = { splitJ: 0, splitT: 0, cost: { 洪: 0, 盧: 0 }, paid: { 洪: 0, 盧: 0 }, owed: 0, unassigned: 0 };
       // owed > 0：盧 要給 洪；owed < 0：洪 要給 盧（台幣）
-      expenses.forEach(item => {
+      live().forEach(item => {
         const v = toTwd(item);
         if (item.type === 'split') { if (item.currency === 'TWD') t.splitT += item.amount; else t.splitJ += item.amount; }
         if (!PEOPLE.includes(item.payer)) { t.unassigned++; return; }
@@ -1367,7 +1471,7 @@
       const listEl = document.getElementById('expenseList');
       listEl.innerHTML = '';
 
-      expenses.forEach(item => {
+      live().forEach(item => {
         const currency = item.currency === 'TWD' ? 'TWD' : 'JPY';
         const type = TYPE_LABEL[item.type] ? item.type : 'single';
         const main = currency === 'TWD'
@@ -1432,6 +1536,9 @@
     window.onload = function() {
       if (navigator.storage && navigator.storage.persist) navigator.storage.persist().catch(() => {});
       try { const pp = localStorage.getItem('japan_payer'); if (pp) document.getElementById('itemPayer').value = pp; } catch (e) {}
+      updateSyncUi();
+      syncNow();
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) syncNow(); });
       renderExpenses();
       loadChecklist();
     };
