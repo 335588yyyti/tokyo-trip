@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="default" />
   <meta name="theme-color" content="#4a7c59" />
@@ -36,26 +36,31 @@
       color: white;
       text-align: center;
       padding: 14px 16px 12px;
-      position: relative;
+      padding-top: calc(14px + env(safe-area-inset-top));
     }
     .refresh-btn {
-      position: absolute;
-      top: 10px;
-      right: 10px;
+      display: inline-block;
+      margin-top: 8px;
+      min-height: 36px;
       background: rgba(255,255,255,0.2);
       color: white;
-      border: 1px solid rgba(255,255,255,0.5);
+      border: 1px solid rgba(255,255,255,0.6);
       border-radius: 999px;
-      padding: 4px 10px;
-      font-size: 0.8rem;
+      padding: 6px 16px;
+      font-size: 0.85rem;
+      font-weight: 700;
       cursor: pointer;
+      -webkit-tap-highlight-color: rgba(255,255,255,0.3);
+    }
+    .refresh-btn:active {
+      background: rgba(255,255,255,0.4);
     }
     .update-bar {
       display: none;
       position: fixed;
       left: 12px;
       right: 12px;
-      bottom: 12px;
+      bottom: calc(12px + env(safe-area-inset-bottom));
       z-index: 1000;
       background: #1e293b;
       color: white;
@@ -536,9 +541,9 @@
 <body>
 
   <header>
-    <button class="refresh-btn" onclick="location.reload()">🔄 更新</button>
     <h1>東京週末 3 日輕旅行</h1>
     <p style="font-size: 0.82rem; opacity: 0.95;">✈️ 去程 10/24 酷航 TR866 桃園 06:45 → 成田 11:15<br>✈️ 回程 10/26 酷航 TR875 成田 19:45 → 桃園 22:55<br>（皆為當地時間・成田第 1 航廈）</p>
+    <button class="refresh-btn" onclick="location.reload()">🔄 更新到最新版</button>
   </header>
   <button id="updateBar" class="update-bar" onclick="location.reload()">🆕 行程有更新，點這裡載入最新版</button>
 
@@ -1562,7 +1567,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-06-1';
+    const SITE_VERSION = '2026-10-06-2';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
