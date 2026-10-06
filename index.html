@@ -36,6 +36,36 @@
       color: white;
       text-align: center;
       padding: 14px 16px 12px;
+      position: relative;
+    }
+    .refresh-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255,255,255,0.2);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.5);
+      border-radius: 999px;
+      padding: 4px 10px;
+      font-size: 0.8rem;
+      cursor: pointer;
+    }
+    .update-bar {
+      display: none;
+      position: fixed;
+      left: 12px;
+      right: 12px;
+      bottom: 12px;
+      z-index: 1000;
+      background: #1e293b;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+      cursor: pointer;
     }
     header h1 {
       font-size: 1.3rem;
@@ -506,9 +536,11 @@
 <body>
 
   <header>
+    <button class="refresh-btn" onclick="location.reload()">🔄 更新</button>
     <h1>東京週末 3 日輕旅行</h1>
     <p style="font-size: 0.82rem; opacity: 0.95;">✈️ 去程 10/24 酷航 TR866 桃園 06:45 → 成田 11:15<br>✈️ 回程 10/26 酷航 TR875 成田 19:45 → 桃園 22:55<br>（皆為當地時間・成田第 1 航廈）</p>
   </header>
+  <button id="updateBar" class="update-bar" onclick="location.reload()">🆕 行程有更新，點這裡載入最新版</button>
 
   <div class="container">
     <div class="tab-bar">
@@ -1529,6 +1561,19 @@
       if (tabId === 'tracker') syncNow();
     }
 
+    // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
+    const SITE_VERSION = '2026-10-06-1';
+    function checkUpdate() {
+      if (!navigator.onLine) return;
+      fetch('./index.html', { cache: 'no-store' })
+        .then(r => r.ok ? r.text() : '')
+        .then(t => {
+          const m = t.match(/const SITE_VERSION = '([^']+)'/);
+          if (m && m[1] !== SITE_VERSION) document.getElementById('updateBar').style.display = 'block';
+        })
+        .catch(() => {});
+    }
+
     function openPlan(tabId, anchorId) {
       const btn = document.querySelector(`.tab-btn[onclick*="'${tabId}'"]`);
       if (btn) btn.click();
@@ -1837,7 +1882,8 @@
       try { const pp = localStorage.getItem('japan_payer'); if (pp) document.getElementById('itemPayer').value = pp; } catch (e) {}
       updateSyncUi();
       syncNow();
-      document.addEventListener('visibilitychange', () => { if (!document.hidden) syncNow(); });
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) { syncNow(); checkUpdate(); } });
+      checkUpdate();
       // 同一個瀏覽器開了好幾個分頁時，彼此保持一致
       window.addEventListener('storage', (e) => {
         if (e.key === 'japan_expenses') { expenses = loadJson('japan_expenses', []); renderExpenses(); }
