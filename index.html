@@ -1377,7 +1377,8 @@
           <li><input type="checkbox" id="t14" onchange="saveChecklist()"><label for="t14">📧 eSIM 業者會在<strong>出發前 7 天（約 10/17）寄安裝信</strong>，收到後<strong>在台灣先安裝 eSIM</strong>（要有網路才能裝），確認知道怎麼切換；落地後打開「<strong>數據漫遊</strong>」、行動數據改用 eSIM。<strong>台灣門號不要刪</strong>，才收得到銀行刷卡簡訊</label></li>
           <li><input type="checkbox" id="t16" onchange="saveChecklist()"><label for="t16">打開旅遊網站<strong>把每個分頁都點一次</strong>，網站會存到手機，<strong>沒網路也能看</strong>（建議加到主畫面）</label></li>
           <li><input type="checkbox" id="c8" onchange="saveChecklist()"><label for="c8"><strong>Visit Japan Web</strong> 填寫完成，存好 QR Code 截圖</label></li>
-          <li><input type="checkbox" id="c7" onchange="saveChecklist()"><label for="c7">保好<strong>旅遊平安險（含跳傘）</strong>，證明文件存在手機</label></li>
+          <li><input type="checkbox" id="c7" onchange="saveChecklist()"><label for="c7">買<strong>旅平險＋海外突發疾病＋不便險</strong>（10/24–10/26，從出門到回家），保單存在手機。⚠️ 一般旅平險<strong>跳傘通常不理賠</strong>，投保前<strong>直接問保險公司「日本雙人跳傘、卡丁車有沒有保」</strong></label></li>
+          <li><input type="checkbox" id="c9" onchange="saveChecklist()"><label for="c9">問跳傘預約窗口：費用<strong>有沒有含保險</strong>？保什麼、保多少（受傷醫療、身故）？可以要保單說明</label></li>
         </ul>
         <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🛍️ 成田機場免稅品線上預購（選擇性）</h3>
         <ul class="checklist">
@@ -1567,7 +1568,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-06-3';
+    const SITE_VERSION = '2026-10-06-4';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
