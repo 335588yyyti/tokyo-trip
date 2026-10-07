@@ -1402,7 +1402,7 @@
         <ul class="checklist">
           <li><input type="checkbox" id="c5" onchange="saveChecklist()"><label for="c5"><strong>護照</strong>（免稅、跳傘報到都要用）</label></li>
           <li><input type="checkbox" id="p1" onchange="saveChecklist()"><label for="p1"><strong>台灣駕照正本＋日文譯本</strong>（卡丁車）</label></li>
-          <li><input type="checkbox" id="p2" onchange="saveChecklist()"><label for="p2">信用卡、少量日幣現金</label></li>
+          <li><input type="checkbox" id="p2" onchange="saveChecklist()"><label for="p2">信用卡 2 張（不同發卡組織，例如 Visa＋JCB）、<strong>日幣現金每人約 ¥30,000</strong>（跳傘尾款如果只收現金，<strong>每人再加 ¥82,500</strong>）、零錢包。現金<strong>分兩處放</strong>，不要全部放同一個包包</label></li>
           <li><input type="checkbox" id="p3" onchange="saveChecklist()"><label for="p3">手機（Suica、Skyliner 電子票、各種預約截圖）</label></li>
         </ul>
         <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 6px;">🔌 3C</h3>
@@ -1568,7 +1568,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-06-4';
+    const SITE_VERSION = '2026-10-07-1';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
