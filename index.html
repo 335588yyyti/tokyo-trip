@@ -631,7 +631,7 @@
           <div class="time">19:20 - 20:00</div>
           <div class="event-title">🛍️ 渋谷 PARCO：Le Labo 買香水</div>
           <div class="buy-here">🛒 <strong>這裡可以買</strong>：Le Labo 東京限定香水 GAIAC 10 100ml × 1（<strong>1F</strong>，開到 21:00）</div>
-          <div class="event-desc">東京都渋谷区宇田川町15-1。Le Labo 是<strong>現場調香、手工裝瓶</strong>，結帳後要等店員調好，<strong>抓 20–30 分鐘</strong>。記得帶<strong>護照正本</strong>辦免稅。<br>💡 有空可以順便逛：<strong>6F</strong> Nintendo TOKYO（10:00–21:00）、寶可夢中心（ポケモンセンターシブヤ）、CAPCOM STORE；<strong>5F</strong> POP MART；<strong>1F・2F</strong> 香水美妝（SHIRO、TAMBURINS、BYREDO、Maison Margiela 香水等）。週末 6F 人多時可能要領整理券。</div>
+          <div class="event-desc">東京都渋谷区宇田川町15-1。Le Labo 是<strong>現場調香、手工裝瓶</strong>，結帳後要等店員調好，<strong>抓 20–30 分鐘</strong>。記得帶<strong>護照正本</strong>辦免稅。<br>💡 <strong>2F Officine Universelle Buly（ビュリー）</strong>：法國香水、牙膏，有免稅，買完 Le Labo 上樓逛（要多抓 15–20 分）。<br>💡 有空可以順便逛：<strong>6F</strong> Nintendo TOKYO（10:00–21:00）、寶可夢中心（ポケモンセンターシブヤ）、CAPCOM STORE；<strong>5F</strong> POP MART；<strong>1F・2F</strong> 香水美妝（SHIRO、TAMBURINS、BYREDO、Maison Margiela 香水等）。週末 6F 人多時可能要領整理券。</div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=渋谷PARCO" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
@@ -1106,6 +1106,10 @@
             <label class="shop-head"><input type="checkbox" id="s5" onchange="saveChecklist()"><span>Le Labo 東京限定香水 GAIAC 10（100ml）<br><span class="jp-name">ル ラボ ガイアック 10 オード パルファム 100ml</span></span></label>
             <div class="shop-meta">🔢 數量：<strong>100ml × 1 瓶</strong>（標籤<strong>不用印名字</strong>）<br>📍 哪裡買：<span class="shop-where">Le Labo 渋谷パルコ（PARCO 1F，11:00–21:00）</span><span class="shop-where">Le Labo 青山（南青山5-5-24，11:00–20:00）</span><br>🗓 順路：<strong>Day 1 晚上</strong>逛澀谷時去渋谷パルコ店；備案是 Day 1 傍晚表參道附近的青山店<br>💴 參考價：約 ¥76,560（100ml，2026/8 調價後，以店頭為準）<br>💡 <strong>東京限定</strong>，只有東京的 Le Labo 直營店買得到，網路和其他城市買不到。店員可能會問標籤要印什麼，回答「<span class="jp-name">名前なしで大丈夫です</span>」（不用印名字）就好。<br>💡 免稅：渋谷パルコ的 Le Labo <strong>有列在免稅店名單</strong>，PARCO 沒有統一的免稅櫃台，<strong>直接在 Le Labo 店裡結帳時出示護照正本</strong>辦理。照舊制是<strong>直接用未稅價結帳</strong>（約 ¥69,600），不是事後退錢。香水會被裝進密封袋，<strong>出境前不要拆</strong>。<br>✈️ 100ml 剛好在手提行李上限內，<strong>可以放手提行李</strong>（要放進透明夾鏈袋）；也可以放托運行李，記得包好避免破掉。</div>
           </div>
+          <div class="shop-item">
+            <label class="shop-head"><input type="checkbox" id="s19" onchange="saveChecklist()"><span>Buly 香水（現場試香）／牙膏<br><span class="jp-name">オフィシーヌ・ユニヴェルセル・ビュリー</span></span></label>
+            <div class="shop-meta">🔢 數量：現場決定<br>📍 哪裡買：<span class="shop-where">渋谷 PARCO 2F（11:00–21:00，有免稅）</span><span class="shop-where">丸の內 Brick Square 1F（11:00–20:00）</span><br>🗓 順路：<strong>Day 1 晚上</strong>，在 PARCO 1F 買完 Le Labo 直接上 2F<br>💡 網友推薦水性香水「Eau Triple」系列和牙膏（Opiat Dentaire）。日本價格以店頭為準。<br>✈️ 香水超過 100ml 要放托運；牙膏 75ml 左右可以放手提（裝夾鏈袋）。</div>
+          </div>
         </div>
       </div>
     </div>
@@ -1573,7 +1577,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-08-1';
+    const SITE_VERSION = '2026-10-09-1';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
