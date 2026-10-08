@@ -742,6 +742,7 @@
           <div class="time">18:50 - 19:30</div>
           <div class="event-title">💊 OS Drug 上野店 <span class="jp-name">OSドラッグ 上野店</span> 先比價</div>
           <div class="event-desc">阿美橫丁高架下（台東区上野6-11-5，<strong>10:00–19:45，19:45 就關門</strong>），所以藥妝<strong>第一站先來這裡</strong>。<br>⚠️ 網友分享<strong>只收現金、不能免稅</strong>，但價格常常比唐吉訶德免稅後還便宜：<strong>拍下價格</strong>，比較便宜的直接在這買，剩下的晚上到唐吉訶德買、辦免稅。<br>💡 跳傘延誤趕不上的話，Day 3 下午經過阿美橫丁再來。</div>
+          <div class="buy-here">🛒 <strong>出站前先買</strong>：シュガーバターサンドの木（JR 上野站中央改札外的「シュガーバターの木」，開到 21:00）</div>
           <div class="buy-here">🛒 <strong>先比價</strong>：Bioré 洗面乳、Clean Dental、Apagard 牙膏、FAICHI 補鐵錠、ANESSA、壓力襪（品項不一定齊全）</div>
           <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>JR 上野站走<strong>「不忍口」</strong>出站，往京成上野站方向，約 150m。<div class="route-meta">⏱ 約 3 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E4%B8%8A%E9%87%8E%E9%A7%85+%E4%B8%8D%E5%BF%8D%E5%8F%A3&destination=OS%E3%83%89%E3%83%A9%E3%83%83%E3%82%B0+%E4%B8%8A%E9%87%8E%E5%BA%97&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
         </div>
@@ -1036,6 +1037,10 @@
           <div class="shop-item">
             <label class="shop-head"><input type="checkbox" id="s1" onchange="saveChecklist()"><span>7-Eleven 酥脆巧克力（原味）<br><span class="jp-name">セブンプレミアム ザクザククランチチョコ</span></span></label>
             <div class="shop-meta">🔢 數量：<strong>× 3 包</strong><br>📍 哪裡買：<span class="shop-where">7-Eleven（任何一間）</span><br>🗓 順路：<strong>Day 1 晚上</strong>回飯店前，飯店附近的「セブンイレブン 上野駅前通り」（步行約 4–5 分）<br>💴 參考價：約 ¥246（含稅）<br>💡 7-Eleven 自有品牌，<strong>只有 7-Eleven 有賣</strong>。同系列還有抹茶、薄荷口味，認明咖啡色原味包裝。</div>
+          </div>
+          <div class="shop-item">
+            <label class="shop-head"><input type="checkbox" id="s18" onchange="saveChecklist()"><span>砂糖奶油夾心餅（白巧克力夾心）<br><span class="jp-name">シュガーバターの木 シュガーバターサンドの木</span></span></label>
+            <div class="shop-meta">🔢 數量：<strong>× 1 盒</strong>（盒數再決定）<br>📍 哪裡買：<span class="shop-where">シュガーバターの木 JR上野駅店（JR 上野站中央改札外「グランドコンコース」，9:00–21:00）</span><br>🗓 順路：<strong>Day 2 傍晚</strong>從桶川回到 JR 上野站，出站去 OS Drug 前順手買；沒買到的話 <strong>Day 3 下午</strong>回飯店拿行李前再買<br>💴 參考價：7 個入 ¥680、14 個入 ¥1,350（官網參考價，含稅）<br>💡 這款夾心版只在<strong>部分直營店</strong>賣，上野店有。秋冬另有限定口味（ベイクドチーズケーキ風）。<br>✈️ 餅乾容易壓碎，放手提行李或行李箱最上層。</div>
           </div>
           <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 8px;">🧴 藥妝</h3>
           <div class="shop-item">
@@ -1568,7 +1573,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-07-1';
+    const SITE_VERSION = '2026-10-08-1';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
