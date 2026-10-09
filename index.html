@@ -1101,6 +1101,18 @@
             <label class="shop-head"><input type="checkbox" id="s20" onchange="saveChecklist()"><span>前腳掌緩衝套（五趾型）<br><span class="jp-name">ミノウラ 足指小町 歩行らくらくサポーター 足裏クッション</span></span></label>
             <div class="shop-meta">🔢 數量：<strong>× 2 盒</strong>（<strong>一盒只有 1 片</strong>，左右通用，兩腳要買 2 盒）<br>📍 哪裡買：<span class="shop-where">藥妝店（マツモトキヨシ、サンドラッグ）</span><span class="shop-where">OS Drug</span><span class="shop-where">唐吉訶德 上野店</span><br>🗓 順路：<strong>Day 1 一到上野</strong>和休足時間一起找，買到就能馬上穿；沒有的話 Day 2 傍晚 OS Drug／唐吉訶德<br>💴 參考價：定價 ¥1,100，店頭常見 ¥800 左右<br>💡 尺寸：22–26cm 男女通用。穿在襪子裡面，前腳掌有一層緩衝，走路比較不累腳底<br>⚠️ <strong>旅途中要用，不要辦免稅</strong>（免稅會封袋不能拆）</div>
           </div>
+          <div class="shop-item">
+            <label class="shop-head"><input type="checkbox" id="s22" onchange="saveChecklist()"><span>小林製藥 洗眼液 500mL（拿下隱形眼鏡後用）<br><span class="jp-name">アイボンd 500mL（コンタクトを外した後に）</span></span></label>
+            <div class="shop-meta">🔢 數量：<strong>× 1 瓶</strong><br>📍 哪裡買：<span class="shop-where">OS Drug 上野店</span><span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">松本清等藥妝店</span><br>🗓 順路：<strong>Day 2 傍晚</strong>先在 OS Drug 比價，剩下的唐吉訶德買<br>💴 參考價：定價 ¥1,320（含稅），店頭常見 ¥900 左右<br>⚠️ 500mL 是液體，<strong>一定要放托運行李</strong>，而且很重（約 0.6kg）</div>
+          </div>
+          <div class="shop-item">
+            <label class="shop-head"><input type="checkbox" id="s23" onchange="saveChecklist()"><span>樂敦 V Premium 眼藥水 15mL<br><span class="jp-name">Vロートプレミアム（第2類医薬品）</span></span></label>
+            <div class="shop-meta">🔢 數量：<strong>× 1 瓶</strong><br>📍 哪裡買：<span class="shop-where">OS Drug 上野店</span><span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">松本清等藥妝店</span><br>🗓 順路：<strong>Day 2 傍晚</strong>先在 OS Drug 比價，剩下的唐吉訶德買<br>💴 參考價：約 ¥1,650（含稅），各店不同<br>⚠️ <strong>戴軟式隱形眼鏡（含彩片）時不能點</strong>，要拿下來才能用。想戴著隱形眼鏡點的話，改買同系列的「<strong>Vロートコンタクトプレミアム</strong>」（第3類，戴軟式、硬式隱形眼鏡都能用）</div>
+          </div>
+          <div class="shop-item">
+            <label class="shop-head"><input type="checkbox" id="s24" onchange="saveChecklist()"><span>獅王 隱形眼鏡用保濕眼藥水<br><span class="jp-name">スマイルコンタクト ファインフィット（5mL×2本）</span></span></label>
+            <div class="shop-meta">🔢 數量：<strong>× 1 盒</strong>（一盒 2 小瓶）<br>📍 哪裡買：<span class="shop-where">OS Drug 上野店</span><span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">松本清等藥妝店</span><br>🗓 順路：<strong>Day 2 傍晚</strong>先在 OS Drug 比價，剩下的唐吉訶德買<br>💴 參考價：定價 ¥715（含稅），店頭約 ¥560–620<br>💡 戴著隱形眼鏡（軟式、硬式、拋棄式）或裸眼都能點，小瓶很適合放包包。官網寫舊包裝已停產，店裡可能是新包裝，認明「ファインフィット」</div>
+          </div>
           <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 8px;">🧥 衣服</h3>
           <div class="shop-item">
             <label class="shop-head"><input type="checkbox" id="s21" onchange="saveChecklist()"><span>UNIQLO × PRINCESSE tam.tam 極暖發熱衣（羅紋亨利領）<br><span class="jp-name">極暖ヒートテックカシミヤブレンドリブヘンリーネックT（プリンセス タム・タム）</span></span></label>
@@ -1588,7 +1600,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-10-1';
+    const SITE_VERSION = '2026-10-10-2';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
