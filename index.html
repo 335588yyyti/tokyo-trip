@@ -1073,6 +1073,10 @@
             <div class="shop-meta">🔢 數量：<strong>× 1</strong>（色號 <strong>2</strong>，<strong>補充芯 レフィル</strong>）<br>📍 哪裡買：<span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">阿美橫丁藥妝店</span><br>🗓 順路：<strong>Day 2 晚上</strong>唐吉訶德；Day 3 補<br>💴 參考價：補充芯約 ¥2,970（約 NT$624）<br>💡 要買<strong>「レフィル」（補充芯，只有粉餅、沒有盒子）</strong>，不要拿成有盒子的本體。認明「<strong>2</strong>」和「<strong>レフィル</strong>」。</div>
           </div>
           <div class="shop-item">
+            <label class="shop-head"><input type="checkbox" id="s25" onchange="saveChecklist()"><span>資生堂 IHADA 藥用防曬蜜粉餅<br><span class="jp-name">イハダ 薬用フェイスプロテクトパウダー 9g（本体）</span></span></label>
+            <div class="shop-meta">🔢 數量：<strong>× 1 個（本體）</strong>，已經有粉盒的話改買「<span class="jp-name">レフィル</span>」補充芯<br>📍 哪裡買：<span class="shop-where">OS Drug 上野店</span><span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">松本清等藥妝店</span><br>🗓 順路：<strong>Day 2 傍晚</strong>先在 OS Drug 比價，剩下的唐吉訶德買<br>💴 參考價：本體 ¥1,980、補充芯 ¥1,760（含稅），藥妝店常有折扣<br>💡 SPF40・PA++++，不含紫外線吸收劑、無香料，用肥皂就能卸。用來補妝、控油、防曬</div>
+          </div>
+          <div class="shop-item">
             <label class="shop-head"><input type="checkbox" id="s7" onchange="saveChecklist()"><span>洗髮精＋潤髮乳（受損＋毛躁＋細軟扁塌）<br><span class="jp-name">UNIPLEX ボンドメルティ ライト シャンプー／トリートメント</span></span></label>
             <div class="shop-meta">🔢 數量：<strong>洗髮精（シャンプー）× 1 ＋ 潤髮乳（トリートメント）× 1</strong>，買同一系列<br>🥇 第一選擇：<strong>UNIPLEX ボンドメルティ ライト</strong>（洗髮精約 ¥1,870，潤髮乳價格相近，以店頭為準）：修護受損＋抑制毛躁，洗完<strong>輕盈不扁塌</strong><br>🥈 備案：<strong>SECOND IMPACT プレミアムリペア ケラックス</strong>（約 ¥1,980）：修護力最強，偏重修護<br>📍 哪裡買：<span class="shop-where">渋谷 LOFT（11:00–21:00）</span><br>🗓 順路：<strong>Day 1 晚上</strong>，渋谷 PARCO 買完香水走 3 分鐘<br>⚠️ 這兩款<strong>唐吉訶德、松本清不一定有賣</strong>（官方通路是 LOFT、PLAZA 等），各分店也不一定有貨。<br>⚠️ 洗髮精、潤髮乳一瓶通常 400ml 以上，<strong>超過 100ml 不能放手提行李</strong>，要放<strong>托運行李</strong>；也比較重，注意酷航行李公斤數。</div>
           </div>
@@ -1600,7 +1604,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-10-2';
+    const SITE_VERSION = '2026-10-10-3';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
