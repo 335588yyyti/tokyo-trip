@@ -850,6 +850,7 @@
         <div class="timeline-item">
           <div class="time">12:40 - 14:10</div>
           <div class="event-title">🛍️ UNIQLO 御徒町店 ＋ GU 御徒町店</div>
+          <div class="buy-here">🛒 <strong>這裡可以買</strong>：UNIQLO × PRINCESSE tam.tam 極暖發熱衣（羅紋亨利領，¥3,990，聯名款可能缺貨）</div>
           <div class="event-desc">同一棟「御徒町吉池本店大樓」：<strong>UNIQLO 1F–4F、GU 5F–6F</strong>（10:00–21:00），JR 御徒町站旁。</div>
           <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>從多慶屋往西穿過 JR 高架橋下，約 350m。<div class="route-meta">⏱ 約 5 分</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E5%A4%9A%E6%85%B6%E5%B1%8B+%E5%BE%A1%E5%BE%92%E7%94%BA%E6%9C%AC%E5%BA%97&destination=%E3%83%A6%E3%83%8B%E3%82%AF%E3%83%AD+%E5%BE%A1%E5%BE%92%E7%94%BA%E5%BA%97&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ユニクロ+御徒町店" target="_blank">Google Maps 導航</a>
@@ -1101,6 +1102,10 @@
             <div class="shop-meta">🔢 數量：<strong>× 2 盒</strong>（<strong>一盒只有 1 片</strong>，左右通用，兩腳要買 2 盒）<br>📍 哪裡買：<span class="shop-where">藥妝店（マツモトキヨシ、サンドラッグ）</span><span class="shop-where">OS Drug</span><span class="shop-where">唐吉訶德 上野店</span><br>🗓 順路：<strong>Day 1 一到上野</strong>和休足時間一起找，買到就能馬上穿；沒有的話 Day 2 傍晚 OS Drug／唐吉訶德<br>💴 參考價：定價 ¥1,100，店頭常見 ¥800 左右<br>💡 尺寸：22–26cm 男女通用。穿在襪子裡面，前腳掌有一層緩衝，走路比較不累腳底<br>⚠️ <strong>旅途中要用，不要辦免稅</strong>（免稅會封袋不能拆）</div>
           </div>
           <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 8px;">🧥 衣服</h3>
+          <div class="shop-item">
+            <label class="shop-head"><input type="checkbox" id="s21" onchange="saveChecklist()"><span>UNIQLO × PRINCESSE tam.tam 極暖發熱衣（羅紋亨利領）<br><span class="jp-name">極暖ヒートテックカシミヤブレンドリブヘンリーネックT（プリンセス タム・タム）</span></span></label>
+            <div class="shop-meta">🔢 數量：<strong>× 1 件</strong>（顏色、尺寸現場看，照片是 S 號）<br>📍 哪裡買：<span class="shop-where">UNIQLO 御徒町店（1F–4F）</span><br>🗓 順路：<strong>Day 3</strong> 御徒町逛 UNIQLO 時<br>💴 參考價：¥3,990（2026 秋冬）；同系列另有 U 領款 ¥2,990<br>⚠️ 聯名款<strong>很容易賣完</strong>，各店不一定有貨。出發前可以在 UNIQLO App 查「御徒町店」的店舖庫存<br>💡 UNIQLO 可以免稅，同一天在同一間店滿 ¥5,000（未稅）記得帶護照</div>
+          </div>
           <div class="shop-item">
             <label class="shop-head"><input type="checkbox" id="s17" onchange="saveChecklist()"><span>Workman 防曬防雨高透氣外套<br><span class="jp-name">イナレム プレミアム UVエアー レインジャケット（NRP004A）</span></span></label>
             <div class="shop-meta">🔢 數量：<strong>× 1 件</strong>（尺寸現場試穿；男款，S–3L）<br>📍 哪裡買：<span class="shop-where">WORKMAN Plus 川越宮元店（川越市宮元町43-11，7:00–20:00）</span><span class="shop-where">Workman Colors 池袋サンシャインシティアルパ店 2F（10:00–20:00）</span><br>🗓 順路：<strong>Day 2 早上 08:30</strong>，從東武「川越市」站走約 23 分，逛完再走 16 分到菓子屋橫丁<br>💴 參考價：¥3,900<br>💡 耐水壓 10,000mm、透濕度 45,000g、UPF50+、可收納、很輕<br>⚠️ 這是 <strong>2026 春夏款</strong>，10 月底<strong>店裡不一定還有貨</strong>，官網目前顯示缺貨。池袋那間是休閒服店，<strong>不一定有賣雨衣系列</strong>，川越那間比較有機會。</div>
@@ -1583,7 +1588,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-09-4';
+    const SITE_VERSION = '2026-10-10-1';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
