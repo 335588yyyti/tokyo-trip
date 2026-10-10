@@ -1098,6 +1098,10 @@
             <div class="shop-meta">🔢 數量：<strong>× 1 包（56 粒）</strong><br>📍 哪裡買：<span class="shop-where">OS Drug 上野店</span><span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">松本清等藥妝店</span><br>🗓 順路：<strong>Day 2 傍晚</strong>先在 OS Drug 比價，剩下的唐吉訶德買<br>💴 參考價：56 粒約 ¥1,598、120 粒約 ¥2,894（含稅，120 粒每粒比較便宜）<br>💡 認明<strong>橘色包裝</strong>。同系列還有金色的「3倍ぱっくん分解酵母プレミアム」（56 粒約 ¥1,998）、紅色的「おなかの脂肪ぱっくん」、黑色的「黑生薑」，不要拿錯</div>
           </div>
           <div class="shop-item">
+            <label class="shop-head"><input type="checkbox" id="s28" onchange="saveChecklist()"><span>SVELTY 消水腫膠囊（保健食品）<br><span class="jp-name">スベルティ むくみぱっくん 大容量 90粒（30回分）</span></span></label>
+            <div class="shop-meta">🔢 數量：<strong>× 1 包（大容量 90 粒）</strong><br>📍 哪裡買：<span class="shop-where">OS Drug 上野店</span><span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">松本清等藥妝店</span><br>🗓 順路：<strong>Day 2 傍晚</strong>和糖質分解酵母一起比價、一起買<br>💴 參考價：90 粒約 ¥3,790–4,190（含稅）；另有 42 粒（14 日分）小包裝<br>💡 認明<strong>淺綠灰色包裝、黑色圓形標誌</strong>「むくみぱっくん」。機能性表示食品，主成分是檸檬來源的「モノグルコシルヘスペリジン」，一天 3 粒<br>⚠️ 想在旅途中就開始吃的話，<strong>這包不要辦免稅</strong>（免稅會封袋不能拆）</div>
+          </div>
+          <div class="shop-item">
             <label class="shop-head"><input type="checkbox" id="s10" onchange="saveChecklist()"><span>小林製藥 FAICHI 補鐵錠（貧血用，120 錠）<br><span class="jp-name">小林製薬 ファイチ 120錠【第2類医薬品】</span></span></label>
             <div class="shop-meta">🔢 數量：<strong>× 1 盒</strong><br>📍 哪裡買：<span class="shop-where">阿美橫丁藥妝店（松本清、Sundrug）</span><span class="shop-where">唐吉訶德 上野店（有賣藥的話）</span><br>🗓 順路：<strong>Day 2 晚上</strong>唐吉訶德先找；沒有的話 <strong>Day 3</strong> 阿美橫丁藥妝店買<br>💴 參考價：約 ¥2,170–2,960（官方建議售價未稅 ¥2,835，各店不同）<br>💡 認明<strong>紅色盒子、「貧血に ファイチ」</strong>、120 錠（60 日份）。屬於「第2類医薬品」，要在<strong>有賣藥的藥妝店</strong>買。<br>🇹🇼 帶回台灣：成藥限<strong>自用</strong>，<strong>每種最多 12 盒、總共不超過 36 盒</strong>。</div>
           </div>
@@ -1612,7 +1616,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-10-5';
+    const SITE_VERSION = '2026-10-11-1';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
