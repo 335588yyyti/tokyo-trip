@@ -1387,9 +1387,9 @@
           <div class="shop-item opt">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
             <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s30.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
-            <label class="shop-head"><input type="checkbox" id="s30" onchange="saveChecklist()"><span><span class="tag-opt">🔸 順路</span>黑色雙口袋肩背包（肩帶有蝴蝶結、角落有刺繡）<br><span class="jp-name">ブラック ショルダーバッグ（フロントポケット・リボン付き）</span></span></label>
+            <label class="shop-head"><input type="checkbox" id="s30" onchange="saveChecklist()"><span><span class="tag-opt">🔸 順路</span>吉伊卡哇 刺繡波士頓包（小桃鼠）<br><span class="jp-name">粧美堂 ちいかわ ボストンバッグ（モモンガ）</span></span></label>
             <div class="shop-qty">🔢 數量：× 1</div>
-            <details class="shop-meta"><summary>詳細</summary>📍 哪裡找：<span class="shop-where">逛街時有看到就買</span><br>💡 <strong>品牌還沒查到</strong>：仿皮的保齡球包形狀，前面兩個有蓋口袋，肩帶上有小蝴蝶結，右下角有戴紫色蝴蝶結的角色刺繡。可以點照片放大給店員看，問「<span class="jp-name">このバッグはありますか？</span>」（有這個包包嗎？）</details>
+            <details class="shop-meta"><summary>詳細</summary>📍 哪裡找：<span class="shop-where">渋谷 LOFT（Day 1）</span><span class="shop-where">KIDDY LAND 原宿（Day 1）</span><span class="shop-where">唐吉訶德 上野店（Day 2）</span><span class="shop-where">吉伊卡哇樂園 TOKYO Station（Day 3）</span><br>💴 參考價：<strong>¥7,700（含稅）</strong>，2026/7/17 發售<br>💡 共 4 款：吉伊卡哇（粉蝴蝶結）、小八（藍）、兔兔（橘）、<strong>小桃鼠（紫蝴蝶結）</strong>。照片是小桃鼠款，內裡是角色滿版印花，有放 IC 卡的小口袋<br>💡 官方說在雜貨店、量販店、藥妝店都有賣，但<strong>各店不一定有貨</strong>，有看到就問「<span class="jp-name">ちいかわのボストンバッグ（モモンガ）はありますか？</span>」</details>
           </div>
           <div class="shop-item must">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
@@ -1883,7 +1883,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-11-9';
+    const SITE_VERSION = '2026-10-11-10';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
