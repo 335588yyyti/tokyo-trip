@@ -1384,13 +1384,6 @@
             <div class="shop-qty">🔢 數量：<strong>× 1 件</strong>（顏色、尺寸現場看，照片是 S 號）</div>
             <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">UNIQLO 御徒町店（1F–4F）</span><br>🗓 順路：<strong>Day 3</strong> 御徒町逛 UNIQLO 時<br>💴 參考價：¥3,990（2026 秋冬）；同系列另有 U 領款 ¥2,990<br>⚠️ 聯名款<strong>很容易賣完</strong>，各店不一定有貨。出發前可以在 UNIQLO App 查「御徒町店」的店舖庫存<br>💡 UNIQLO 可以免稅，同一天在同一間店滿 ¥5,000（未稅）記得帶護照</details>
           </div>
-          <div class="shop-item opt">
-            <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
-            <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s30.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
-            <label class="shop-head"><input type="checkbox" id="s30" onchange="saveChecklist()"><span><span class="tag-opt">🔸 順路</span>吉伊卡哇 刺繡波士頓包（小桃鼠）<br><span class="jp-name">粧美堂 ちいかわ ボストンバッグ（モモンガ）</span></span></label>
-            <div class="shop-qty">🔢 數量：× 1</div>
-            <details class="shop-meta"><summary>詳細</summary>📍 哪裡找：<span class="shop-where">渋谷 LOFT（Day 1）</span><span class="shop-where">KIDDY LAND 原宿（Day 1）</span><span class="shop-where">唐吉訶德 上野店（Day 2）</span><span class="shop-where">吉伊卡哇樂園 TOKYO Station（Day 3）</span><br>💴 參考價：<strong>¥7,700（含稅）</strong>，2026/7/17 發售<br>💡 共 4 款：吉伊卡哇（粉蝴蝶結）、小八（藍）、兔兔（橘）、<strong>小桃鼠（紫蝴蝶結）</strong>。照片是小桃鼠款，內裡是角色滿版印花，有放 IC 卡的小口袋<br>💡 官方說在雜貨店、量販店、藥妝店都有賣，但<strong>各店不一定有貨</strong>，有看到就問「<span class="jp-name">ちいかわのボストンバッグ（モモンガ）はありますか？</span>」</details>
-          </div>
           <div class="shop-item must">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
             <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s17.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
@@ -1883,7 +1876,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-11-10';
+    const SITE_VERSION = '2026-10-11-11';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
