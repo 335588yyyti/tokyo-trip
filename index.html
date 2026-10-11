@@ -1293,6 +1293,20 @@
           </div>
           <div class="shop-item must">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
+            <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s31.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
+            <label class="shop-head"><input type="checkbox" id="s31" onchange="saveChecklist()"><span><span class="tag-must">⭐ 必買</span>ululis 橘色水感修護髮油<br><span class="jp-name">ウルリス ビタシー ウォーターコンク EXリペア ヘアオイル 100mL</span></span></label>
+            <div class="shop-qty">🔢 數量：× 1 瓶（本體）</div>
+            <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">OS Drug／松本清等藥妝店</span><span class="shop-where">渋谷 LOFT</span><br>🗓 順路：<strong>Day 1 晚上</strong>在 LOFT 買洗髮精時一起找；沒有的話 Day 2 唐吉訶德<br>💴 參考價：本體 100mL 約 ¥1,540–1,595；補充包 75mL 約 ¥1,100<br>⚠️ <strong>一定要橘色、寫「EX Repair」</strong>的款式，同系列其他顏色不一樣。蛋形透明橘色瓶<br>💡 水感質地，比一般髮油輕，細軟髮比較不會扁塌。甜橙香<br>✈️ 100mL 剛好可以放手提行李（裝夾鏈袋）</details>
+          </div>
+          <div class="shop-item must">
+            <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
+            <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s32.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
+            <label class="shop-head"><input type="checkbox" id="s32" onchange="saveChecklist()"><span><span class="tag-must">⭐ 必買</span>ReFa 愛心梳（防毛躁、梳出光澤）<br><span class="jp-name">ReFa Aira WITH（リファアイラウィズ）</span></span></label>
+            <div class="shop-qty">🔢 數量：× 1 把（顏色現場挑）</div>
+            <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">渋谷 LOFT（Day 1）</span><span class="shop-where">PLAZA、@cosme STORE 等雜貨店</span><br>🗓 順路：<strong>Day 1 晚上</strong>渋谷 LOFT 美妝／美髮區<br>💴 參考價：¥3,520（含稅）；2026 年新色 ¥3,630<br>💡 顏色：玫瑰金、銀、香檳金，2026 年另有新色。梳齒是特殊流線形，減少拉扯，梳完比較柔順、不毛躁<br>⚠️ 一開始只在 ReFa 會員限定販售，現在已經一般販售，但各店不一定有貨。另一款「ReFa HEART COMB Aira」是不同商品，不要拿錯</details>
+          </div>
+          <div class="shop-item must">
+            <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
             <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s8.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
             <label class="shop-head"><input type="checkbox" id="s8" onchange="saveChecklist()"><span><span class="tag-must">⭐ 必買</span>第一三共 Clean Dental 牙膏（全效護理）<br><span class="jp-name">第一三共 クリーンデンタル トータルケア</span></span></label>
             <div class="shop-qty">🔢 數量：<strong>150g（大條）× 1</strong></div>
@@ -1876,7 +1890,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-11-11';
+    const SITE_VERSION = '2026-10-12-1';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
