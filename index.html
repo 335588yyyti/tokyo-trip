@@ -1048,7 +1048,13 @@
           <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>沿著 JR 高架旁的阿美橫丁往上野方向，約 500m 到上野丸井。<div class="route-meta">⏱ 約 7 分（邊逛會更久）</div><a class="route-link" href="https://www.google.com/maps/dir/?api=1&origin=%E3%83%A6%E3%83%8B%E3%82%AF%E3%83%AD+%E5%BE%A1%E5%BE%92%E7%94%BA%E5%BA%97&destination=%E4%B8%8A%E9%87%8E%E3%83%9E%E3%83%AB%E3%82%A4&travelmode=walking" target="_blank">Google Maps 路線 ↗</a></div></div>
         </div>
         <div class="timeline-item">
-          <div class="time">14:25 - 15:20</div>
+          <div class="time">14:25 - 14:50</div>
+          <div class="event-title">🧸 ヤマシロヤ 上野（玩具店，星之卡比專區）</div>
+          <div class="event-desc">東京都台東区上野6-14-6，<strong>JR 上野站「廣小路口」正對面</strong>，阿美橫丁走到底就到（10:00–21:30）。6 層樓的角色玩具、周邊店，<strong>3F 有很大的星之卡比專區</strong>。</div>
+          <div class="route-box"><div class="route-opt opt-walk"><span class="route-label">🚶 步行</span>阿美橫丁往上野站方向走到底，過馬路就是。<div class="route-meta">⏱ 約 2 分</div><a class="route-link" href="https://www.google.com/maps/search/?api=1&query=ヤマシロヤ+上野" target="_blank">Google Maps ↗</a></div></div>
+        </div>
+        <div class="timeline-item">
+          <div class="time">14:50 - 15:20</div>
           <div class="event-title">🛍️ 無印良品 上野丸井店 <span class="jp-name">無印良品 上野マルイ</span></div>
           <div class="event-desc">上野丸井 B2F（11:00 開門）。</div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=無印良品+上野マルイ" target="_blank">Google Maps 導航</a>
@@ -1367,6 +1373,13 @@
             <label class="shop-head"><input type="checkbox" id="s28" onchange="saveChecklist()"><span><span class="tag-must">⭐ 必買</span><span class="tag-own own-lu">👤 盧</span>SVELTY 消水腫膠囊（保健食品）<br><span class="jp-name">スベルティ むくみぱっくん 大容量 90粒（30回分）</span></span></label>
             <div class="shop-qty">🔢 數量：<strong>× 1 包（大容量 90 粒）</strong></div>
             <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">OS Drug 上野店</span><span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">松本清等藥妝店</span><br>🗓 順路：<strong>Day 2 傍晚</strong>和糖質分解酵母一起比價、一起買<br>💴 參考價：90 粒約 ¥3,790–4,190（含稅）；另有 42 粒（14 日分）小包裝<br>💡 認明<strong>淺綠灰色包裝、黑色圓形標誌</strong>「むくみぱっくん」。機能性表示食品，主成分是檸檬來源的「モノグルコシルヘスペリジン」，一天 3 粒<br>⚠️ 想在旅途中就開始吃的話，<strong>這包不要辦免稅</strong>（免稅會封袋不能拆）</details>
+          </div>
+          <div class="shop-item must own-hong">
+            <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
+            <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s34.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
+            <label class="shop-head"><input type="checkbox" id="s34" onchange="saveChecklist()"><span><span class="tag-must">⭐ 必買</span><span class="tag-own own-hong">👤 洪</span>UHA 味覺糖 補鐵＋葉酸軟糖<br><span class="jp-name">UHA味覚糖 グミサプリ 鉄＆葉酸 20日分</span></span></label>
+            <div class="shop-qty">🔢 數量：× 1 包（20 日份，40 粒）</div>
+            <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">OS Drug 上野店</span><span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">松本清等藥妝店</span><br>🗓 順路：<strong>Day 2 傍晚</strong>和其他保健食品一起在 OS Drug 比價，剩下的唐吉訶德買<br>💴 參考價：約 ¥500–670（定價 ¥670），各店不同<br>💡 <strong>藍紅色包裝、寫「鉄＆葉酸」</strong>，黑醋栗口味。另一款<strong>粉紅色</strong>包裝的「グミサプリ 鉄」是<strong>只有鐵、沒有葉酸</strong>，葡萄口味，約 ¥630，不要拿錯</details>
           </div>
           <div class="shop-item must own-lu">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
@@ -1946,7 +1959,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-13-6';
+    const SITE_VERSION = '2026-10-13-7';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
