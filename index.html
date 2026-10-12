@@ -2110,7 +2110,7 @@
       setTimeout(() => document.getElementById(anchorId).scrollIntoView(), 50);
     }
 
-    // 匯率：有設定雲端同步時，Google 試算表每 6 小時自動抓最新匯率；手動改過就以手動為準
+    // 匯率：有設定雲端同步時，Google 試算表用 GOOGLEFINANCE 自動抓最新匯率；手動改過就以手動為準
     let rateState = (() => {
       try { return JSON.parse(localStorage.getItem('japan_rate')) || {}; } catch (e) { return {}; }
     })();
