@@ -1644,7 +1644,8 @@
         <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px; font-size: 0.88rem;">
           <span>目前日圓匯率：</span>
           <input type="number" id="rateInput" value="0.205" step="0.005" style="width: 75px; padding: 4px 8px; border: 1px solid var(--border); border-radius: 6px; font-size: 16px;" onchange="updateRate()">
-          <span style="color: var(--muted); font-size: 0.8rem;">(可手動修改)</span>
+          <span id="rateNote" style="color: var(--muted); font-size: 0.8rem;">(可手動修改)</span>
+          <button id="rateAutoBtn" onclick="useAutoRate()" style="display: none; padding: 3px 8px; border: 1px solid var(--border); border-radius: 6px; background: none; color: var(--primary); font-size: 0.8rem; cursor: pointer;">↻ 改回自動</button>
         </div>
         <div class="calc-row" style="margin-bottom: 4px; font-size: 0.8rem; font-weight: 600; color: var(--muted);">
           <span style="flex: 1;">日幣 ¥</span><span style="flex: 1;">台幣 NT$</span>
@@ -1720,7 +1721,7 @@
           <div class="sum-sub">實際花費＝自己的消費＋平分的一半＋對方幫忙代墊的</div>
           <div class="sum-row" style="margin-top: 8px;"><span>洪 付出去的</span><span id="paidHong">NT$ 0</span></div>
           <div class="sum-row" style="margin-top: 4px;"><span>盧 付出去的</span><span id="paidLu">NT$ 0</span></div>
-          <div class="sum-sub" style="margin-top: 6px;">※ 合計都換算成台幣（依上方匯率）。</div>
+          <div class="sum-sub" style="margin-top: 6px;">※ 合計都換算成台幣（依上方匯率；有開雲端同步時會自動更新成最新市場匯率）。</div>
         </div>
 
         <div class="calc-row" style="margin-top: 18px; margin-bottom: 0;">
@@ -2109,11 +2110,60 @@
       setTimeout(() => document.getElementById(anchorId).scrollIntoView(), 50);
     }
 
-    let currentRate = 0.205;
+    // 匯率：有設定雲端同步時，Google 試算表每 6 小時自動抓最新匯率；手動改過就以手動為準
+    let rateState = (() => {
+      try { return JSON.parse(localStorage.getItem('japan_rate')) || {}; } catch (e) { return {}; }
+    })();
+    let currentRate = Number(rateState.value) > 0 ? Number(rateState.value) : 0.205;
+
+    function saveRateState() {
+      try { localStorage.setItem('japan_rate', JSON.stringify(rateState)); } catch (e) {}
+    }
+
+    function showRate() {
+      const input = document.getElementById('rateInput');
+      if (document.activeElement !== input) input.value = currentRate;
+      const note = document.getElementById('rateNote');
+      if (rateState.manual) note.innerText = '(手動設定)';
+      else if (rateState.at) note.innerText = '(自動更新 ' + new Date(rateState.at).toLocaleString('zh-TW', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) + ')';
+      else note.innerText = '(可手動修改)';
+      document.getElementById('rateAutoBtn').style.display = rateState.manual && syncUrl() ? 'inline-block' : 'none';
+    }
+
     function updateRate() {
       currentRate = parseFloat(document.getElementById('rateInput').value) || 0.205;
+      rateState = Object.assign({}, rateState, { value: currentRate, manual: true });
+      saveRateState();
+      showRate();
       calcTwd();
       renderExpenses();
+    }
+
+    function applyServerRate(rate) {
+      const v = rate && Number(rate.value);
+      if (!(v > 0.1 && v < 0.5)) return;
+      rateState.autoValue = v;
+      rateState.autoAt = Number(rate.at) || Date.now();
+      if (!rateState.manual) {
+        rateState.value = v;
+        rateState.at = rateState.autoAt;
+        if (v !== currentRate) { currentRate = v; calcTwd(); renderExpenses(); }
+      }
+      saveRateState();
+      showRate();
+    }
+
+    function useAutoRate() {
+      rateState.manual = false;
+      if (rateState.autoValue) {
+        currentRate = rateState.value = rateState.autoValue;
+        rateState.at = rateState.autoAt;
+      }
+      saveRateState();
+      showRate();
+      calcTwd();
+      renderExpenses();
+      syncNow();
     }
 
     function calcTwd() {
@@ -2182,6 +2232,7 @@
           if (cur && cur.updatedAt === op.item.updatedAt) delete pending[op.item.id];
         });
         saveJson('japan_pending', pending);
+        applyServerRate(data.rate);
         const server = new Map(data.items.map(x => [Number(x.id), x]));
         Object.values(pending).forEach(x => server.set(x.id, x));
         expenses = Array.from(server.values()).map(x => Object.assign(x, { id: Number(x.id), amount: Number(x.amount) })).sort((a, b) => a.id - b.id);
@@ -2220,6 +2271,7 @@
       document.getElementById('localWarn').style.display = url ? 'none' : 'block';
       document.getElementById('cloudOk').style.display = url ? 'block' : 'none';
       if (!url) setSyncStatus('尚未設定雲端同步（目前只存在這支手機）');
+      showRate();
     }
 
     function addExpense() {
@@ -2419,6 +2471,7 @@
         if (e.key === 'japan_expenses') { expenses = loadJson('japan_expenses', []); renderExpenses(); }
         if (e.key === 'japan_pending') pending = loadJson('japan_pending', {});
         if (e.key === 'japan_sync_url') { updateSyncUi(); syncNow(); }
+        if (e.key === 'japan_rate') { rateState = loadJson('japan_rate', {}); if (rateState.value > 0) currentRate = Number(rateState.value); showRate(); calcTwd(); renderExpenses(); }
       });
       renderExpenses();
       loadChecklist();
