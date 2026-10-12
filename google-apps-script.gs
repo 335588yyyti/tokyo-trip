@@ -2,6 +2,9 @@
  * 東京旅費記帳：Google 試算表雲端同步
  * 用法：在 Google 試算表的「擴充功能 → Apps Script」貼上這整段，
  *       再「部署 → 新增部署作業 → 網頁應用程式」，誰可以存取選「所有人」。
+ * 匯率：每 6 小時自動抓一次最新日圓→台幣匯率（市場中間價），隨記帳一起傳給手機。
+ *       改完這段程式要「部署 → 管理部署作業 → 編輯 → 版本選『新版本』→ 部署」，
+ *       第一次會要求授權「連線到外部服務」，按允許即可（網址不會變）。
  */
 const SHEET_NAME = '記帳';
 const HEADERS = ['id', 'title', 'amount', 'currency', 'type', 'payer', 'deleted', 'updatedAt'];
@@ -37,6 +40,34 @@ function readAll_() {
   return items;
 }
 
+// ---- 匯率（1 日圓 = ? 台幣）----
+const RATE_MAX_AGE = 6 * 60 * 60 * 1000;
+
+function fetchRate_() {
+  const res = UrlFetchApp.fetch('https://open.er-api.com/v6/latest/JPY', { muteHttpExceptions: true });
+  if (res.getResponseCode() !== 200) throw new Error('rate http ' + res.getResponseCode());
+  const twd = Number(JSON.parse(res.getContentText()).rates.TWD);
+  // 合理範圍檢查，避免抓到怪數字把帳算錯
+  if (!(twd > 0.1 && twd < 0.5)) throw new Error('rate out of range: ' + twd);
+  return twd;
+}
+
+// 可以在 Apps Script 編輯器手動執行這個函式，立刻更新匯率
+function refreshRate() {
+  const rate = { value: Math.round(fetchRate_() * 10000) / 10000, at: Date.now() };
+  PropertiesService.getScriptProperties().setProperty('rate', JSON.stringify(rate));
+  return rate;
+}
+
+function getRate_() {
+  let rate = null;
+  try { rate = JSON.parse(PropertiesService.getScriptProperties().getProperty('rate')); } catch (e) {}
+  if (!rate || Date.now() - rate.at > RATE_MAX_AGE) {
+    try { rate = refreshRate(); } catch (e) { /* 抓不到就沿用上一次的 */ }
+  }
+  return rate;
+}
+
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
 }
@@ -48,7 +79,7 @@ function safeText_(t) {
 }
 
 function doGet() {
-  return json_({ ok: true, items: readAll_() });
+  return json_({ ok: true, items: readAll_(), rate: getRate_() });
 }
 
 function doPost(e) {
@@ -81,7 +112,7 @@ function doPost(e) {
         rowById[row[0]] = { row: sh.getLastRow(), updatedAt: row[7] };
       }
     });
-    return json_({ ok: true, items: readAll_() });
+    return json_({ ok: true, items: readAll_(), rate: getRate_() });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
   } finally {
