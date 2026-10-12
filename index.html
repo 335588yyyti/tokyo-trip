@@ -1460,6 +1460,14 @@
             <div class="shop-qty">🔢 數量：現場決定</div>
             <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">渋谷 PARCO 2F（11:00–21:00，有免稅）</span><span class="shop-where">丸の內 Brick Square 1F（11:00–20:00）</span><br>🗓 順路：<strong>Day 1 晚上</strong>，在 PARCO 1F 買完 Le Labo 直接上 2F<br>💡 網友推薦「Eau Triple」香水系列和牙膏。日本價格以店頭為準。<br>✈️ 香水超過 100ml 要放托運；牙膏看容量，100ml 以下才能放手提（裝夾鏈袋）。</details>
           </div>
+          <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 8px;">🔌 3C</h3>
+          <div class="shop-item must own-lu">
+            <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
+            <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s35.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
+            <label class="shop-head"><input type="checkbox" id="s35" onchange="saveChecklist()"><span><span class="tag-must">⭐ 必買</span><span class="tag-own own-lu">👤 盧</span>Bic Camera 軟矽膠充電線 Type-C 對 Type-C 0.5m<br><span class="jp-name">ビックアイデア ヤワラケーブル Type-C to Type-C 0.5m（最大60W）</span></span></label>
+            <div class="shop-qty">🔢 數量：× 1 條（白色 0.5m）</div>
+            <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">ビックカメラ 渋谷東口店（10:00–22:00）</span><span class="shop-where">ビックカメラ 渋谷ハチ公口店（道玄坂2-5-9，11:00–22:00）</span><br>🗓 順路：<strong>Day 1</strong>：銀座線 15:06 到澀谷，東口店就在出口前；ハチ公口店在走去卡丁車店的道玄坂上。下午趕時間的話，<strong>晚上逛完澀谷再買</strong>（開到 22:00）<br>💴 參考價：查不到官方價格，以店頭為準（同規格的充電線約 ¥900–1,500）<br>💡 這是 <strong>Bic Camera 自有品牌</strong>「ビックアイデア」，<strong>只有 Bic Camera 系列店（Bic Camera、Kojima、Sofmap）有賣</strong>，藥妝店、唐吉訶德沒有。矽膠材質很軟、不容易斷，附矽膠束帶，支援 PD 快充最大 60W<br>⚠️ 包裝上寫 Type-C 對 Type-C，<strong>兩頭都是 Type-C</strong>；iPhone 15 以後可以用，舊 iPhone（Lightning）不能用</details>
+          </div>
           <h3 style="font-size: 1rem; color: var(--primary); margin: 14px 0 8px;">👟 鞋（代購）</h3>
           <div class="shop-item must own-hong">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
@@ -1959,7 +1967,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-13-8';
+    const SITE_VERSION = '2026-10-13-9';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
