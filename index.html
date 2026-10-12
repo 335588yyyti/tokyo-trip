@@ -1721,7 +1721,7 @@
           <div class="sum-sub">實際花費＝自己的消費＋平分的一半＋對方幫忙代墊的</div>
           <div class="sum-row" style="margin-top: 8px;"><span>洪 付出去的</span><span id="paidHong">NT$ 0</span></div>
           <div class="sum-row" style="margin-top: 4px;"><span>盧 付出去的</span><span id="paidLu">NT$ 0</span></div>
-          <div class="sum-sub" style="margin-top: 6px;">※ 合計都換算成台幣（依上方匯率；有開雲端同步時會自動更新成最新市場匯率）。</div>
+          <div class="sum-sub" style="margin-top: 6px;">※ 合計都換算成台幣（依上方匯率，有網路時會自動更新成最新匯率）。</div>
         </div>
 
         <div class="calc-row" style="margin-top: 18px; margin-bottom: 0;">
@@ -2110,7 +2110,7 @@
       setTimeout(() => document.getElementById(anchorId).scrollIntoView(), 50);
     }
 
-    // 匯率：有設定雲端同步時，Google 試算表用 GOOGLEFINANCE 自動抓最新匯率；手動改過就以手動為準
+    // 匯率：網頁每 6 小時自動抓一次最新匯率；手動改過就以手動為準
     let rateState = (() => {
       try { return JSON.parse(localStorage.getItem('japan_rate')) || {}; } catch (e) { return {}; }
     })();
@@ -2127,7 +2127,7 @@
       if (rateState.manual) note.innerText = '(手動設定)';
       else if (rateState.at) note.innerText = '(自動更新 ' + new Date(rateState.at).toLocaleString('zh-TW', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) + ')';
       else note.innerText = '(可手動修改)';
-      document.getElementById('rateAutoBtn').style.display = rateState.manual && syncUrl() ? 'inline-block' : 'none';
+      document.getElementById('rateAutoBtn').style.display = rateState.manual ? 'inline-block' : 'none';
     }
 
     function updateRate() {
@@ -2139,7 +2139,16 @@
       renderExpenses();
     }
 
-    function applyServerRate(rate) {
+    async function fetchLiveRate(force) {
+      if (!force && rateState.autoAt && Date.now() - rateState.autoAt < 6 * 60 * 60 * 1000) return;
+      try {
+        const res = await fetch('https://open.er-api.com/v6/latest/JPY', { cache: 'no-store' });
+        const data = await res.json();
+        applyLiveRate({ value: Math.round(Number(data.rates.TWD) * 10000) / 10000, at: Date.now() });
+      } catch (e) { /* 沒網路就沿用上一次的匯率 */ }
+    }
+
+    function applyLiveRate(rate) {
       const v = rate && Number(rate.value);
       if (!(v > 0.1 && v < 0.5)) return;
       rateState.autoValue = v;
@@ -2163,7 +2172,7 @@
       showRate();
       calcTwd();
       renderExpenses();
-      syncNow();
+      fetchLiveRate(true);
     }
 
     function calcTwd() {
@@ -2232,7 +2241,6 @@
           if (cur && cur.updatedAt === op.item.updatedAt) delete pending[op.item.id];
         });
         saveJson('japan_pending', pending);
-        applyServerRate(data.rate);
         const server = new Map(data.items.map(x => [Number(x.id), x]));
         Object.values(pending).forEach(x => server.set(x.id, x));
         expenses = Array.from(server.values()).map(x => Object.assign(x, { id: Number(x.id), amount: Number(x.amount) })).sort((a, b) => a.id - b.id);
@@ -2464,7 +2472,8 @@
       try { const pp = localStorage.getItem('japan_payer'); if (pp) document.getElementById('itemPayer').value = pp; } catch (e) {}
       updateSyncUi();
       syncNow();
-      document.addEventListener('visibilitychange', () => { if (!document.hidden) { syncNow(); checkUpdate(); } });
+      fetchLiveRate();
+      document.addEventListener('visibilitychange', () => { if (!document.hidden) { syncNow(); fetchLiveRate(); checkUpdate(); } });
       checkUpdate();
       // 同一個瀏覽器開了好幾個分頁時，彼此保持一致
       window.addEventListener('storage', (e) => {

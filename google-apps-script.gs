@@ -2,9 +2,6 @@
  * 東京旅費記帳：Google 試算表雲端同步
  * 用法：在 Google 試算表的「擴充功能 → Apps Script」貼上這整段，
  *       再「部署 → 新增部署作業 → 網頁應用程式」，誰可以存取選「所有人」。
- * 匯率：試算表會自動多一個「匯率」分頁，用 Google 內建的 GOOGLEFINANCE 抓最新日圓→台幣匯率，
- *       隨記帳一起傳給手機。不需要額外授權。
- *       改完這段程式要「部署 → 管理部署作業 → 編輯 → 版本選『新版本』→ 部署」（網址不會變）。
  */
 const SHEET_NAME = '記帳';
 const HEADERS = ['id', 'title', 'amount', 'currency', 'type', 'payer', 'deleted', 'updatedAt'];
@@ -40,29 +37,6 @@ function readAll_() {
   return items;
 }
 
-// ---- 匯率（1 日圓 = ? 台幣）----
-// 用試算表內建的 GOOGLEFINANCE，不需要連外部網站的權限（那個權限會被 Google 封鎖）
-const RATE_SHEET = '匯率';
-
-function getRate_() {
-  try {
-    const ss = SpreadsheetApp.getActiveSpreadsheet();
-    let sh = ss.getSheetByName(RATE_SHEET);
-    if (!sh) {
-      sh = ss.insertSheet(RATE_SHEET);
-      sh.getRange('A1:B1').setValues([['1 日圓 = ? 台幣', '（自動更新，請勿修改）']]);
-      sh.getRange('A2').setFormula('=GOOGLEFINANCE("CURRENCY:JPYTWD")');
-      SpreadsheetApp.flush();
-    }
-    const v = Number(sh.getRange('A2').getValue());
-    // 合理範圍檢查，避免抓到怪數字把帳算錯；抓不到時手機會沿用上一次的匯率
-    if (!(v > 0.1 && v < 0.5)) return null;
-    return { value: Math.round(v * 10000) / 10000, at: Date.now() };
-  } catch (e) {
-    return null;
-  }
-}
-
 function json_(obj) {
   return ContentService.createTextOutput(JSON.stringify(obj)).setMimeType(ContentService.MimeType.JSON);
 }
@@ -74,7 +48,7 @@ function safeText_(t) {
 }
 
 function doGet() {
-  return json_({ ok: true, items: readAll_(), rate: getRate_() });
+  return json_({ ok: true, items: readAll_() });
 }
 
 function doPost(e) {
@@ -107,7 +81,7 @@ function doPost(e) {
         rowById[row[0]] = { row: sh.getLastRow(), updatedAt: row[7] };
       }
     });
-    return json_({ ok: true, items: readAll_(), rate: getRate_() });
+    return json_({ ok: true, items: readAll_() });
   } catch (err) {
     return json_({ ok: false, error: String(err) });
   } finally {
