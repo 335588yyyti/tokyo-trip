@@ -605,6 +605,10 @@
       margin-right: 6px;
       vertical-align: 1px;
     }
+    #shopList .tag-must, #shopList .tag-opt {
+      cursor: pointer;
+      border: 1px dashed currentColor;
+    }
     .tag-must {
       background: #fee2e2;
       color: #b91c1c;
@@ -1214,7 +1218,7 @@
       <div class="card">
         <h2>🛒 待購清單</h2>
         <div class="notice-box">買到就打勾，手機會記住。每項都標了<strong>在哪裡買、哪天順路</strong>，行程頁上順路的店也會標「🛒 這裡可以買」。<br>💊 <strong>藥妝先到 OS Drug 上野店比價</strong>（Day 2 傍晚，19:45 關門，只收現金、不能免稅），比較便宜的在那買，其他到唐吉訶德辦免稅。</div>
-        <div style="font-size: 0.85rem;"><span class="tag-must">⭐ 必買</span>一定要買到，沒貨就換別間找　<span class="tag-opt">🔸 順路</span>有經過、有時間再買</div>
+        <div style="font-size: 0.85rem;"><span class="tag-must">⭐ 必買</span>一定要買到，沒貨就換別間找　<span class="tag-opt">🔸 順路</span>有經過、有時間再買<br>💡 <strong>點卡片上的「必買／順路」標籤</strong>就能切換。</div>
         <div class="shop-filter">
           <button class="active" onclick="filterShop('all', this)">全部</button>
           <button onclick="filterShop('must', this)">⭐ 必買</button>
@@ -1279,17 +1283,17 @@
             <div class="shop-qty">🔢 數量：<strong>× 1</strong></div>
             <details class="shop-meta"><summary>詳細</summary>📍 哪裡找：<span class="shop-where">渋谷 LOFT（Day 1）</span><span class="shop-where">KIDDY LAND 原宿（Day 1）</span><span class="shop-where">唐吉訶德 上野店（Day 2）</span><br>💴 參考價：約 <strong>¥770（含稅）</strong>，約 NT$162（有些店 ¥550–990）。蝦皮券後 NT$242 而且售完，<strong>日本買比較便宜</strong><br>⚠️ 這是粧美堂 2024 年夏天出的商品，<strong>實體店不一定還有貨</strong>，看到就先買。<br>💡 同系列有 6 款（吉伊卡哇、小八、兔兔、栗子饅頭、小桃鼠、古本屋），認明<strong>紫色包裝的「モモンガ」</strong>。</details>
           </div>
-          <div class="shop-item must own-lu">
+          <div class="shop-item opt own-lu">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
             <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s14.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
-            <label class="shop-head"><input type="checkbox" id="s14" onchange="saveChecklist()"><span><span class="tag-must">⭐ 必買</span><span class="tag-own own-lu">👤 盧</span>ANESSA 安耐曬 金鑽高效潤色防護 BB 霜（自然色）<br><span class="jp-name">アネッサ パーフェクトUV スキンケアBB ファンデーション a <strong>2</strong>（健康的で自然な肌色）25mL</span></span></label>
+            <label class="shop-head"><input type="checkbox" id="s14" onchange="saveChecklist()"><span><span class="tag-opt">🔸 順路</span><span class="tag-own own-lu">👤 盧</span>ANESSA 安耐曬 金鑽高效潤色防護 BB 霜（自然色）<br><span class="jp-name">アネッサ パーフェクトUV スキンケアBB ファンデーション a <strong>2</strong>（健康的で自然な肌色）25mL</span></span></label>
             <div class="shop-qty">🔢 數量：<strong>× 1</strong>（色號 <strong>2</strong>）</div>
             <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">阿美橫丁藥妝店</span><br>🗓 順路：<strong>Day 2 晚上</strong>唐吉訶德；Day 3 補<br>💴 參考價：定價約 ¥2,200（約 NT$462），台灣 momo 約 NT$585–650<br>💡 液狀軟管，SPF50+・PA++++，認明「<strong>2</strong>」。</details>
           </div>
-          <div class="shop-item must own-lu">
+          <div class="shop-item opt own-lu">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
             <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s15.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
-            <label class="shop-head"><input type="checkbox" id="s15" onchange="saveChecklist()"><span><span class="tag-must">⭐ 必買</span><span class="tag-own own-lu">👤 盧</span>ANESSA 安耐曬 全能防曬水凝粉霜 補充芯（自然色）<br><span class="jp-name">アネッサ オールインワン ビューティーパクト <strong>2</strong>（中間的な明るさのオークル）<strong>レフィル</strong> 10g</span></span></label>
+            <label class="shop-head"><input type="checkbox" id="s15" onchange="saveChecklist()"><span><span class="tag-opt">🔸 順路</span><span class="tag-own own-lu">👤 盧</span>ANESSA 安耐曬 全能防曬水凝粉霜 補充芯（自然色）<br><span class="jp-name">アネッサ オールインワン ビューティーパクト <strong>2</strong>（中間的な明るさのオークル）<strong>レフィル</strong> 10g</span></span></label>
             <div class="shop-qty">🔢 數量：<strong>× 1</strong>（色號 <strong>2</strong>，<strong>補充芯 レフィル</strong>）</div>
             <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">阿美橫丁藥妝店</span><br>🗓 順路：<strong>Day 2 晚上</strong>唐吉訶德；Day 3 補<br>💴 參考價：補充芯約 ¥2,970（約 NT$624）<br>💡 要買<strong>「レフィル」（補充芯，只有粉餅、沒有盒子）</strong>，不要拿成有盒子的本體。認明「<strong>2</strong>」和「<strong>レフィル</strong>」。</details>
           </div>
@@ -1321,10 +1325,10 @@
             <div class="shop-qty">🔢 數量：× 1 瓶（本體）</div>
             <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">唐吉訶德 上野店</span><span class="shop-where">OS Drug／松本清等藥妝店</span><span class="shop-where">渋谷 LOFT</span><br>🗓 順路：<strong>Day 1 晚上</strong>在 LOFT 買洗髮精時一起找；沒有的話 Day 2 唐吉訶德<br>💴 參考價：本體 100mL 約 ¥1,540–1,595；補充包 75mL 約 ¥1,100<br>⚠️ <strong>一定要橘色、寫「EX Repair」</strong>的款式，同系列其他顏色不一樣。蛋形透明橘色瓶<br>💡 水感質地，比一般髮油輕，細軟髮比較不會扁塌。甜橙香<br>✈️ 100mL 剛好可以放手提行李（裝夾鏈袋）</details>
           </div>
-          <div class="shop-item must own-lu">
+          <div class="shop-item opt own-lu">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
             <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s32.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
-            <label class="shop-head"><input type="checkbox" id="s32" onchange="saveChecklist()"><span><span class="tag-must">⭐ 必買</span><span class="tag-own own-lu">👤 盧</span>ReFa 愛心梳（防毛躁、梳出光澤）<br><span class="jp-name">ReFa Aira WITH（リファアイラウィズ）</span></span></label>
+            <label class="shop-head"><input type="checkbox" id="s32" onchange="saveChecklist()"><span><span class="tag-opt">🔸 順路</span><span class="tag-own own-lu">👤 盧</span>ReFa 愛心梳（防毛躁、梳出光澤）<br><span class="jp-name">ReFa Aira WITH（リファアイラウィズ）</span></span></label>
             <div class="shop-qty">🔢 數量：× 1 把（顏色現場挑）</div>
             <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">渋谷 LOFT（Day 1）</span><span class="shop-where">PLAZA、@cosme STORE 等雜貨店</span><br>🗓 順路：<strong>Day 1 晚上</strong>渋谷 LOFT 美妝／美髮區<br>💴 參考價：¥3,520（含稅）；2026 年新色 ¥3,630<br>💡 顏色：玫瑰金、銀、香檳金，2026 年另有新色。梳齒是特殊流線形，減少拉扯，梳完比較柔順、不毛躁<br>⚠️ 一開始只在 ReFa 會員限定販售，現在已經一般販售，但各店不一定有貨。另一款「ReFa HEART COMB Aira」是不同商品，不要拿錯</details>
           </div>
@@ -1942,7 +1946,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-13-5';
+    const SITE_VERSION = '2026-10-13-6';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
@@ -1992,6 +1996,39 @@
       if (header) header.style.display = shown ? '' : 'none';
       updateShopCount();
     }
+    // 點「必買／順路」標籤可以切換，存在這支手機
+    function getShopLevels() {
+      try { return JSON.parse(localStorage.getItem('japan_shop_level')) || {}; } catch (e) { return {}; }
+    }
+    function applyShopLevels() {
+      const lv = getShopLevels();
+      document.querySelectorAll('#shopList .shop-item').forEach(el => {
+        const id = el.querySelector('input[type="checkbox"]').id;
+        if (!el.dataset.def) el.dataset.def = el.classList.contains('must') ? 'must' : 'opt';
+        const level = lv[id] || el.dataset.def;
+        el.classList.toggle('must', level === 'must');
+        el.classList.toggle('opt', level === 'opt');
+        const tag = el.querySelector('.tag-must, .tag-opt');
+        if (tag) {
+          tag.className = level === 'must' ? 'tag-must' : 'tag-opt';
+          tag.textContent = level === 'must' ? '⭐ 必買' : '🔸 順路';
+          tag.title = '點一下切換必買／順路';
+        }
+      });
+    }
+    document.addEventListener('click', e => {
+      const tag = e.target.closest && e.target.closest('#shopList .tag-must, #shopList .tag-opt');
+      if (!tag) return;
+      e.preventDefault(); e.stopPropagation();
+      const el = tag.closest('.shop-item');
+      const id = el.querySelector('input[type="checkbox"]').id;
+      const now = el.classList.contains('must') ? 'opt' : 'must';
+      const lv = getShopLevels();
+      if (now === el.dataset.def) delete lv[id]; else lv[id] = now;
+      try { localStorage.setItem('japan_shop_level', JSON.stringify(lv)); } catch (err) {}
+      refreshShopList();
+    }, true);
+
     function getHiddenShop() {
       try { return JSON.parse(localStorage.getItem('japan_shop_hidden')) || []; } catch (e) { return []; }
     }
@@ -2016,6 +2053,7 @@
     function refreshShopList() {
       const list = document.getElementById('shopList');
       if (!list) return;
+      applyShopLevels();
       const hidden = getHiddenShop();
       const nodes = [...list.children];
       let group = [];
