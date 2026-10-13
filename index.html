@@ -1034,7 +1034,7 @@
         <div class="timeline-item">
           <div class="time">10:15 - 10:45</div>
           <div class="event-title">🐹 吉伊卡哇樂園 TOKYO Station <span class="jp-name">ちいかわらんど TOKYO Station</span></div>
-          <div class="event-desc">東京車站八重洲北口 B1「東京動漫人物街」<span class="jp-name">東京キャラクターストリート</span>（10:00–20:30，免門票）。有東京限定伴手禮，平日上午通常直接排隊即可入店。</div>
+          <div class="event-desc">東京車站八重洲北口 B1「東京動漫人物街」<span class="jp-name">東京キャラクターストリート</span>（10:00–20:30，免門票）。有東京限定伴手禮，平日上午通常直接排隊即可入店。<br>🔸 順路：旁邊<strong>大丸東京 8–10F 的 Hands</strong>（10:00 開）找 Ashimaru 藍色鞋墊。</div>
           <a class="btn-action" href="https://www.google.com/maps/search/?api=1&query=ちいかわらんど+TOKYO+Station" target="_blank">Google Maps 導航</a>
         </div>
         <div class="timeline-item">
@@ -1432,6 +1432,13 @@
             <label class="shop-head"><input type="checkbox" id="s20" onchange="saveChecklist()"><span><span class="tag-must">⭐ 必買</span><span class="tag-own own-lu">👤 盧</span>前腳掌緩衝套（五趾型）<br><span class="jp-name">ミノウラ 足指小町 歩行らくらくサポーター 足裏クッション</span></span></label>
             <div class="shop-qty">🔢 數量：<strong>× 2 盒</strong>（<strong>一盒只有 1 片</strong>，左右通用，兩腳要買 2 盒）</div>
             <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">藥妝店（マツモトキヨシ、サンドラッグ）</span><span class="shop-where">OS Drug</span><span class="shop-where">唐吉訶德 上野店</span><br>🗓 順路：<strong>Day 1 晚上回上野</strong>和休足時間一起找，買到隔天就能穿；沒有的話 Day 2 傍晚 OS Drug／唐吉訶德<br>💴 參考價：定價 ¥1,100，店頭常見 ¥800 左右<br>💡 尺寸：22–26cm 男女通用。穿在襪子裡面，前腳掌有一層緩衝，走路比較不累腳底<br>⚠️ <strong>旅途中要用，不要辦免稅</strong>（免稅會封袋不能拆）</details>
+          </div>
+          <div class="shop-item opt own-lu">
+            <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
+            <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s36.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
+            <label class="shop-head"><input type="checkbox" id="s36" onchange="saveChecklist()"><span><span class="tag-opt">🔸 順路</span><span class="tag-own own-lu">👤 盧</span>Ashimaru 半墊鞋墊（藍色「癒」）<br><span class="jp-name">アシマル プラチナハーフ プレミアム 癒（IYASHI）</span></span></label>
+            <div class="shop-qty">🔢 數量：<strong>× 1 雙</strong>（照腳長選尺寸：S 22.5–24.5／M 24.5–26.5／L 26.5–28.5cm）</div>
+            <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">ハンズ東京店（大丸東京 8–10F，10:00–20:00）</span><span class="shop-where">ハンズ渋谷店（10:00–21:00）</span><br>🗓 順路：<strong>Day 3 上午</strong>吉伊卡哇樂園 TOKYO Station 旁邊就是大丸東京，搭電梯上 Hands；Day 1 晚上在澀谷 LOFT 附近也可以先看看 Hands 渋谷店<br>💴 參考價：官網 <strong>¥3,630（含稅）</strong><br>💡 藍色「癒」是給<strong>久站、立ち仕事</strong>的款式，硬度 4（偏硬、支撐強），半墊很薄，可以直接放進現有的鞋子；可水洗<br>⚠️ 藥妝店、唐吉訶德<strong>查不到有賣</strong>，主要在 Hands 和鞋店。官網線上目前缺貨，<strong>店頭有沒有貨不確定</strong>，問店員可以給他看照片<br>⚠️ Hands 渋谷店 11/15 就要關店，可能在清貨，貨比較少</details>
           </div>
           <div class="shop-item must own-lu">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
@@ -1985,7 +1992,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-13-10';
+    const SITE_VERSION = '2026-10-13-11';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
