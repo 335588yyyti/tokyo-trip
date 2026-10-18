@@ -1351,6 +1351,13 @@
             <div class="shop-qty">🔢 數量：<strong>× 1 個</strong>（顏色現場試：01 Ursa／02 Meteor 兩色）</div>
             <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">松坂屋上野店 本館 1F SHISEIDO 專櫃（10:00–20:00）</span><span class="shop-where">成田機場出境免稅店（不一定有）</span><br>🗓 順路：<strong>Day 3 下午</strong>時間夠的話，逛完 UNIQLO 走 5 分鐘到松坂屋<br>💴 參考價：¥4,400（含稅）<br>⚠️ 這是百貨專櫃品牌，<strong>藥妝店、唐吉訶德沒有賣</strong>。官網目前「入荷待ち」（補貨中），專櫃不一定有貨</details>
           </div>
+          <div class="shop-item opt own-lu">
+            <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
+            <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s42.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
+            <label class="shop-head"><input type="checkbox" id="s42" onchange="saveChecklist()"><span><span class="tag-opt">🔸 順路</span><span class="tag-own own-lu">👤 盧</span>Dior 聖誕限定打亮（蜜桃香檳色）<br><span class="jp-name">ディオールスキン フォーエヴァー グロウ ルミナイザー 029 フローズン メダリオン</span></span></label>
+            <div class="shop-qty">🔢 數量：<strong>× 1</strong>（數量限定）</div>
+            <details class="shop-meta"><summary>詳細</summary>📍 哪裡買：<span class="shop-where">成田機場 T1 出境後免稅店（Fa-So-La／JAPAN DUTY FREE）</span><span class="shop-where">Dior 直營精品店（10/14 起先行販售）</span><br>🗓 順路：<strong>Day 3 出境後</strong>在成田免稅店找；百貨公司專櫃 <strong>10/30 才開賣</strong>，旅途中買不到<br>💴 參考價：日本定價 <strong>¥11,000（含稅）</strong>；網友在免稅店買到 <strong>¥9,800</strong><br>💡 2026 聖誕限定色，蜜桃香檳色，壓紋是 Dior 徽章圖案<br>⚠️ <strong>數量限定</strong>，免稅店有沒有貨不確定；想確保買到可以出發前上 Fa-So-La／JAPAN DUTY FREE 網站<strong>預購</strong>（再折 5%），10/26 出境後取貨</details>
+          </div>
           <div class="shop-item must own-lu">
             <button class="shop-del" onclick="deleteShopItem(this)" aria-label="刪除">✕</button>
             <div class="shop-img" onclick="zoomImg(this)"><img src="img/shop/s7.jpg" alt="" loading="lazy" onerror="this.parentNode.classList.add('noimg')"></div>
@@ -2065,7 +2072,7 @@
     }
 
     // 網站版本：每次改網站都要更新，手機打開時會比對，有新版就跳出更新提示
-    const SITE_VERSION = '2026-10-17-4';
+    const SITE_VERSION = '2026-10-18-1';
     function checkUpdate() {
       if (!navigator.onLine) return;
       fetch('./index.html', { cache: 'no-store' })
