@@ -655,6 +655,41 @@
       color: white;
       border-color: var(--primary);
     }
+    .shop-view { grid-template-columns: repeat(2, 1fr); }
+    .store-group {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      margin: 0 0 8px;
+      background: white;
+      overflow: hidden;
+    }
+    .store-group > summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 12px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+    }
+    .store-group > summary::-webkit-details-marker { display: none; }
+    .store-group > summary::after { content: '▸'; color: var(--muted); }
+    .store-group[open] > summary::after { content: '▾'; }
+    .store-when { display: block; font-size: 0.78rem; font-weight: 400; color: var(--muted); margin-top: 2px; }
+    .store-num { margin-left: auto; font-size: 0.8rem; color: var(--primary); white-space: nowrap; }
+    .store-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      padding: 8px 12px;
+      border-top: 1px solid var(--border);
+      font-size: 0.9rem;
+    }
+    .store-row input { margin-top: 3px; width: 18px; height: 18px; flex: none; }
+    .store-row .jp-name { display: block; font-size: 0.78rem; }
+    .store-row.done .store-name { text-decoration: line-through; color: var(--muted); }
+    .store-row a { margin-left: auto; flex: none; font-size: 0.8rem; color: var(--primary); text-decoration: none; }
     .shop-count {
       font-size: 0.85rem;
       color: var(--muted);
@@ -1259,6 +1294,10 @@
         <h2>🛒 待購清單</h2>
         <div class="notice-box">買到就打勾，手機會記住。每項都標了<strong>在哪裡買、哪天順路</strong>，行程頁上順路的店也會標「🛒 這裡可以買」。<br>💊 <strong>藥妝先到 OS Drug 上野店比價</strong>（Day 2 傍晚，19:45 關門，只收現金、不能免稅），比較便宜的在那買，其他到唐吉訶德辦免稅。</div>
         <div style="font-size: 0.85rem;"><span class="tag-must">⭐ 必買</span>一定要買到，沒貨就換別間找　<span class="tag-opt">🔸 順路</span>有經過、有時間再買<br>💡 <strong>點卡片上的「必買／順路」標籤</strong>就能切換。</div>
+        <div class="shop-filter shop-view">
+          <button class="active" onclick="setShopView('cat', this)">📂 依類別</button>
+          <button onclick="setShopView('store', this)">🏬 依店家</button>
+        </div>
         <div class="shop-filter">
           <button class="active" onclick="filterShop('all', this)">全部</button>
           <button onclick="filterShop('must', this)">⭐ 必買</button>
@@ -1271,6 +1310,7 @@
         </div>
         <div id="shopCount" class="shop-count"></div>
         <div id="shopRestore" class="shop-restore">已刪除 <span></span> 項<button onclick="restoreShopItems()">全部復原</button></div>
+        <div id="shopByStore" style="display:none;"></div>
         <div id="shopList">
           <h3 style="font-size: 1rem; color: var(--primary); margin: 4px 0 8px;">🍫 零食</h3>
           <div class="shop-item must own-lu">
@@ -2134,7 +2174,100 @@
       });
       if (header) header.style.display = shown ? '' : 'none';
       updateShopCount();
+      renderByStore();
     }
+
+    // 依店家：把每項的「哪裡買」整理成店家清單（同一項可能出現在好幾間店）
+    const STORE_RULES = [
+      { re: /京成上野駅店/, name: '💊 松本清 京成上野駅店', when: 'Day 1 晚上回飯店前' },
+      { re: /KIDDY LAND/, name: '🧸 KIDDY LAND 原宿', when: 'Day 1 傍晚（吉伊卡哇樂園原宿店）' },
+      { re: /PARCO/, name: '🛍️ 渋谷 PARCO', when: 'Day 1 晚上' },
+      { re: /atmos|ABC-MART|NIKE/, name: '👟 鞋店（atmos／ABC-MART／NIKE）', when: 'Day 1 晚上澀谷（atmos SHIBUYA 19:10）' },
+      { re: /LOFT/, name: '📝 渋谷 LOFT', when: 'Day 1 晚上 19:30' },
+      { re: /ビックカメラ/, name: '🔌 Bic Camera 澀谷', when: '' },
+      { re: /Hands|ハンズ/, name: '🧰 Hands（澀谷／大丸東京）', when: '' },
+      { re: /WORKMAN|Workman|しまむら/, name: '🧥 Workman／しまむら', when: 'Day 2 早上川越' },
+      { re: /シュガーバター/, name: '🍪 シュガーバターの木（JR 上野站）', when: 'Day 2 回到上野出站前' },
+      { re: /OS Drug/, name: '💊 OS Drug 上野店', when: 'Day 2 傍晚（只收現金、19:45 關門）' },
+      { re: /唐吉訶德/, name: '🛍️ 唐吉訶德 上野店', when: 'Day 2 晚上（24 小時）' },
+      { re: /UNIQLO/, name: '👕 UNIQLO 御徒町', when: 'Day 3 中午' },
+      { re: /阿美橫丁|松本清|藥妝店|マツモトキヨシ|サンドラッグ|Sundrug/, ex: /京成上野駅店/, name: '💊 阿美橫丁／其他藥妝店（松本清、Sundrug）', when: 'Day 3 下午沿阿美橫丁走回上野' },
+      { re: /松坂屋/, name: '💄 松坂屋上野店 SHISEIDO', when: 'Day 3（非必要）' },
+      { re: /成田/, name: '✈️ 成田機場免稅店', when: 'Day 3 出境後' },
+      { re: /7-Eleven|便利商店/, name: '🏪 便利商店／7-Eleven', when: '隨時' }
+    ];
+    let shopView = 'cat';
+    const storeOpen = new Set();
+    function setShopView(view, btn) {
+      shopView = view;
+      btn.parentNode.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('shopList').style.display = view === 'store' ? 'none' : '';
+      document.getElementById('shopByStore').style.display = view === 'store' ? '' : 'none';
+      renderByStore();
+    }
+    function storesOf(item) {
+      const names = new Set();
+      item.querySelectorAll('.shop-where').forEach(w => {
+        const t = w.textContent;
+        const hit = STORE_RULES.filter(r => r.re.test(t) && !(r.ex && r.ex.test(t)));
+        if (hit.length) hit.forEach(r => names.add(r.name));
+        else names.add('📍 ' + t.replace(/（.*?）/g, '').trim());
+      });
+      return [...names];
+    }
+    function renderByStore() {
+      const box = document.getElementById('shopByStore');
+      if (!box || shopView !== 'store') return;
+      const groups = new Map(STORE_RULES.map(r => [r.name, { when: r.when, items: [] }]));
+      document.querySelectorAll('#shopList .shop-item').forEach(el => {
+        if (el.style.display === 'none') return;
+        storesOf(el).forEach(n => {
+          if (!groups.has(n)) groups.set(n, { when: '', items: [] });
+          groups.get(n).items.push(el);
+        });
+      });
+      const esc = t => t.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+      let html = '';
+      groups.forEach((g, name) => {
+        if (!g.items.length) return;
+        const items = [...g.items].sort((a, b) => a.querySelector('input').checked - b.querySelector('input').checked);
+        const todo = items.filter(el => !el.querySelector('input').checked).length;
+        html += `<details class="store-group" data-store="${esc(name)}"${storeOpen.has(name) ? ' open' : ''}><summary><span>${esc(name)}${g.when ? `<span class="store-when">${esc(g.when)}</span>` : ''}</span><span class="store-num">待買 ${todo} / ${items.length}</span></summary>`;
+        items.forEach(el => {
+          const cb = el.querySelector('input');
+          const head = el.querySelector('.shop-head > span').cloneNode(true);
+          head.querySelectorAll('.tag-must, .tag-opt, .tag-own, .jp-name, br').forEach(x => x.remove());
+          const jp = el.querySelector('.shop-head .jp-name');
+          const tags = [...el.querySelectorAll('.shop-head .tag-must, .shop-head .tag-opt, .shop-head .tag-own')].map(t => t.outerHTML).join('');
+          html += `<label class="store-row${cb.checked ? ' done' : ''}"><input type="checkbox" data-for="${cb.id}"${cb.checked ? ' checked' : ''}><span><span class="store-name">${tags}${esc(head.textContent.trim())}</span>${jp ? `<span class="jp-name">${esc(jp.textContent)}</span>` : ''}</span><a href="#" data-jump="${cb.id}">詳細 ›</a></label>`;
+        });
+        html += '</details>';
+      });
+      box.innerHTML = html || '<div class="sum-sub">沒有符合的項目</div>';
+    }
+    document.addEventListener('toggle', e => {
+      const d = e.target;
+      if (!d.classList || !d.classList.contains('store-group')) return;
+      if (d.open) storeOpen.add(d.dataset.store); else storeOpen.delete(d.dataset.store);
+    }, true);
+    document.addEventListener('click', e => {
+      const a = e.target.closest && e.target.closest('#shopByStore a[data-jump]');
+      if (!a) return;
+      e.preventDefault();
+      setShopView('cat', document.querySelector('.shop-view button'));
+      const item = document.getElementById(a.dataset.jump).closest('.shop-item');
+      item.scrollIntoView({ block: 'center' });
+      const det = item.querySelector('details');
+      if (det) det.open = true;
+    });
+    document.addEventListener('change', e => {
+      const p = e.target.closest && e.target.closest('#shopByStore input[data-for]');
+      if (!p) return;
+      document.getElementById(p.dataset.for).checked = p.checked;
+      saveChecklist();
+      refreshShopList();
+    });
     // 點「必買／順路」標籤可以切換，存在這支手機
     function getShopLevels() {
       try { return JSON.parse(localStorage.getItem('japan_shop_level')) || {}; } catch (e) { return {}; }
