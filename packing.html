@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>東京行李清單</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap">
+<style>
+/* Layout: one narrow phone-first column; sticky person switch; sections as ruled lists like a luggage tag ledger */
+:root {
+  --bg: #F3F5F7;
+  --surface: #FFFFFF;
+  --ink: #18222F;
+  --muted: #5B6878;
+  --line: #DCE2E8;
+  --accent: #1F6E8C;
+  --accent-soft: #E1EEF3;
+  --due: #B4570B;
+  --due-soft: #FBEBDD;
+  --done: #2E7D4F;
+  --hong: #7A4FB0;
+  --lu: #1F6E8C;
+  --f-body: 'Noto Sans TC', 'PingFang TC', 'Microsoft JhengHei', sans-serif;
+  --f-num: 'JetBrains Mono', ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #11161D; --surface: #19212B; --ink: #E6ECF2; --muted: #9AA8B8; --line: #2B3644;
+    --accent: #6FB7D3; --accent-soft: #1C3341; --due: #F0A35E; --due-soft: #3A2716;
+    --done: #6CC593; --hong: #B99AE6; --lu: #6FB7D3; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #11161D; --surface: #19212B; --ink: #E6ECF2; --muted: #9AA8B8; --line: #2B3644;
+  --accent: #6FB7D3; --accent-soft: #1C3341; --due: #F0A35E; --due-soft: #3A2716;
+  --done: #6CC593; --hong: #B99AE6; --lu: #6FB7D3; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--ink); font-family: var(--f-body); font-size: 15px; line-height: 1.6;
+  padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 20px 48px;
+}
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.wrap { max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 20px; }
+header { display: flex; flex-direction: column; gap: 4px; }
+.eyebrow { font-size: 12px; letter-spacing: 0.12em; color: var(--accent); font-weight: 700; }
+h1 { font-size: 28px; font-weight: 900; margin: 0; line-height: 1.25; text-wrap: balance; }
+.sub { color: var(--muted); margin: 0; }
+h2 { font-size: 18px; font-weight: 700; margin: 0; text-wrap: balance; }
+
+.bar {
+  position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; background: var(--bg);
+  padding-block: 10px; display: flex; flex-direction: column; gap: 10px; border-bottom: 1px solid var(--line);
+}
+.who { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.who button {
+  font: inherit; font-weight: 700; padding: 10px; border-radius: 10px; border: 2px solid var(--line);
+  background: var(--surface); color: var(--ink); cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 8px;
+}
+.who button[aria-pressed="true"][data-p="hong"] { border-color: var(--hong); }
+.who button[aria-pressed="true"][data-p="lu"] { border-color: var(--lu); }
+.who .pct { font-family: var(--f-num); font-size: 13px; color: var(--muted); }
+.meter { height: 6px; border-radius: 3px; background: var(--line); overflow: hidden; }
+.meter i { display: block; height: 100%; width: 0; transition: width .3s; }
+.who button[data-p="hong"] .meter i { background: var(--hong); }
+.who button[data-p="lu"] .meter i { background: var(--lu); }
+.who .col { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 0; text-align: left; }
+.tools { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; font-size: 13px; color: var(--muted); }
+.tools label { display: flex; align-items: center; gap: 6px; cursor: pointer; }
+.sync { font-size: 12px; }
+
+.weather { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.day { background: var(--accent-soft); border-radius: 10px; padding: 10px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.day b { font-size: 13px; }
+.day .t { font-family: var(--f-num); font-size: 18px; font-weight: 700; }
+.day .r { font-size: 12px; color: var(--muted); }
+.wear { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 4px; }
+.src { font-size: 12px; color: var(--muted); }
+.src a { color: var(--accent); }
+
+section.group { display: flex; flex-direction: column; gap: 8px; }
+.ghead { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+.ghead .n { font-family: var(--f-num); font-size: 13px; color: var(--muted); white-space: nowrap; }
+.gnote { font-size: 13px; color: var(--muted); margin: 0; }
+.due { display: inline-block; font-size: 12px; font-weight: 700; color: var(--due); background: var(--due-soft); border-radius: 999px; padding: 1px 8px; }
+ul.items { list-style: none; margin: 0; padding: 0; background: var(--surface); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+ul.items li + li { border-top: 1px solid var(--line); }
+.item { display: flex; gap: 12px; padding: 12px 14px; cursor: pointer; align-items: flex-start; }
+.item input { width: 22px; height: 22px; margin: 1px 0 0; flex: none; accent-color: var(--done); cursor: pointer; }
+.item input:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+.item .body { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.item .txt { font-weight: 500; }
+.item .note { font-size: 13px; color: var(--muted); }
+.item.done .txt { text-decoration: line-through; color: var(--muted); }
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { font-size: 11px; border-radius: 999px; padding: 0 7px; border: 1px solid var(--line); color: var(--muted); }
+.chip.bag { border-color: var(--accent); color: var(--accent); }
+.chip.other.yes { border-color: var(--done); color: var(--done); }
+.chip.only { border-color: var(--due); color: var(--due); }
+.hideDone .item.done { display: none; }
+.hideDone ul.items:not(:has(.item:not(.done))) { display: none; }
+footer { font-size: 12px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .meter i { transition: none; } }
+</style>
+</head>
+<body>
+<p style="margin:0 auto 12px;max-width:720px;"><a href="./" style="color:var(--accent)">← 回旅遊網站</a></p>
+
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">10/24（六）— 10/26（一）・東京</div>
+    <h1>東京行李清單＆出發前待辦</h1>
+    <p class="sub">選好你是誰再打勾，勾選會記在這支手機。每項都寫了為什麼要帶、放手提還是托運。</p>
+  </header>
+
+  <div class="bar">
+    <div class="who" role="group" aria-label="我是">
+      <button id="btnHong" data-p="hong" aria-pressed="false"><span class="col"><span>👤 洪</span><span class="meter"><i id="mHong"></i></span></span><span class="pct" id="pHong">0/0</span></button>
+      <button id="btnLu" data-p="lu" aria-pressed="false"><span class="col"><span>👤 盧</span><span class="meter"><i id="mLu"></i></span></span><span class="pct" id="pLu">0/0</span></button>
+    </div>
+    <div class="tools">
+      <label for="hideDone"><input type="checkbox" id="hideDone"> 只看還沒完成的</label>
+      <span class="sync" id="sync">連線中…</span>
+    </div>
+  </div>
+
+  <div class="weather">
+    <h2>☔ 三天天氣：都可能下雨，不冷</h2>
+    <div class="days">
+      <div class="day"><b>10/24（六）</b><span class="t">16–18°</span><span class="r">雨，降雨 60–80%<br>全天偏涼</span></div>
+      <div class="day"><b>10/25（日）</b><span class="t">17–24°</span><span class="r">陰有雨，30–80%<br>白天悶熱</span></div>
+      <div class="day"><b>10/26（一）</b><span class="t">17–22°</span><span class="r">雨，80–90%<br>要拖行李</span></div>
+    </div>
+    <ul class="wear">
+      <li><b>穿法</b>：短袖＋薄長袖＋防潑水薄外套，洋蔥式。晚上最低 16–18°C，不需要厚外套。</li>
+      <li><b>10/24 最需要雨具</b>：颱風變成的低氣壓帶來雨，下午卡丁車時段可能在下雨，鞋子容易濕。</li>
+      <li><b>鞋子帶兩雙</b>綁鞋帶的平底球鞋，一雙濕了隔天還有得穿；襪子多帶。</li>
+    </ul>
+    <div class="src">10/22 的預報（Yahoo!天氣、tenki.jp、Toshin），各家差很多，出發前一晚再看一次：<a href="https://weather.yahoo.co.jp/weather/jp/13/4410.html" target="_blank" rel="noopener">Yahoo!天氣 東京</a>・<a href="https://tenki.jp/forecaster/t_okamoto/2026/10/22/41052.html" target="_blank" rel="noopener">tenki.jp 解說</a></div>
+  </div>
+
+  <div id="list"></div>
+
+  <footer>打勾記在這支手機（洪、盧各用自己的手機勾自己的）。標「只有盧／洪」的是那個人才要做的事；標「共用」的兩人做一次就好。</footer>
+</div>
+
+<script>
+// who: both = 兩人各自要做／各自要帶；lu / hong = 只有那個人；shared = 兩人做一次就好
+const GROUPS = [
+  { t: '⏰ 現在～10/23（五）要辦好', due: '最晚 10/23', items: [
+    ['vjw','both','填好 Visit Japan Web（入境審查＋海關），QR Code 截圖','每人用自己的帳號。落地後入境、海關都要出示'],
+    ['esim','both','安裝 eSIM，確認知道怎麼切換','一定要在台灣有網路時裝。台灣門號不要刪，才收得到刷卡簡訊'],
+    ['suica','both','Apple 錢包加入 Suica，先儲值 ¥3,000–4,000','用 Apple Pay 刷國泰 CUBE 加值（秋日遊 3.5%）'],
+    ['cube','both','國泰 CUBE App 切到「秋日遊」權益','要在消費當天前切好，日本比台灣快 1 小時，出發前就切'],
+    ['richart','lu','台新 Richart 切到「玩旅刷」','回台灣後記得切回天天刷'],
+    ['donki','lu','領唐吉訶德 uniopen 優惠券並截圖','中信 uniopen 活動頁按「我要領券」，進唐吉訶德網站拿條碼。活動到 10/31'],
+    ['coupon','both','存好唐吉訶德、松本清的外國旅客優惠券頁','截圖或加書籤，結帳前給店員看'],
+    ['skyl','both','Klook Skyliner 憑證存到自己手機','洪買的，傳一份給盧。Day 1 在成田 B1 櫃台換票'],
+    ['insure','both','買旅平險＋海外突發疾病＋不便險（10/24–10/26）','保單存手機。投保前問清楚卡丁車、跳傘有沒有保'],
+    ['scoot','shared','酷航線上報到（開放後就辦），確認托運 20kg 有買到','手提兩件合計 10kg'],
+    ['ride','shared','訂好 10/24 凌晨去桃園機場的交通','06:45 起飛，05:00 前要到機場'],
+    ['go','both','下載 GO 叫車 App 並綁信用卡','Day 2 傘場附近叫車會用到'],
+    ['site','both','旅遊網站每個分頁都點開一次，加到主畫面','沒網路時也能看行程'],
+    ['cashback','shared','盧還洪 NT$23,012；洪把 ¥110,000 交給盧','換日幣洪先墊的'],
+    ['envelope','both','跳傘尾款信封先放 ¥83,000','尾款 ¥82,500 只收現金，台灣換不到 ¥500 硬幣。日常現金分兩處放'],
+    ['kartrain','shared','問 Street Kart：10/24 下雨照開嗎？有沒有雨衣？能不能改期？','預報 10/24 下午在下雨'],
+    ['skyrain','shared','留意 Skydive Nippon 10/25 的天氣通知','10/25 也可能下雨；取消就走備案 A（改 10/26 08:00 場）'],
+    ['chiikawa','shared','看吉伊卡哇官方 X 有沒有新商品或改預約制',''],
+  ]},
+  { t: '🌙 10/23（五）晚上', due: '出發前一晚', items: [
+    ['weigh','both','行李秤重：托運 ≤ 20kg、手提兩件合計 ≤ 10kg','回程會多很多戰利品，去程行李箱留 1/3 空間'],
+    ['liquid','both','超過 100ml 的液體放托運；手提的液體裝進 1 公升夾鏈袋','洗髮精、牙膏、洗面乳、防曬都算液體'],
+    ['charge','both','手機、行動電源充飽','酷航機上不能用行動電源'],
+    ['wx','shared','再看一次東京天氣，調整外套和雨具',''],
+    ['alarm','both','設兩個鬧鐘','凌晨就要出門'],
+    ['outfit','both','明天要穿的衣服、證件包放在門口','穿綁鞋帶球鞋＋長褲＋薄外套上飛機，機上冷'],
+  ]},
+  { t: '🚪 10/24 出門前', due: '出門那一刻', items: [
+    ['door1','both','護照、手機、錢包、信用卡都在身上',''],
+    ['door2','both','跳傘信封、駕照正本＋日文譯本在包包裡',''],
+    ['door3','both','關瓦斯、電器、門窗，倒垃圾',''],
+  ]},
+  { t: '📄 證件與錢', note: '全部放隨身包，不要托運', items: [
+    ['passport','both','護照','入境、免稅、跳傘報到都要用','身上'],
+    ['license','both','台灣駕照正本＋日文譯本（全部頁數）','卡丁車一定要，兩個都要帶','身上'],
+    ['cardlu','lu','信用卡：中信 uniopen、國泰 CUBE、台新 Richart','刷卡順序看旅遊網站「記帳」頁','身上'],
+    ['cardhong','hong','信用卡：國泰 CUBE＋一張不同發卡組織的備用卡','','身上'],
+    ['yen','both','日幣 ¥110,000（跳傘 ¥83,000 單獨一個信封）','現金分兩處放，不要全放同一個包','身上'],
+    ['coins','both','零錢包','日本硬幣用得多'],
+    ['phone','both','手機（Suica、Skyliner 憑證、Visit Japan Web、預約截圖）','卡丁車、跳傘、飯店預約都截圖','身上'],
+  ]},
+  { t: '🔌 3C', note: '日本插座跟台灣一樣，不用轉接頭', items: [
+    ['charger','both','手機充電器＋充電線','','手提'],
+    ['powerbank','both','行動電源（最多 2 個、100Wh 以下）','只能放手提，不能托運；酷航機上禁止使用','手提'],
+    ['earphone','both','耳機',''],
+    ['pouch','both','手機防水袋或夾鏈袋','三天都可能下雨，卡丁車時手機也要收好'],
+  ]},
+  { t: '👕 衣服（依天氣）', note: '白天 18–24°C、晚上 16–18°C，洋蔥式穿法', items: [
+    ['tee','both','短袖 T 恤 ×2','10/25、10/26 白天 22–24°C 會悶熱','托運'],
+    ['longtee','both','薄長袖 ×2','10/24 只有 17–18°C 又下雨，早晚也用得到','托運'],
+    ['pants','both','長褲 ×2（一件快乾的）','卡丁車、跳傘都規定長褲；雨天褲管容易濕','托運'],
+    ['jacket','both','防潑水薄外套（帽子可拆、沒有抽繩最好）','擋雨也擋風；跳傘不能穿連帽、有抽繩的','身上'],
+    ['knit','both','薄針織衫或刷毛 ×1','晚上、飛機上、冷氣房','手提'],
+    ['under','both','內衣褲 ×3–4','',''],
+    ['socks','both','襪子 ×5','下雨鞋會濕，比天數多帶','托運'],
+    ['pj','both','睡衣','APA 有提供睡衣，想穿自己的再帶','托運'],
+    ['shoes1','both','綁鞋帶的平底球鞋（穿在身上）','卡丁車、跳傘都規定：不能涼鞋、靴子、厚底鞋','身上'],
+    ['shoes2','both','第二雙綁鞋帶球鞋','10/24 鞋子濕了，隔天跳傘還有乾的穿','托運'],
+    ['neck','both','脖圍、薄手套','跳傘高空冷，不能戴圍巾','托運'],
+  ]},
+  { t: '☔ 雨具', note: '這次三天都可能下雨', items: [
+    ['umbrella','both','摺疊傘（每人一把）','','手提'],
+    ['raincoat','both','輕便雨衣','卡丁車用；先問店家有沒有提供','手提'],
+    ['spray','shared','出發前幫鞋子噴防水噴霧',''],
+    ['bags','both','塑膠袋幾個','裝濕傘、濕衣服、濕鞋'],
+    ['cover','both','行李箱防雨套或大塑膠袋','10/26 下雨時拖行李去車站'],
+  ]},
+  { t: '🏎️ 卡丁車＆跳傘', items: [
+    ['goggles','both','護目鏡或太陽眼鏡','卡丁車；先問店家有沒有借','手提'],
+    ['hairtie','both','無金屬髮圈','長髮要綁好',''],
+    ['contacts','both','隱形眼鏡（要戴的話）','跳傘時比一般眼鏡安全',''],
+  ]},
+  { t: '🪥 盥洗＆保養', note: 'APA 通常有毛巾、牙刷、洗髮精、沐浴乳；想用自己的再帶', items: [
+    ['skincare','both','洗面乳、保養品、化妝品、卸妝','超過 100ml 放托運','托運'],
+    ['lens','both','隱形眼鏡藥水、眼鏡','',''],
+    ['comb','both','梳子、髮圈','',''],
+    ['sun','both','防曬、護唇膏','陰雨天紫外線還是有','托運'],
+  ]},
+  { t: '💊 藥品與其他', items: [
+    ['meds','both','個人常用藥（感冒、腸胃、止痛）、OK 繃','藥放手提，飛機上也能吃','手提'],
+    ['motion','both','暈車藥（容易暈的話）','',''],
+    ['period','both','生理用品','',''],
+    ['tissue','both','面紙、濕紙巾','',''],
+    ['shopbag','both','摺疊購物袋','日本便利商店、阿美橫丁塑膠袋要另外付錢',''],
+    ['laundry','both','髒衣服收納袋','',''],
+  ]},
+];
+
+const NAME = { hong: '洪', lu: '盧' };
+const OTHER = { hong: 'lu', lu: 'hong' };
+let me = null;
+try { me = localStorage.getItem('pk_me'); } catch (e) {}
+if (me !== 'hong' && me !== 'lu') me = 'lu';
+let state = {};       // key "<id>~<hong|lu|shared>" -> true
+let db = null;
+let hideDone = false;
+try { hideDone = localStorage.getItem('pk_hide') === '1'; } catch (e) {}
+
+function mine(who) { return who === 'both' || who === 'shared' || who === me; }
+function keyFor(id, who, p) { return id + '~' + (who === 'shared' ? 'shared' : p); }
+function esc(s) { return s.replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c])); }
+
+function counts(p) {
+  let n = 0, d = 0;
+  GROUPS.forEach(g => g.items.forEach(([id, who]) => {
+    if (who === 'both' || who === 'shared' || who === p) { n++; if (state[keyFor(id, who, p)]) d++; }
+  }));
+  return [d, n];
+}
+
+function render() {
+  document.getElementById('btnHong').setAttribute('aria-pressed', me === 'hong');
+  document.getElementById('btnLu').setAttribute('aria-pressed', me === 'lu');
+  ['hong', 'lu'].forEach(p => {
+    const [d, n] = counts(p);
+    const P = p === 'hong' ? 'Hong' : 'Lu';
+    document.getElementById('p' + P).textContent = d + '/' + n;
+    document.getElementById('m' + P).style.width = (n ? d / n * 100 : 0) + '%';
+  });
+  document.getElementById('hideDone').checked = hideDone;
+  document.body.classList.toggle('hideDone', hideDone);
+  let html = '';
+  GROUPS.forEach((g, gi) => {
+    const items = g.items.filter(([, who]) => mine(who));
+    const done = items.filter(([id, who]) => state[keyFor(id, who, me)]).length;
+    html += `<section class="group"><div class="ghead"><h2>${g.t}</h2><span class="n">${done}/${items.length}</span></div>`;
+    if (g.due || g.note) html += `<p class="gnote">${g.due ? `<span class="due">${g.due}</span> ` : ''}${g.note ? esc(g.note) : ''}</p>`;
+    html += '<ul class="items">';
+    items.forEach(([id, who, text, note, bag]) => {
+      const k = keyFor(id, who, me);
+      const on = !!state[k];
+      const chips = [];
+      if (bag) chips.push(`<span class="chip bag">${bag}</span>`);
+      if (who === 'shared') chips.push('<span class="chip">共用・做一次就好</span>');
+      if (who === 'lu' || who === 'hong') chips.push(`<span class="chip only">只有${NAME[who]}</span>`);
+      if (who === 'both') {
+        const o = OTHER[me];
+        const od = !!state[keyFor(id, who, o)];
+        chips.push(`<span class="chip other${od ? ' yes' : ''}">${NAME[o]}${od ? ' ✓ 已完成' : ' 還沒'}</span>`);
+      }
+      const cid = 'c_' + gi + '_' + id;
+      html += `<li><label class="item${on ? ' done' : ''}" for="${cid}"><input type="checkbox" id="${cid}" data-k="${k}"${on ? ' checked' : ''}><span class="body"><span class="txt">${esc(text)}</span>${note ? `<span class="note">${esc(note)}</span>` : ''}${chips.length ? `<span class="chips">${chips.join('')}</span>` : ''}</span></label></li>`;
+    });
+    html += '</ul></section>';
+  });
+  document.getElementById('list').innerHTML = html;
+}
+
+function setSync(t) { document.getElementById('sync').textContent = t; }
+
+document.getElementById('list').addEventListener('change', async e => {
+  const k = e.target.dataset && e.target.dataset.k;
+  if (!k) return;
+  const v = e.target.checked;
+  if (v) state[k] = true; else delete state[k];
+  render();
+  if (db) {
+    try { await db.collection('checks').doc(k.replace('~', '__')).set({ done: v }); }
+    catch (err) { setSync('⚠️ 沒存到雲端，稍後再試'); }
+  } else {
+    try { localStorage.setItem('pk_state', JSON.stringify(state)); } catch (err) {}
+  }
+});
+['hong', 'lu'].forEach(p => document.getElementById(p === 'hong' ? 'btnHong' : 'btnLu').addEventListener('click', () => {
+  me = p; try { localStorage.setItem('pk_me', p); } catch (e) {}
+  render();
+}));
+document.getElementById('hideDone').addEventListener('change', e => {
+  hideDone = e.target.checked; try { localStorage.setItem('pk_hide', hideDone ? '1' : '0'); } catch (err) {}
+  render();
+});
+
+render();
+(async () => {
+  db = window.claude && window.claude.use ? await window.claude.use('db') : null;
+  if (!db) {
+    try { state = JSON.parse(localStorage.getItem('pk_state')) || {}; } catch (e) { state = {}; }
+    setSync('📱 記在這支手機');
+    render();
+    return;
+  }
+  setSync('同步中…');
+  db.collection('checks').onSnapshot(snap => {
+    const s = {};
+    snap.docs.forEach(d => { const b = d.data(); if (b && b.done) s[d.id.replace('__', '~')] = true; });
+    state = s;
+    setSync('☁️ 已同步，兩支手機共用');
+    render();
+  }, () => setSync('⚠️ 雲端連不上，重新整理再試'));
+})();
+</script>
+
+</body>
+</html>

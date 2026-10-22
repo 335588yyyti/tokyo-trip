@@ -4,6 +4,7 @@ const PRECACHE = [
   './',
   './index.html',
   './sync-guide.html',
+  './packing.html',
   './guide/step1.png',
   './guide/step2.png',
   './guide/step3.png',
